@@ -1,0 +1,18 @@
+# binaries
+*.class
+
+# packages
+*.jar
+*.war
+*.tar
+*.gz
+*.zip
+
+# logs
+*.log
+
+# garbage
+.DS*
+._*
+.Trashes
+Thumbs.db
