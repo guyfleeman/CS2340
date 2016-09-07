@@ -6,8 +6,8 @@
  * @version 1.0
  */
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+//sourceCompatibility = 1.8
+//targetCompatibility = 1.8
 
 /*
  * Project Version
@@ -19,7 +19,11 @@ targetCompatibility = 1.8
 version = '0.1.0'
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.4'
+    gradleVersion = '2.10'
+}
+
+task testGradleHome << {
+    println gradle.gradleHomeDir
 }
 
 allprojects {
@@ -39,23 +43,17 @@ subprojects {
     }
 }
 
-project(':fp-frontend') {
-    apply from: 'http://dl.bintray.com/content/shemnon/javafx-gradle/0.3.0/javafx.plugin'
+buildscript {
+    dependencies {
+        classpath group: 'de.dynamicfiles.projects.gradle.plugins', name: 'javafx-gradle-plugin', version: '8.6.0'
+    }
 
-    ext.mainClassName = 'main.java.vasolsim.studentclient.StudentClient'
-    ext.applicationDefaultJvmArgs = ['-Dgreeting.language=en', '-Xms512m', '-Xmx2048m']
-
-    /*
-     * lean jar and javafx deploy
-     */
-    javafx {
-        appID = 'fp'
-        appName = 'FrontPage Water App'
-
-        mainClass = 'need'
-
-        //jvm arguments, application command line arguments
-        jvmArgs = ['-Dgreeting.language=en', '-Xms512m', '-Xmx2048m']
-        arguments = ['--disable-dep-check']
+    repositories {
+        mavenLocal()
+        mavenCentral()
     }
 }
+
+project(':fp-frontend') {
+}
+

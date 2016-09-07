@@ -1,8 +1,22 @@
 apply plugin: 'java'
+apply plugin: 'javafx-gradle-plugin'
 
-sourceCompatibility = 1.5
+sourceCompatibility = 1.8
 version = '0.1.0'
 
 dependencies {
     // ADDITIONAL MAVEN DEPS HERE
+}
+
+/**
+ * Native build deployment configuration options
+ *
+ * See: https://github.com/FibreFoX/javafx-gradle-plugin for details
+ */
+jfx {
+    // minimal requirement for jfxJar-task
+    mainClass = 'frontpage.FXMain'
+
+    // minimal requirement for jfxNative-task
+    vendor = 'Team FrontPage'
 }
