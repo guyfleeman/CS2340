@@ -1,0 +1,61 @@
+/*
+ * CS2340 Build File
+ *
+ * @author Will Stuckey
+ * @date 09/07/16
+ * @version 1.0
+ */
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+/*
+ * Project Version
+ * MAJOR.MINOR.RELEASE
+ *
+ * Increments to major, minor, and release should be tagged in git.
+ * Major versions should be branched for LTS.
+ */
+version = '0.1.0'
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.4'
+}
+
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    group = 'fp'
+}
+
+subprojects {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: '4.11'
+        compile('log4j:log4j:1.2.17')
+    }
+}
+
+project(':fp-frontend') {
+    apply from: 'http://dl.bintray.com/content/shemnon/javafx-gradle/0.3.0/javafx.plugin'
+
+    ext.mainClassName = 'main.java.vasolsim.studentclient.StudentClient'
+    ext.applicationDefaultJvmArgs = ['-Dgreeting.language=en', '-Xms512m', '-Xmx2048m']
+
+    /*
+     * lean jar and javafx deploy
+     */
+    javafx {
+        appID = 'fp'
+        appName = 'FrontPage Water App'
+
+        mainClass = 'need'
+
+        //jvm arguments, application command line arguments
+        jvmArgs = ['-Dgreeting.language=en', '-Xms512m', '-Xmx2048m']
+        arguments = ['--disable-dep-check']
+    }
+}

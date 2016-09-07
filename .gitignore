@@ -8,6 +8,11 @@
 *.gz
 *.zip
 
+# build
+.gradle
+build/**
+fp-frontend/build/**
+
 # logs
 *.log
 

@@ -1,0 +1,8 @@
+apply plugin: 'java'
+
+sourceCompatibility = 1.5
+version = '0.1.0'
+
+dependencies {
+    // ADDITIONAL MAVEN DEPS HERE
+}
