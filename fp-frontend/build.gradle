@@ -3,6 +3,10 @@ apply plugin: 'javafx-gradle-plugin'
 
 version = '0.1.0'
 
+checkstyle {
+    toolVersion = '6.14'
+}
+
 dependencies {
     // ADDITIONAL MAVEN DEPS HERE
 }
