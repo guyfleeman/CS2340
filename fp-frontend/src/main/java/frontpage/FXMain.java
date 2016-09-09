@@ -20,12 +20,7 @@ public class FXMain extends Application {
      * initial resolution
      */
     private static final int RES_HEIGHT = 480;
-
-    /**
-     * main
-     *
-     * @param args args
-     */
+    
     public static void main(final String[] args) {
         launch(args);
     }
