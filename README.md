@@ -10,15 +10,19 @@ Gradle must be installed either through your *nix package manager or by manual d
 
 ### Run Tests
 Tests will fail if code is not written to Sun Style standards.
+
 `$ gradle test`
 
 ### JFX Jar
 You can test the embedded JavaFX jar.
-`gradle jfxJar`
+
+`$ gradle jfxJar`
 
 ### JFX Native
 You can build a native deployment package for your platform (bundled with the test JVM for version). Note: building a native package has to compress the JVM and will take a few minutes even on a powerful machine.
-`gradle jfxNative`
+
+`$ gradle jfxNative`
 
 ### Checkstyle
-`gradle checkstyleMain`
+
+`$ gradle checkstyleMain`
