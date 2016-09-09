@@ -11,6 +11,8 @@ dependencies {
     // ADDITIONAL MAVEN DEPS HERE
 }
 
+test.dependsOn checkstyleMain
+
 /**
  * Native build deployment configuration options
  *
