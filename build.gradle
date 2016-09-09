@@ -30,6 +30,7 @@ task testGradleHome << {
 allprojects {
     apply plugin: 'java'
     apply plugin: 'idea'
+    apply plugin: 'checkstyle'
     group = 'fp'
 }
 
@@ -53,6 +54,10 @@ buildscript {
         mavenLocal()
         mavenCentral()
     }
+}
+
+dependencies {
+    compile(":fp-frontend")
 }
 
 project(':fp-frontend') {

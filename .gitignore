@@ -6,6 +6,7 @@
 ###############################
 *.iws
 *.idea
+*.swp
 
 # packages
 ###############################
@@ -20,6 +21,7 @@
 .gradle
 build/**
 fp-frontend/build/**
+!gradle/wrapper/gradle-wrapper.jar
 
 # logs
 ###############################
