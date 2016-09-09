@@ -1,3 +1,8 @@
 machine:
   java:
     version: oraclejdk8
+deployment:
+  github:
+    branch: master
+    commands:
+      - gradle checkstyleMain --stacktrace
