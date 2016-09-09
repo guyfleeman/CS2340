@@ -8,6 +8,11 @@ dependencies:
     - sudo apt-get update --yes
     - sudo apt-get install --yes gradle
 
+test:
+  override:
+    - gradle test
+    - gradle jfxJar
+
 deployment:
   github:
     branch: master
