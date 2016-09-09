@@ -4,9 +4,9 @@ machine:
 
 dependencies:
   pre:
-    - sudo add-apt-repository ppa:cwchien/gradle
-    - sudo apt-get update
-    - sudo apt-get install gradle
+    - sudo add-apt-repository ppa:cwchien/gradle --yes
+    - sudo apt-get update --yes
+    - sudo apt-get install --yes gradle
 
 deployment:
   github:
