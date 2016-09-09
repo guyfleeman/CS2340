@@ -55,6 +55,10 @@ buildscript {
     }
 }
 
+dependencies {
+    compile(":fp-frontend")
+}
+
 project(':fp-frontend') {
     // delegated to submodule
 }
