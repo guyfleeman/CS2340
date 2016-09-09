@@ -1,5 +1,6 @@
 # CS2340 Project Repository for Team 48 
 [![Build Status](https://circleci.com/gh/guyfleeman/CS2340.svg?&style=shield)](https://circleci.com/gh/guyfleeman/CS2340) 
+[![Coverage Status](https://coveralls.io/repos/github/guyfleeman/CS2340/badge.svg?branch=master)](https://coveralls.io/github/guyfleeman/CS2340?branch=master)
 
 ## Build Prerequisites
 Gradle must be installed either through your *nix package manager or by manual download. Gradle version 2.10 or greater is required.
