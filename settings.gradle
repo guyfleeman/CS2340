@@ -1,2 +1,6 @@
 rootProject.name = 'CS2340'
 include 'fp-frontend'
+include 'fp-bind'
+include 'fp-backend-local'
+include 'fp-backend-remote'
+

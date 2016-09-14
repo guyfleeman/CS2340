@@ -13,7 +13,7 @@
  * Increments to major, minor, and release should be tagged in git.
  * Major versions should be branched for LTS.
  */
-version = '0.1.0'
+version '0.1.0'
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.10'
@@ -57,10 +57,22 @@ buildscript {
 }
 
 dependencies {
-    compile(":fp-frontend")
+    compile project(':fp-backend-local')
+}
+
+project(':fp-bind') {
+    // delegated to submodule
 }
 
 project(':fp-frontend') {
+    // delegated to submodule
+}
+
+project(':fp-backend-local') {
+    // delegated to submodule
+}
+
+project(':fp-backend-remote') {
     // delegated to submodule
 }
 
