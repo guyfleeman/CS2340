@@ -68,11 +68,6 @@ project(':fp-frontend') {
     // delegated to submodule
 }
 
-project(':fp-backend-local') {
+project(':fp-backend') {
     // delegated to submodule
 }
-
-project(':fp-backend-remote') {
-    // delegated to submodule
-}
-
