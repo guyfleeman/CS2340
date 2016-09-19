@@ -2,6 +2,7 @@ group 'fp'
 version '0.1.0'
 
 apply plugin: 'java'
+apply plugin: 'javafx-gradle-plugin'
 
 checkstyle {
     toolVersion = '6.14'
@@ -9,6 +10,19 @@ checkstyle {
 
 dependencies {
     compile project(':fp-bind')
+    compile project(':fp-backend')
 }
 
 test.dependsOn checkstyleMain
+
+/**
+ * Native build deployment configuration options
+ *
+ * See: https://github.com/FibreFoX/javafx-gradle-plugin for details
+ */
+jfx {
+    verbose = true
+    mainClass = 'frontpage.FXMain'
+
+    vendor = 'Team FrontPage'
+}

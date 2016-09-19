@@ -57,7 +57,7 @@ buildscript {
 }
 
 dependencies {
-    compile project(':fp-backend-local')
+    compile project(':fp-frontend')
 }
 
 project(':fp-bind') {
