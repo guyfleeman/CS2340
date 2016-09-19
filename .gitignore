@@ -22,8 +22,7 @@
 build/**
 fp-bind/build/**
 fp-frontend/build/**
-fp-backend-local/build/**
-fp-backend-remote/build/**
+fp-backend/build/**
 !gradle/wrapper/gradle-wrapper.jar
 
 # logs
