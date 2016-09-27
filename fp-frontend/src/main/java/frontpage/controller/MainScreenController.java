@@ -9,16 +9,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import org.apache.log4j.Logger;
 
-import java.io.File;
-
 /**
  *
  */
 public class MainScreenController {
-    private static final String VIEW_URI =
-            File.separator + "frontpage"
-                    + File.separator + "view"
-                    + File.separator + "MainScreen.fxml";
+    private static final String VIEW_URI = "/frontpage/view/MainScreen.fxml";
 
     private static Logger logger;
     private static Parent root;

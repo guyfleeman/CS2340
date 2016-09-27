@@ -37,4 +37,12 @@ public class SceneControllerEntry<C> {
     public void setController(C controller) {
         this.controller = controller;
     }
+
+    public Class<C> getControllerClass() {
+        return controllerClass;
+    }
+
+    public void setControllerClass(Class<C> controllerClass) {
+        this.controllerClass = controllerClass;
+    }
 }

@@ -1,24 +1,17 @@
 package frontpage.controller;
 
 import frontpage.FXMain;
-import frontpage.model.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import org.apache.log4j.Logger;
-
-import java.io.File;
 
 /**
  *
  */
 public class WelcomeScreenController {
-    private static final String VIEW_URI =
-            File.separator + "frontpage"
-                    + File.separator + "view"
-                    + File.separator + "WelcomeScreen.fxml";
+    private static final String VIEW_URI = "/frontpage/view/WelcomeScreen.fxml";
 
     private static Logger logger;
     private static Parent root;

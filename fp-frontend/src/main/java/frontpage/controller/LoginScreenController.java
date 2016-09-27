@@ -13,8 +13,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.apache.log4j.Logger;
 
-import java.io.File;
-
 /**
  * Created by George on 9/22/2016.
  *
@@ -22,10 +20,7 @@ import java.io.File;
  * @author willstuckey
  */
 public class LoginScreenController {
-    private static final String VIEW_URI =
-            File.separator + "frontpage"
-                    + File.separator + "view"
-                    + File.separator + "LoginScreen.fxml";
+    private static final String VIEW_URI = "/frontpage/view/LoginScreen.fxml";
 
     private static Logger logger;
     private static Parent root;

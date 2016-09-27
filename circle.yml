@@ -17,4 +17,4 @@ deployment:
   github:
     branch: master
     commands:
-      - gradle checkstyleMain --stacktrace
+      - gradle jfxNative --stacktrace
