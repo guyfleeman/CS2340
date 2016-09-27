@@ -13,7 +13,16 @@ dependencies {
     compile project(':fp-backend')
 }
 
-test.dependsOn checkstyleMain
+// test.dependsOn checkstyleMain
+
+sourceSets {
+    main {
+        resources {
+            srcDirs = ["src/main/java"]
+            includes = ["**/*.fxml"]
+        }
+    }
+}
 
 /**
  * Native build deployment configuration options

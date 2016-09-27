@@ -11,4 +11,4 @@ dependencies {
 
 }
 
-test.dependsOn checkstyleMain
+// test.dependsOn checkstyleMain
