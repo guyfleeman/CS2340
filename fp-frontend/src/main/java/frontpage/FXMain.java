@@ -5,6 +5,7 @@ import frontpage.backend.RemoteBackend;
 import frontpage.bind.Backend;
 import frontpage.controller.LoginScreenController;
 import frontpage.controller.MainScreenController;
+import frontpage.controller.RegisterScreenController;
 import frontpage.controller.WelcomeScreenController;
 import frontpage.model.User;
 import frontpage.utils.SceneControllerEntry;
@@ -80,6 +81,13 @@ public class FXMain extends Application {
      */
     public final void start(final Stage primaryStage) {
         FXMain.stage = primaryStage;
+
+
+        RegisterScreenController.create();
+        SceneControllerEntry<RegisterScreenController> rse = new SceneControllerEntry<>(
+                new Scene(RegisterScreenController.getRoot(), RES_WIDTH, RES_HEIGHT),
+                RegisterScreenController.getRegisterController());
+        viewSceneMap.put("register", rse);
 
         LoginScreenController.create();
         SceneControllerEntry<LoginScreenController> lse = new SceneControllerEntry<>(

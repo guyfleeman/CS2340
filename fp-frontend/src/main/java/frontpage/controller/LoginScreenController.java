@@ -54,6 +54,7 @@ public class LoginScreenController {
     @FXML private Button LogInBtn;
     @FXML private TextField UNField;
     @FXML private PasswordField PwdField;
+    @FXML private Button RegisterBtn;
 
     private LoginScreenController () {
 
@@ -85,5 +86,9 @@ public class LoginScreenController {
     private void handleCancelAction() {
         FXMain.setView("welcome");
     }
-
+    @FXML
+    private void handleRegisterAction() {
+        logger.trace("Invoke -> RegisterBtn:: handleRegisterAction()");
+        FXMain.setView("Register");
+    }
 }
