@@ -1,8 +1,8 @@
 package frontpage.backend;
 
-import frontpage.backend.auth.UserAuthenticatorFactory;
+import frontpage.backend.user.UserManagerFactory;
 import frontpage.bind.Backend;
-import frontpage.bind.auth.UserAuthenticator;
+import frontpage.bind.auth.UserManager;
 import org.apache.log4j.Logger;
 
 /**
@@ -20,7 +20,7 @@ public class LocalBackend implements Backend {
     /**
      * backend provided user authenticator
      */
-    protected UserAuthenticator userAuthenticator;
+    protected UserManager userManager;
 
     /**
      * initializes the local backend
@@ -28,13 +28,13 @@ public class LocalBackend implements Backend {
     public LocalBackend() {
         try {
             logger.info("initializing local user authenticator");
-            UserAuthenticatorFactory.createInstance("local");
-        } catch (UserAuthenticatorFactory.NoSuchUserAuthenticatorException e) {
+            UserManagerFactory.createInstance("local");
+        } catch (UserManagerFactory.NoSuchUserAuthenticatorException e) {
             logger.fatal("could not provide backend", e);
         }
     }
 
-    public UserAuthenticator getUserAuthenticator() {
-        return UserAuthenticatorFactory.getInstance();
+    public UserManager getUserManager() {
+        return UserManagerFactory.getInstance();
     }
 }

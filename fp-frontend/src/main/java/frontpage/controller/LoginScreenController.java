@@ -2,7 +2,7 @@ package frontpage.controller;
 
 import frontpage.FXMain;
 import frontpage.bind.auth.UserAuthenticationException;
-import frontpage.bind.auth.UserAuthenticator;
+import frontpage.bind.auth.UserManager;
 import frontpage.model.User;
 import frontpage.utils.DialogueUtils;
 import javafx.fxml.FXML;
@@ -66,7 +66,7 @@ public class LoginScreenController {
     @FXML
     private void handleLoginAction() {
         logger.trace("Invoke -> LogInBtn::handleLoginAction()");
-        UserAuthenticator ua = FXMain.getBackend().getUserAuthenticator();
+        UserManager ua = FXMain.getBackend().getUserManager();
         try {
             ua.authenticateUser(UNField.getText(), PwdField.getText().toCharArray());
             FXMain.setUser(new User(UNField.getText(), PwdField.getText()));

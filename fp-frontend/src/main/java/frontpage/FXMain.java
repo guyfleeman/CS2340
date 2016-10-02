@@ -1,6 +1,7 @@
 package frontpage;
 
 import frontpage.backend.LocalBackend;
+import frontpage.backend.RemoteBackend;
 import frontpage.bind.Backend;
 import frontpage.controller.LoginScreenController;
 import frontpage.controller.MainScreenController;
@@ -43,6 +44,14 @@ public class FXMain extends Application {
         Logger.getRootLogger().addAppender(console);
 
         backend = new LocalBackend();
+//        backend = new RemoteBackend();
+//        try {
+//            backend.getUserManager().createUser("guyfleeman", "password".toCharArray(), "guyfleeman@gmail.com", "will", "stuckey");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        System.exit(0);
 
         launch(args);
     }
