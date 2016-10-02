@@ -22,6 +22,8 @@ import java.util.Map;
 public class RESTHandler {
     public static final String ACCOUNT_CREATION_ENTRY_POINT =
             "staging/water/api/create_account.php";
+    public static final String ACCOUNT_AUTH_ENTRY_POINT =
+            "staging/water/api/authenticate.php";
 
     private static final String DEFAULT_ENCODING = "UTF-8";
     /**
@@ -38,12 +40,20 @@ public class RESTHandler {
 
     private static int lastHttpsResponseCode = -1;
     private static String lastHttpsResponseMessage = "";
+    private static String lastHttpsResponsePayload = "";
 
     static {
         logger = Logger.getLogger(RESTHandler.class.getName());
         logger.setLevel(Level.ALL);
     }
 
+    /**
+     * makes an api request
+     * @param action request action
+     * @param apiEntryPoint entry point on public facing directory
+     * @param attribMap map of attributes
+     * @return success
+     */
     public static synchronized boolean apiRequest(final RestAction action,
                                      final String apiEntryPoint,
                                      final Map<String, String> attribMap) {
@@ -94,16 +104,20 @@ public class RESTHandler {
             con.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
             con.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0;Windows98;DigExt)");
             con.setDoOutput(true);
-//            con.setDoInput(true);
+            con.setDoInput(true);
 
             DataOutputStream conOutput = new DataOutputStream(con.getOutputStream());
             conOutput.writeBytes(query);
             conOutput.close();
 
-//            DataInputStream conInput = new DataInputStream(con.getInputStream());
-//            for( int c = conInput.read(); c != -1; c = conInput.read() )
-//                System.out.print( (char)c );
-//            conInput.close();
+            String responsePayload = "";
+            DataInputStream conInput = new DataInputStream(con.getInputStream());
+            for(int c = conInput.read(); c != -1; c = conInput.read()) {
+                responsePayload += (char) c;
+            }
+            conInput.close();
+            logger.trace("Return Data: \r\n\r\n" + responsePayload);
+            lastHttpsResponsePayload = responsePayload;
 
             lastHttpsResponseCode = con.getResponseCode();
             lastHttpsResponseMessage = con.getResponseMessage();
@@ -112,6 +126,8 @@ public class RESTHandler {
 
             if (lastHttpsResponseCode >= 300) {
                 logger.error("API request reject with error code: " + lastHttpsResponseCode);
+                logger.error("API request rejection message: " + lastHttpsResponseMessage);
+                logger.error("API request rejection payload: " + responsePayload);
                 return false;
             }
         } catch (IOException e) {
@@ -120,6 +136,18 @@ public class RESTHandler {
         }
 
         return true;
+    }
+
+    public static int getLastHttpsResponseCode() {
+        return lastHttpsResponseCode;
+    }
+
+    public static String getLastHttpsResponseMessage() {
+        return lastHttpsResponseMessage;
+    }
+
+    public static String getLastHttpsResponsePayload() {
+        return lastHttpsResponsePayload;
     }
 
     private RESTHandler() {}

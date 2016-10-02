@@ -26,11 +26,10 @@ public final class LocalUserManager implements UserManager {
      * @return success
      * @throws UserAuthenticationException if failure
      */
-    public boolean authenticateUser(final String un, final char[] pw)
+    public String authenticateUser(final String un, final String pw)
             throws UserAuthenticationException {
-        if (un.equals("user")
-                && Arrays.equals(pw, new char[]{'p', 'a', 's', 's'})) {
-            return true;
+        if (un.equals("user") && pw.equals("pass")) {
+            return "";
         }
 
         throw new InvalidCredentialsException(

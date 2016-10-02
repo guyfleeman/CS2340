@@ -1,6 +1,7 @@
 package frontpage.controller;
 
 import frontpage.FXMain;
+import frontpage.bind.auth.InvalidDataException;
 import frontpage.bind.auth.UserAuthenticationException;
 import frontpage.bind.auth.UserManager;
 import frontpage.model.User;
@@ -68,12 +69,12 @@ public class LoginScreenController {
         logger.trace("Invoke -> LogInBtn::handleLoginAction()");
         UserManager ua = FXMain.getBackend().getUserManager();
         try {
-            ua.authenticateUser(UNField.getText(), PwdField.getText().toCharArray());
+            ua.authenticateUser(UNField.getText(), PwdField.getText());
             FXMain.setUser(new User(UNField.getText(), PwdField.getText()));
             ((MainScreenController) FXMain.getController("main")).setUserLabel(FXMain.getUser().getUsername());
             UNField.clear();
             FXMain.setView("main");
-        } catch (UserAuthenticationException e) {
+        } catch (UserAuthenticationException | InvalidDataException e) {
             DialogueUtils.showMessage("Invalid Login Credentials");
         } finally {
             PwdField.clear();
