@@ -1,8 +1,9 @@
-package frontpage.backend.auth;
+package frontpage.backend.user;
 
 import frontpage.bind.auth.InvalidCredentialsException;
+import frontpage.bind.auth.InvalidDataException;
 import frontpage.bind.auth.UserAuthenticationException;
-import frontpage.bind.auth.UserAuthenticator;
+import frontpage.bind.auth.UserManager;
 
 import java.util.Arrays;
 
@@ -10,11 +11,11 @@ import java.util.Arrays;
  * @author willstuckey
  * <p></p>
  */
-public final class LocalUserAuthenticator implements UserAuthenticator {
+public final class LocalUserManager implements UserManager {
     /**
      * local constructor
      */
-    LocalUserAuthenticator() {
+    LocalUserManager() {
 
     }
 
@@ -34,5 +35,14 @@ public final class LocalUserAuthenticator implements UserAuthenticator {
 
         throw new InvalidCredentialsException(
                 "the provided credentials did not exist or were invalid");
+    }
+
+    public boolean createUser(final String un,
+                              final char[] pw,
+                              final String email,
+                              final String firstname,
+                              final String lastname)
+            throws InvalidDataException {
+        return false;
     }
 }

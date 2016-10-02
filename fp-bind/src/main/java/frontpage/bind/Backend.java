@@ -1,6 +1,6 @@
 package frontpage.bind;
 
-import frontpage.bind.auth.UserAuthenticator;
+import frontpage.bind.auth.UserManager;
 
 /**
  * @author willstuckey
@@ -8,5 +8,5 @@ import frontpage.bind.auth.UserAuthenticator;
  * <p></p>
  */
 public interface Backend {
-    UserAuthenticator getUserAuthenticator();
+    UserManager getUserManager();
 }

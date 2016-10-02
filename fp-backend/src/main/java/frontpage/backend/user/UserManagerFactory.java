@@ -1,6 +1,6 @@
-package frontpage.backend.auth;
+package frontpage.backend.user;
 
-import frontpage.bind.auth.UserAuthenticator;
+import frontpage.bind.auth.UserManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
  * @author willstuckey
  * <p></p>
  */
-public final class UserAuthenticatorFactory {
+public final class UserManagerFactory {
     /**
      * class logger
      */
@@ -22,24 +22,23 @@ public final class UserAuthenticatorFactory {
      * type map
      */
     private static Map<String,
-            Class<? extends UserAuthenticator>> userAuthenticatorMap;
+            Class<? extends UserManager>> userAuthenticatorMap;
 
     /**
      * instance
      */
-    private static UserAuthenticator instance;
+    private static UserManager instance;
 
     static {
-        logger = Logger.getLogger(UserAuthenticatorFactory.class);
+        logger = Logger.getLogger(UserManagerFactory.class);
         logger.setLevel(Level.ALL);
-        userAuthenticatorMap =
-                new HashMap<String, Class<? extends UserAuthenticator>>();
-        userAuthenticatorMap.put("sql", SQLUserAuthenticator.class);
-        logger.trace("Added map <\"sql\", "
-                + "frontpage.backend.auth.SQLUserAuthenticator>");
-        userAuthenticatorMap.put("local", LocalUserAuthenticator.class);
+        userAuthenticatorMap = new HashMap<>();
+        userAuthenticatorMap.put("remote", RESTUserManager.class);
+        logger.trace("Added map <\"remote\", "
+                + "frontpage.backend.auth.RESTUserManager>");
+        userAuthenticatorMap.put("local", LocalUserManager.class);
         logger.trace("Added map <\"local\", "
-                + "frontpage.backend.auth.LocalUserAuthenticator>");
+                + "frontpage.backend.auth.LocalUserManager>");
     }
 
     /**
@@ -55,7 +54,7 @@ public final class UserAuthenticatorFactory {
                     "Cannot create user authenticator for type " + type + ".");
         }
 
-        Class<? extends UserAuthenticator> authClass =
+        Class<? extends UserManager> authClass =
                 userAuthenticatorMap.get(type);
         try {
             instance = authClass.newInstance();
@@ -69,14 +68,14 @@ public final class UserAuthenticatorFactory {
      * gets singleton authenticator
      * @return instance
      */
-    public static UserAuthenticator getInstance() {
+    public static UserManager getInstance() {
         return instance;
     }
 
     /**
      * Utility Constructor
      */
-    private UserAuthenticatorFactory() { }
+    private UserManagerFactory() { }
 
     /**
      * NoSuchUserAuthenticatorException

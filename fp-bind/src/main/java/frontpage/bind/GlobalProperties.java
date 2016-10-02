@@ -23,8 +23,8 @@ public final class GlobalProperties {
         logger = Logger.getLogger(GlobalProperties.class);
         properties = new Properties();
         logger.warn("TODO: load properties from file");
-        properties.setProperty("remote-server", "willstuckey.com");
-        properties.setProperty("remote-port", "80");
+        properties.setProperty("remote-server", "https://willstuckey.com");
+        properties.setProperty("remote-port", "443");
     }
 
     /**

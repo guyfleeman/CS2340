@@ -4,7 +4,7 @@ package frontpage.bind.auth;
  * @author willstuckey
  * <p></p>
  */
-public interface UserAuthenticator {
+public interface UserManager {
     /**
      * attempts to authenticate user
      * @param un username
@@ -16,4 +16,7 @@ public interface UserAuthenticator {
      */
     boolean authenticateUser(String un, char[] pw)
             throws UserAuthenticationException;
+
+    boolean createUser(String un, char[] pw, String email, String firstname,
+                       String lastname) throws InvalidDataException;
 }
