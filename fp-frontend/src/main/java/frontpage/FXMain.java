@@ -44,14 +44,19 @@ public class FXMain extends Application {
         Logger.getRootLogger().addAppender(console);
 
         backend = new LocalBackend();
-//        backend = new RemoteBackend();
-//        try {
-//            backend.getUserManager().createUser("guyfleeman", "password".toCharArray(), "guyfleeman@gmail.com", "will", "stuckey");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        System.exit(0);
+        /*
+        backend = new RemoteBackend();
+        try {
+            backend.getUserManager().createUser("guyfleeman", "password".toCharArray(), "guyfleeman@gmail.net", "will", "stuckey");
+            String res = backend.getUserManager().authenticateUser("guyfleeman@gmail.net", "password");
+            res = backend.getUserManager().authenticateUser("guyfleeman@gmail.net", res);
+            backend.getUserManager().authenticateUser("guyfleeman@gmail.net", "password");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        System.exit(0);
+        */
 
         launch(args);
     }
