@@ -28,7 +28,7 @@ public class RESTHandler {
      * debugs the REST query, never deploy with this set to true
      * as passwords may be logged in plain text
      */
-    private static final boolean DEBUG_REST = true;
+    private static final boolean DEBUG_REST = false;
     private static final Logger logger;
 
     public enum RestAction {
