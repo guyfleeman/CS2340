@@ -1,20 +1,22 @@
 package frontpage.model;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 /**
  * Created by George on 9/20/2016.
+ *
+ * @author georgetang
+ * @author willstuckey
  */
 public class User {
 
     private final StringProperty _username = new SimpleStringProperty();
-    private final StringProperty _password = new SimpleStringProperty();
+    private final StringProperty _tok = new SimpleStringProperty();
+    private UserProfile userProfile = new UserProfile();
 
     public User(String name, String pass) {
         _username.set(name);
-        _password.set(pass);
+        _tok.set(pass);
     }
 
     public String getUsername() {
@@ -24,9 +26,9 @@ public class User {
         _username.set(name);
     }
     public String getPassword() {
-        return _password.get();
+        return _tok.get();
     }
     public void setPassword(String pass) {
-        _password.set(pass);
+        _tok.set(pass);
     }
 }

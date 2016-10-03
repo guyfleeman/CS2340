@@ -86,9 +86,11 @@ public class LoginScreenController {
     private void handleCancelAction() {
         FXMain.setView("welcome");
     }
+
     @FXML
     private void handleRegisterAction() {
-        logger.trace("Invoke -> RegisterBtn:: handleRegisterAction()");
-        FXMain.setView("Register");
+        UNField.clear();
+        PwdField.clear();
+        FXMain.setView("register");
     }
 }

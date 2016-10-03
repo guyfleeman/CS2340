@@ -38,10 +38,6 @@ public class RESTHandler {
         GET
     }
 
-    private static int lastHttpsResponseCode = -1;
-    private static String lastHttpsResponseMessage = "";
-    private static String lastHttpsResponsePayload = "";
-
     static {
         logger = Logger.getLogger(RESTHandler.class.getName());
         logger.setLevel(Level.ALL);
@@ -54,7 +50,7 @@ public class RESTHandler {
      * @param attribMap map of attributes
      * @return success
      */
-    public static synchronized boolean apiRequest(final RestAction action,
+    public static synchronized RESTReport apiRequest(final RestAction action,
                                      final String apiEntryPoint,
                                      final Map<String, String> attribMap) {
         logger.debug("API Request Invoked");
@@ -78,7 +74,7 @@ public class RESTHandler {
                         query += URLEncoder.encode(val, DEFAULT_ENCODING);
                     } catch (UnsupportedEncodingException e) {
                         logger.error("default encoding was invalid, error in hardcoded default");
-                        return false;
+                        return new RESTReport(true, e.getMessage());
                     }
                 }
             }
@@ -94,7 +90,7 @@ public class RESTHandler {
             url = new URL(urlStr);
         } catch (MalformedURLException e) {
             logger.error("malformed url for api entry: " + urlStr);
-            return false;
+            return new RESTReport(true, e.getMessage());
         }
 
         try {
@@ -117,37 +113,21 @@ public class RESTHandler {
             }
             conInput.close();
             logger.trace("Return Data: \r\n\r\n" + responsePayload);
-            lastHttpsResponsePayload = responsePayload;
+            RESTReport report = new RESTReport(con.getResponseCode(), con.getResponseMessage(), responsePayload);
+            logger.trace("Response Code:" + report.getHttpResponseCode());
+            logger.trace("Response Message: " + report.getHttpResponseMessage());
+            logger.trace(report);
 
-            lastHttpsResponseCode = con.getResponseCode();
-            lastHttpsResponseMessage = con.getResponseMessage();
-            logger.trace("Response Code:" + lastHttpsResponseCode);
-            logger.trace("Response Message: " + lastHttpsResponseMessage);
-
-            if (lastHttpsResponseCode >= 300) {
-                logger.error("API request reject with error code: " + lastHttpsResponseCode);
-                logger.error("API request rejection message: " + lastHttpsResponseMessage);
-                logger.error("API request rejection payload: " + responsePayload);
-                return false;
+            if (!report.success()) {
+                logger.error("API request rejected");
+                logger.error(report);
             }
+
+            return report;
         } catch (IOException e) {
             logger.error("failed to open connection", e);
-            return false;
+            return new RESTReport(true, e.getMessage());
         }
-
-        return true;
-    }
-
-    public static int getLastHttpsResponseCode() {
-        return lastHttpsResponseCode;
-    }
-
-    public static String getLastHttpsResponseMessage() {
-        return lastHttpsResponseMessage;
-    }
-
-    public static String getLastHttpsResponsePayload() {
-        return lastHttpsResponsePayload;
     }
 
     private RESTHandler() {}

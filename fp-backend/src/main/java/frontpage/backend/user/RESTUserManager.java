@@ -1,6 +1,7 @@
 package frontpage.backend.user;
 
 import frontpage.backend.rest.RESTHandler;
+import frontpage.backend.rest.RESTReport;
 import frontpage.backend.user.validator.DefaultEmailValidator;
 import frontpage.backend.user.validator.DefaultPasswordValidator;
 import frontpage.bind.auth.InvalidDataException;
@@ -46,35 +47,23 @@ public class RESTUserManager implements UserManager {
         final Map<String, String> attribs = new HashMap<>(2);
         attribs.put("email", email);
         attribs.put("password", tok);
-        boolean res = RESTHandler.apiRequest(RESTHandler.RestAction.GET,
+        final RESTReport rr = RESTHandler.apiRequest(RESTHandler.RestAction.GET,
                 RESTHandler.ACCOUNT_AUTH_ENTRY_POINT,
                 attribs);
         // there was a blatant failure
-        if (!res) {
-            throw new UserAuthenticationException("authentication failed");
+        if (rr.wasInternalError()) {
+            throw new UserAuthenticationException(rr.getInternalErrorMessage());
         }
 
-        boolean success = false;
-        String message = "";
-        String sessionid = "";
-        String[] lines = RESTHandler.getLastHttpsResponsePayload().split("\r\n");
-        for (String s : lines) {
-            if (s.contains("status")) {
-                success = s.contains("success");
-            } else if (s.contains("message")) {
-                final String[] args = s.split("=");
-                message = args[1];
-            } else if (s.contains("sessionid")) {
-                final String[] args = s.split("=");
-                sessionid = args[1];
-            }
+        if (rr.rejected()) {
+            throw new UserAuthenticationException(rr.getHttpResponseMessage());
         }
 
-        if (!success) {
-            return null;
-        } else {
-            return sessionid;
+        if (!rr.success()) {
+            throw new UserAuthenticationException(rr.getResponseValue("message"));
         }
+
+        return rr.getResponseValue("sessionid");
     }
 
     public final boolean createUser(final String un,
@@ -101,8 +90,9 @@ public class RESTUserManager implements UserManager {
         attribs.put("email", email);
         attribs.put("firstname", firstname);
         attribs.put("lastname", lastname);
-        return RESTHandler.apiRequest(RESTHandler.RestAction.POST,
+        RESTReport rr = RESTHandler.apiRequest(RESTHandler.RestAction.POST,
                 RESTHandler.ACCOUNT_CREATION_ENTRY_POINT,
                 attribs);
+        return rr.success();
     }
 }
