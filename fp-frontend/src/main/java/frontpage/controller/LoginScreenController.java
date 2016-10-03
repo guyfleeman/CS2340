@@ -91,6 +91,6 @@ public class LoginScreenController {
     private void handleRegisterAction() {
         UNField.clear();
         PwdField.clear();
-        FXMain.setView("create");
+        FXMain.setView("register");
     }
 }
