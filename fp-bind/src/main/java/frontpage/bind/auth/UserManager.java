@@ -28,6 +28,7 @@ public interface UserManager {
      * @return success
      * @throws InvalidDataException
      */
-    boolean createUser(String un, char[] pw, String email, String firstname,
-                       String lastname) throws InvalidDataException;
+    boolean createUser(final String un, final String pw, final String email,
+                       final String firstname, final String lastname, final String userClass)
+            throws InvalidDataException, FailedToCreateUserException;
 }

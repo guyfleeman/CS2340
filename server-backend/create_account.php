@@ -90,7 +90,7 @@ try {
 		exit;
 	}
 } catch (PDOException $e) {
-	echo "prepared statement exception: " + $e->getMessage();
+	echo "prepared statement exception: " . $e->getMessage();
 	http_response_code(500);
 	exit;
 }

@@ -24,13 +24,15 @@ public class RESTHandler {
             "staging/water/api/create_account.php";
     public static final String ACCOUNT_AUTH_ENTRY_POINT =
             "staging/water/api/authenticate.php";
+    public static final String ACCOUNT_PROFILE_ENTRY_POINT =
+            "staging/water/api/profile.php";
 
     private static final String DEFAULT_ENCODING = "UTF-8";
     /**
      * debugs the REST query, never deploy with this set to true
      * as passwords may be logged in plain text
      */
-    private static final boolean DEBUG_REST = false;
+    private static final boolean DEBUG_REST = true;
     private static final Logger logger;
 
     public enum RestAction {

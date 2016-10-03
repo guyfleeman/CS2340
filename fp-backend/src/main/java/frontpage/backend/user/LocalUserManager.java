@@ -37,10 +37,11 @@ public final class LocalUserManager implements UserManager {
     }
 
     public boolean createUser(final String un,
-                              final char[] pw,
+                              final String pw,
                               final String email,
                               final String firstname,
-                              final String lastname)
+                              final String lastname,
+                              final String type)
             throws InvalidDataException {
         return false;
     }

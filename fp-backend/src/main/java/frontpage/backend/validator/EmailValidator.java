@@ -1,4 +1,4 @@
-package frontpage.backend.user.validator;
+package frontpage.backend.validator;
 
 /**
  * @author willstuckey

@@ -2,6 +2,10 @@ package frontpage.controller;
 
 import frontpage.FXMain;
 
+import frontpage.bind.auth.FailedToCreateUserException;
+import frontpage.bind.auth.InvalidDataException;
+import frontpage.bind.auth.UserManager;
+import frontpage.utils.DialogueUtils;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +15,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.apache.log4j.Logger;
 import javafx.scene.control.ComboBox;
+import org.omg.CORBA.DynAnyPackage.Invalid;
 
 import java.util.LinkedList;
 
@@ -73,7 +78,6 @@ public class RegisterScreenController {
 
     @FXML
     private void handleCancelAction() {
-        System.out.println("im here");
         registerEmailField.clear();
         registerUNField.clear();
         registerPwdField.clear();
@@ -83,6 +87,31 @@ public class RegisterScreenController {
 
     @FXML
     private void handleConfirmAction() {
+        String email = registerEmailField.getText();
+        String username = registerUNField.getText();
+        String password = registerPwdField.getText();
+        String confirmPassword = confirmRegisterPwdField.getText();
+        String type = (String) userTypeBox.getValue();
+        if (password.equals(confirmPassword)) {
+            UserManager um = FXMain.getBackend().getUserManager();
+            try {
+                um.createUser(username, password, email, "none", "none", type);
+                DialogueUtils.showMessage("Account created successfully.");
+                FXMain.setView("welcome");
+            } catch (InvalidDataException e) {
+                DialogueUtils.showMessage("Account creation failed: " + e.getMessage());
+            } catch (FailedToCreateUserException e) {
+                DialogueUtils.showMessage("Account creation failed: " + e.getMessage());
+            }
+
+        } else {
+            DialogueUtils.showMessage("Passwords do not match.");
+        }
+
+        password = null;
+        confirmPassword = null;
+        registerPwdField.clear();
+        confirmRegisterPwdField.clear();
     }
 
 }
