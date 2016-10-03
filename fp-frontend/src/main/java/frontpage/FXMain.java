@@ -5,7 +5,7 @@ import frontpage.backend.RemoteBackend;
 import frontpage.bind.Backend;
 import frontpage.controller.LoginScreenController;
 import frontpage.controller.MainScreenController;
-import frontpage.controller.RegisterUserScreenController;
+import frontpage.controller.RegisterScreenController;
 import frontpage.controller.WelcomeScreenController;
 import frontpage.model.User;
 import frontpage.utils.DialogueUtils;
@@ -84,6 +84,13 @@ public class FXMain extends Application {
     public final void start(final Stage primaryStage) {
         FXMain.stage = primaryStage;
 
+
+        RegisterScreenController.create();
+        SceneControllerEntry<RegisterScreenController> rse = new SceneControllerEntry<>(
+                new Scene(RegisterScreenController.getRoot(), RES_WIDTH, RES_HEIGHT),
+                RegisterScreenController.getRegisterController());
+        viewSceneMap.put("register", rse);
+
         LoginScreenController.create();
         SceneControllerEntry<LoginScreenController> lse = new SceneControllerEntry<>(
                 new Scene(LoginScreenController.getRoot(), RES_WIDTH, RES_HEIGHT),
@@ -101,12 +108,6 @@ public class FXMain extends Application {
                 new Scene(MainScreenController.getRoot(), RES_WIDTH, RES_HEIGHT),
                 MainScreenController.getMainController());
         viewSceneMap.put("main", mse);
-
-        RegisterUserScreenController.create();
-        SceneControllerEntry<RegisterUserScreenController> rusc = new SceneControllerEntry<>(
-                new Scene(RegisterUserScreenController.getRoot(), RES_WIDTH, RES_HEIGHT),
-                RegisterUserScreenController.getMainController());
-        viewSceneMap.put("create", rusc);
 
         setView("welcome");
         primaryStage.show();

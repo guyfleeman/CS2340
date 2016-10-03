@@ -54,6 +54,7 @@ public class LoginScreenController {
     @FXML private Button LogInBtn;
     @FXML private TextField UNField;
     @FXML private PasswordField PwdField;
+    @FXML private Button RegisterBtn;
 
     private LoginScreenController () {
 
@@ -92,5 +93,4 @@ public class LoginScreenController {
         PwdField.clear();
         FXMain.setView("create");
     }
-
 }
