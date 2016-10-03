@@ -86,4 +86,11 @@ public class LoginScreenController {
         FXMain.setView("welcome");
     }
 
+    @FXML
+    private void handleRegisterAction() {
+        UNField.clear();
+        PwdField.clear();
+        FXMain.setView("create");
+    }
+
 }

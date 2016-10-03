@@ -5,8 +5,10 @@ import frontpage.backend.RemoteBackend;
 import frontpage.bind.Backend;
 import frontpage.controller.LoginScreenController;
 import frontpage.controller.MainScreenController;
+import frontpage.controller.RegisterUserScreenController;
 import frontpage.controller.WelcomeScreenController;
 import frontpage.model.User;
+import frontpage.utils.DialogueUtils;
 import frontpage.utils.SceneControllerEntry;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -16,6 +18,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,20 +46,20 @@ public class FXMain extends Application {
         console.activateOptions();
         Logger.getRootLogger().addAppender(console);
 
-        backend = new LocalBackend();
-        /*
-        backend = new RemoteBackend();
-        try {
-            backend.getUserManager().createUser("guyfleeman", "password".toCharArray(), "guyfleeman@gmail.net", "will", "stuckey");
-            String res = backend.getUserManager().authenticateUser("guyfleeman@gmail.net", "password");
-            res = backend.getUserManager().authenticateUser("guyfleeman@gmail.net", res);
-            backend.getUserManager().authenticateUser("guyfleeman@gmail.net", "password");
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (Arrays.asList(args).contains("--force-local")
+                || !DialogueUtils.askYesNo("Use remote backend?")) {
+            backend = new LocalBackend();
+        } else {
+            backend = new RemoteBackend();
+//            try {
+//                backend.getUserManager().createUser("guyfleeman", "password".toCharArray(), "guyfleeman@gmail.net", "will", "stuckey");
+//                String res = backend.getUserManager().authenticateUser("guyfleeman@gmail.net", "password");
+//                res = backend.getUserManager().authenticateUser("guyfleeman@gmail.net", res);
+//                backend.getUserManager().authenticateUser("guyfleeman@gmail.net", "password");
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
         }
-
-        System.exit(0);
-        */
 
         launch(args);
     }
@@ -99,11 +102,14 @@ public class FXMain extends Application {
                 MainScreenController.getMainController());
         viewSceneMap.put("main", mse);
 
+        RegisterUserScreenController.create();
+        SceneControllerEntry<RegisterUserScreenController> rusc = new SceneControllerEntry<>(
+                new Scene(RegisterUserScreenController.getRoot(), RES_WIDTH, RES_HEIGHT),
+                RegisterUserScreenController.getMainController());
+        viewSceneMap.put("create", rusc);
+
         setView("welcome");
         primaryStage.show();
-//        Scene testScene = new Scene(new Label("TEST"), RES_WIDTH, RES_HEIGHT);
-//        primaryStage.setScene(testScene);
-//        primaryStage.show();
 
     }
 
