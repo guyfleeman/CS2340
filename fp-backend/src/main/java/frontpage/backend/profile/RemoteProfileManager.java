@@ -30,8 +30,8 @@ public class RemoteProfileManager implements ProfileManager {
                 RESTHandler.RestAction.POST,
                 RESTHandler.ACCOUNT_PROFILE_ENTRY_POINT,
                 attribs);
-        if (rr.wasInternalError()) {
-            throw new ProfileManagementException(rr.getInternalErrorMessage());
+        if (rr.rejected()) {
+            throw new ProfileManagementException(rr.toString());
         }
 
         if (!rr.success()) {
@@ -74,8 +74,8 @@ public class RemoteProfileManager implements ProfileManager {
                 RESTHandler.RestAction.POST,
                 RESTHandler.ACCOUNT_PROFILE_ENTRY_POINT,
                 attribs);
-        if (rr.wasInternalError()) {
-            throw new ProfileManagementException(rr.getInternalErrorMessage());
+        if (rr.rejected()) {
+            throw new ProfileManagementException(rr.toString());
         }
 
         if (!rr.success()) {
