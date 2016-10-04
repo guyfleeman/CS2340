@@ -96,11 +96,14 @@ public class RESTHandler {
         }
 
         try {
+            logger.trace("Connection Type: " + action.toString());
             HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
             con.setRequestMethod(action.toString());
             con.setRequestProperty("Content-length", String.valueOf(query.length()));
             con.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
             con.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0;Windows98;DigExt)");
+            //con.setConnectTimeout(2000);
+            //con.setReadTimeout(5000);
             con.setDoOutput(true);
             con.setDoInput(true);
 
@@ -127,7 +130,7 @@ public class RESTHandler {
 
             return report;
         } catch (IOException e) {
-            logger.error("failed to open connection", e);
+            logger.error("failed to open connection" + e.getCause().getMessage(), e);
             return new RESTReport(true, e.getMessage());
         }
     }

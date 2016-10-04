@@ -44,6 +44,7 @@ public class MainScreenController {
     }
 
     @FXML private Label userLabel;
+    @FXML private Button profileBtn;
     @FXML private Button logOutBtn;
 
     private MainScreenController() {
@@ -60,6 +61,11 @@ public class MainScreenController {
     }
 
     @FXML
+    private void handleProfileAction() {
+        FXMain.setView("profile");
+    }
+
+    @FXML
     private void handleLogoutAction() {
         logger.trace("Invoke -> LogInBtn::handleLoginAction()");
         FXMain.setUser(null);
@@ -67,5 +73,4 @@ public class MainScreenController {
         DialogueUtils.showMessage("You have been logged out.");
         FXMain.setView("welcome");
     }
-
 }

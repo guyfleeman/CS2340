@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
 
 // validate input existence
 if (!(isset($_POST["username"]) && isset($_POST["password"]) && isset($_POST["email"])
-		&& isset($_POST["firstname"]) && isset($_POST["lastname"]))) {
+		&& isset($_POST["firstname"]) && isset($_POST["lastname"]) && isset($_POST["type"]))) {
 	echo "existence validation failedr\r\n";
 	http_response_code(400);
 	exit;
@@ -37,6 +37,11 @@ $password = $_POST["password"];
 $email = $_POST["email"];
 $firstname = $_POST["firstname"];
 $lastname = $_POST["lastname"];
+$type = $_POST["type"];
+if (empty($type)) {
+	$type = "USER";
+}
+
 
 // validate content present
 if (empty($username) || empty($password) || empty($email)
@@ -48,30 +53,25 @@ if (empty($username) || empty($password) || empty($email)
 
 // validate password
 if (!isValidPassword($password)) {
-	echo "invalid password\r\n";
-	http_response_code(400);
+	echo "status=failed\r\n";
+	echo "message=invalid password\r\n";
 	exit;
 }
 
 // validate email
 if (!isValidEmail($email)) {
-	echo "invalid email\r\n";
-	http_response_code(400);
+	echo "status=failed\r\n";
+	echo "message=invalid email\r\n";
 	exit;
 }
 
-echo "validation passed\r\n";
-
 // create server generated data
 $userid = uniqid("", TRUE);
-$type = "USER";
 $salt = random_bytes(64);
 $hash = hash("sha512", $salt . $password, TRUE);
 $sessiontimestamp = -1;
 $sessionid = -1;
 $pwattempts = -1;
-
-echo "created server data\r\n";
 
 // check for existing user
 try {
@@ -82,11 +82,10 @@ try {
 	$row = $stmt->fetch();
 	if (empty($row)) {
 		$exists = false;
-		echo "no existing user found\r\n";
 	} else {
 		$exists = true;
-		echo "existing user found\r\n";
-		http_response_code(400);
+		echo "status=failed\r\n";
+		echo "message=existing user found\r\n";
 		exit;
 	}
 } catch (PDOException $e) {
@@ -97,7 +96,6 @@ try {
 
 // add new user if the email isn't already in use
 if (!$exists) {
-	echo "will add new user to database\r\n";
 	try {
 		$pdostmt = "INSERT INTO users (id, type, username, email, salt, "
 			. "pwhash, sessionid, sessiontimestamp, pwattempts, "
@@ -118,6 +116,14 @@ if (!$exists) {
 		$stmt->bindParam(":firstname", $firstname);
 		$stmt->bindParam(":lastname", $lastnane);
 		$stmt->execute();
+
+		$pdostmt = "INSERT INTO profiles (id) VALUES (:id)";
+		$stmt = $dbcon->prepare($pdostmt);
+		$stmt->bindParam(":id", $userid);
+		$stmt->execute();
+
+		echo "status=success\r\n";
+		echo "message=account created successfully";
 	} catch (PDOException $e) {
 		echo "prepared statement exception: " . $e->getMessage();
 		http_response_code(500);
@@ -126,7 +132,5 @@ if (!$exists) {
 }
 
 // TODO: send email
-echo "done\r\n";
-
 $dbcon = null;
 ?>

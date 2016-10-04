@@ -10,25 +10,41 @@ import javafx.beans.property.StringProperty;
  */
 public class User {
 
-    private final StringProperty _username = new SimpleStringProperty();
+    private final StringProperty _email = new SimpleStringProperty();
     private final StringProperty _tok = new SimpleStringProperty();
     private UserProfile userProfile = new UserProfile();
 
-    public User(String name, String pass) {
-        _username.set(name);
-        _tok.set(pass);
+    public User(String name, String tok) {
+        _email.set(name);
+        _tok.set(tok);
     }
 
-    public String getUsername() {
-        return _username.get();
+    public String getEmail() {
+        return _email.get();
     }
-    public void setUsername(String name) {
-        _username.set(name);
+    public void setEmail(final String name) {
+        _email.set(name);
     }
-    public String getPassword() {
+    public String getTok() {
         return _tok.get();
     }
-    public void setPassword(String pass) {
-        _tok.set(pass);
+    public void setTok(final String tok) {
+        _tok.set(tok);
+    }
+
+    public UserProfile getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
+    }
+
+    public void loadProfile() {
+        userProfile.populateFromDatabase(this);
+    }
+
+    public void storeProfile() {
+        userProfile.writeToDatabase(this);
     }
 }

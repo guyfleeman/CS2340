@@ -5,7 +5,9 @@ import frontpage.backend.RemoteBackend;
 import frontpage.bind.Backend;
 import frontpage.controller.LoginScreenController;
 import frontpage.controller.MainScreenController;
+import frontpage.controller.ProfileScreenController;
 import frontpage.controller.RegisterScreenController;
+import frontpage.controller.Updatable;
 import frontpage.controller.WelcomeScreenController;
 import frontpage.model.User;
 import frontpage.utils.DialogueUtils;
@@ -109,17 +111,32 @@ public class FXMain extends Application {
                 MainScreenController.getMainController());
         viewSceneMap.put("main", mse);
 
+        ProfileScreenController.create();
+        SceneControllerEntry<ProfileScreenController> psc = new SceneControllerEntry<>(
+                new Scene(ProfileScreenController.getRoot(), RES_WIDTH, RES_HEIGHT),
+                ProfileScreenController.getRegisterController()
+        );
+        viewSceneMap.put("profile", psc);
+
         setView("welcome");
         primaryStage.show();
 
     }
 
     public static boolean setView(final String view) {
+        if (view == null) {
+            return false;
+        }
+
         Scene s = viewSceneMap.get(view.toLowerCase()).getScene();
         if (s == null) {
             return false;
         }
 
+        Object con = viewSceneMap.get(view.toLowerCase()).getController();
+        if (con instanceof Updatable) {
+            ((Updatable) con).update();
+        }
         stage.setScene(s);
         return true;
     }

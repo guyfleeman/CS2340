@@ -1,5 +1,13 @@
 package frontpage.model;
 
+import frontpage.FXMain;
+import frontpage.bind.profile.ProfileManagementException;
+import frontpage.bind.profile.ProfileManager;
+import frontpage.utils.DialogueUtils;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author willstuckey
  * @date 10/2/16
@@ -67,10 +75,33 @@ public class UserProfile {
     }
 
     public void populateFromDatabase(final User user) {
-
+        ProfileManager pm = FXMain.getBackend().getProfileManager();
+        try {
+            Map<String, String> props = pm.getProfile(
+                    user.getEmail(),
+                    user.getTok());
+            setAddress(props.get("address"));
+            setCity(props.get("city"));
+            setState(props.get("state"));
+            setZip(props.get("zip"));
+            setTitle(props.get("title"));
+        } catch (ProfileManagementException e) {
+            DialogueUtils.showMessage(e.getMessage());
+        }
     }
 
     public void writeToDatabase(final User user) {
-
+        ProfileManager pm = FXMain.getBackend().getProfileManager();
+        try {
+            Map<String, String> props = new HashMap<>(5);
+            props.put("address", address);
+            props.put("city", city);
+            props.put("state", state);
+            props.put("zip", zip);
+            props.put("title", title);
+            pm.setProfile(user.getEmail(), user.getTok(), props);
+        } catch (ProfileManagementException e) {
+            DialogueUtils.showMessage(e.getMessage());
+        }
     }
 }

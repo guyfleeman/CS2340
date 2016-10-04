@@ -70,14 +70,17 @@ public class LoginScreenController {
         logger.trace("Invoke -> LogInBtn::handleLoginAction()");
         UserManager ua = FXMain.getBackend().getUserManager();
         try {
-            ua.authenticateUser(UNField.getText(), PwdField.getText());
-            FXMain.setUser(new User(UNField.getText(), PwdField.getText()));
-            ((MainScreenController) FXMain.getController("main")).setUserLabel(FXMain.getUser().getUsername());
+            String sessionTok = ua.authenticateUser(UNField.getText(),
+                    PwdField.getText());
+            FXMain.setUser(new User(UNField.getText(), sessionTok));
+            FXMain.getUser().loadProfile();
+            ((MainScreenController) FXMain.getController("main"))
+                    .setUserLabel(FXMain.getUser().getEmail());
             UNField.clear();
+            PwdField.clear();
             FXMain.setView("main");
         } catch (UserAuthenticationException | InvalidDataException e) {
             DialogueUtils.showMessage("Invalid Login Credentials");
-        } finally {
             PwdField.clear();
         }
     }
