@@ -120,7 +120,7 @@ public class UserProfile {
             setZip(props.get("zip"));
             setTitle(props.get("title"));
         } catch (ProfileManagementException e) {
-            DialogueUtils.showMessage(e.getMessage());
+            DialogueUtils.showMessage("Error populating from database: " + e.getMessage() + "\r\n" + e.getCause());
         }
     }
 
