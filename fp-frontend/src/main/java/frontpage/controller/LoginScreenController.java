@@ -86,6 +86,8 @@ public class LoginScreenController {
         } catch (UserAuthenticationException | InvalidDataException e) {
             DialogueUtils.showMessage("Invalid Login Credentials");
             PwdField.clear();
+        } catch (Throwable t) {
+            DialogueUtils.showMessage("Unexpected Internal Error.\r\n\r\n" + t.getMessage());
         }
     }
 
