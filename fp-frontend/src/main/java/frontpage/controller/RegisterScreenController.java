@@ -80,8 +80,7 @@ public class RegisterScreenController {
     private void handleCancelAction() {
         registerEmailField.clear();
         registerUNField.clear();
-        registerPwdField.clear();
-        confirmRegisterPwdField.clear();
+        clearPasswordFields();
         FXMain.setView("welcome");
     }
 
@@ -92,6 +91,24 @@ public class RegisterScreenController {
         String password = registerPwdField.getText();
         String confirmPassword = confirmRegisterPwdField.getText();
         String type = (String) userTypeBox.getValue();
+        if (email == null || email.length() == 0) {
+            DialogueUtils.showMessage("Email field must be filled.");
+            clearPasswordFields();
+            return;
+        }
+
+        if (username == null || username.length() == 0) {
+            DialogueUtils.showMessage("Username field must be filled.");
+            clearPasswordFields();
+            return;
+        }
+
+        if (type == null || type.length() == 0) {
+            DialogueUtils.showMessage("Type must be selected.");
+            clearPasswordFields();
+            return;
+        }
+
         if (password.equals(confirmPassword)) {
             UserManager um = FXMain.getBackend().getUserManager();
             try {
@@ -108,10 +125,11 @@ public class RegisterScreenController {
             DialogueUtils.showMessage("Passwords do not match.");
         }
 
-        password = null;
-        confirmPassword = null;
+        clearPasswordFields();
+    }
+
+    private void clearPasswordFields() {
         registerPwdField.clear();
         confirmRegisterPwdField.clear();
     }
-
 }

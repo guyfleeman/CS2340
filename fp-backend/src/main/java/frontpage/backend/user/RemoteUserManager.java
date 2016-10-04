@@ -67,7 +67,7 @@ public class RemoteUserManager implements UserManager {
         return rr.getResponseValue("sessionid");
     }
 
-    public final boolean createUser(final String un,
+    public final void createUser(final String un,
                                     final String pw,
                                     final String email,
                                     final String firstname,
@@ -101,7 +101,5 @@ public class RemoteUserManager implements UserManager {
         if (!rr.success()) {
             throw new FailedToCreateUserException(rr.getResponseValue("message"));
         }
-
-        return true;
     }
 }

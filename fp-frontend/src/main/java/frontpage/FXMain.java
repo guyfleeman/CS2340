@@ -62,6 +62,7 @@ public class FXMain extends Application {
 //                e.printStackTrace();
 //            }
         }
+        User.setPm(backend.getProfileManager());
 
         launch(args);
     }

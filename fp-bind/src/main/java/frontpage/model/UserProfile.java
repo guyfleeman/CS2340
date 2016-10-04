@@ -1,12 +1,11 @@
 package frontpage.model;
 
-import frontpage.FXMain;
 import frontpage.bind.profile.ProfileManagementException;
 import frontpage.bind.profile.ProfileManager;
 import frontpage.utils.DialogueUtils;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.HashMap;
 
 /**
  * @author willstuckey
@@ -74,8 +73,8 @@ public class UserProfile {
         this.zip = zip;
     }
 
-    public void populateFromDatabase(final User user) {
-        ProfileManager pm = FXMain.getBackend().getProfileManager();
+    public void populateFromDatabase(final ProfileManager pm,
+                                     final User user) {
         try {
             Map<String, String> props = pm.getProfile(
                     user.getEmail(),
@@ -90,10 +89,10 @@ public class UserProfile {
         }
     }
 
-    public void writeToDatabase(final User user) {
-        ProfileManager pm = FXMain.getBackend().getProfileManager();
+    public void writeToDatabase(final ProfileManager pm,
+                                final User user) {
         try {
-            Map<String, String> props = new HashMap<>(5);
+            Map<String, String> props = new HashMap<String, String>(5);
             props.put("address", address);
             props.put("city", city);
             props.put("state", state);

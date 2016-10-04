@@ -1,6 +1,8 @@
 package frontpage.backend;
 
+import frontpage.backend.profile.LocalProfileManager;
 import frontpage.backend.profile.ProfileManagerFactory;
+import frontpage.backend.user.LocalUserManager;
 import frontpage.backend.user.UserManagerFactory;
 import frontpage.bind.Backend;
 import frontpage.bind.auth.UserManager;
@@ -44,6 +46,8 @@ public class LocalBackend implements Backend {
     }
 
     public ProfileManager getProfileManager() {
+        LocalProfileManager.setLum(
+                (LocalUserManager) UserManagerFactory.getInstance());
         return ProfileManagerFactory.getInstance();
     }
 }
