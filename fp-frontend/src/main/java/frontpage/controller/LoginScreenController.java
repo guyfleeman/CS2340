@@ -5,6 +5,7 @@ import frontpage.bind.auth.InvalidDataException;
 import frontpage.bind.auth.UserAuthenticationException;
 import frontpage.bind.auth.UserManager;
 import frontpage.model.User;
+import frontpage.model.UserClass;
 import frontpage.utils.DialogueUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -72,10 +73,13 @@ public class LoginScreenController {
         try {
             String sessionTok = ua.authenticateUser(UNField.getText(),
                     PwdField.getText());
-            FXMain.setUser(new User(UNField.getText(), sessionTok));
+            User u = new User(UNField.getText(), sessionTok);
+            String type = ua.getUserType(u.getEmail(), u.getTok());
+            u.setUserClass(UserClass.valueOf(type));
+            FXMain.setUser(u);
             FXMain.getUser().loadProfile();
             ((MainScreenController) FXMain.getController("main"))
-                    .setUserLabel(FXMain.getUser().getEmail());
+                    .setUserLabel(FXMain.getUser().getEmail() + "[" + u.getUserClass() + "]");
             UNField.clear();
             PwdField.clear();
             FXMain.setView("main");

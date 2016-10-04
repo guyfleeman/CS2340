@@ -18,6 +18,9 @@ public interface UserManager {
     String authenticateUser(final String email, final String tok)
             throws UserAuthenticationException, InvalidDataException;
 
+    String getUserType(final String email, final String tok)
+            throws UserAuthenticationException, InvalidDataException;
+
     /**
      * creates a user
      * @param un username

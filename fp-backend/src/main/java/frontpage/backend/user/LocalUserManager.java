@@ -49,6 +49,23 @@ public final class LocalUserManager implements UserManager {
                 "the provided credentials did not exist or were invalid");
     }
 
+    public String getUserType(final String email,
+                              final String tok)
+        throws UserAuthenticationException, InvalidDataException {
+        if (email == null || tok == null) {
+            throw new InvalidDataException("auth not provided");
+        }
+
+        for (User u : users) {
+            if (u.getEmail().equalsIgnoreCase(email)
+                    && u.getTok().equals(tok)) {
+                return u.getUserClass().toString();
+            }
+        }
+
+        throw new UserAuthenticationException("invalid credentials");
+    }
+
     public void createUser(final String un,
                               final String pw,
                               final String email,

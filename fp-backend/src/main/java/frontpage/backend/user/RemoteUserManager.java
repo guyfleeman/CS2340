@@ -67,6 +67,36 @@ public class RemoteUserManager implements UserManager {
         return rr.getResponseValue("sessionid");
     }
 
+    public String getUserType(final String email,
+                              final String tok)
+                    throws UserAuthenticationException, InvalidDataException {
+        if (email == null || tok == null) {
+            throw new InvalidDataException("one or more parameters was null or empty");
+        }
+
+        final Map<String, String> attribs = new HashMap<>(2);
+        attribs.put("email", email);
+        attribs.put("tok", tok);
+        attribs.put("property", "type");
+        final RESTReport rr = RESTHandler.apiRequest(RESTHandler.RestAction.GET,
+                RESTHandler.ACCOUNT_USER_ENTRY_POINT,
+                attribs);
+        // there was a blatant failure
+        if (rr.wasInternalError()) {
+            throw new UserAuthenticationException(rr.getInternalErrorMessage());
+        }
+
+        if (rr.rejected()) {
+            throw new UserAuthenticationException(rr.getHttpResponseMessage());
+        }
+
+        if (!rr.success()) {
+            throw new UserAuthenticationException(rr.getResponseValue("message"));
+        }
+
+        return rr.getResponseValue("type");
+    }
+
     public final void createUser(final String un,
                                     final String pw,
                                     final String email,

@@ -114,13 +114,16 @@ public class RegisterScreenController {
             try {
                 um.createUser(username, password, email, "none", "none", type);
                 DialogueUtils.showMessage("Account created successfully.");
+                registerEmailField.clear();
+                registerUNField.clear();
+                clearPasswordFields();
                 FXMain.setView("welcome");
+                return;
             } catch (InvalidDataException e) {
                 DialogueUtils.showMessage("Account creation failed: " + e.getMessage());
             } catch (FailedToCreateUserException e) {
                 DialogueUtils.showMessage("Account creation failed: " + e.getMessage());
             }
-
         } else {
             DialogueUtils.showMessage("Passwords do not match.");
         }

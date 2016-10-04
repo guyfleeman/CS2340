@@ -26,6 +26,8 @@ public class RESTHandler {
             "staging/water/api/authenticate.php";
     public static final String ACCOUNT_PROFILE_ENTRY_POINT =
             "staging/water/api/profile.php";
+    public static final String ACCOUNT_USER_ENTRY_POINT =
+            "staging/water/api/user.php";
 
     private static final String DEFAULT_ENCODING = "UTF-8";
     /**
