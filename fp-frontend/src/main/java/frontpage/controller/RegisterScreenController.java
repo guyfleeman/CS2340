@@ -65,6 +65,9 @@ public class RegisterScreenController {
     }
 
 
+    /**
+     * initialize requires body for combo box
+     */
     @FXML
     @SuppressWarnings("unchecked")
     public void initialize() {
@@ -84,6 +87,11 @@ public class RegisterScreenController {
         FXMain.setView("welcome");
     }
 
+    /**
+     * handles form validation and processing delgation for create user
+     *
+     * TODO at some point this should be threaded
+     */
     @FXML
     private void handleConfirmAction() {
         String email = registerEmailField.getText();
@@ -131,6 +139,9 @@ public class RegisterScreenController {
         clearPasswordFields();
     }
 
+    /**
+     * helper method to clear passwords fields
+     */
     private void clearPasswordFields() {
         registerPwdField.clear();
         confirmRegisterPwdField.clear();

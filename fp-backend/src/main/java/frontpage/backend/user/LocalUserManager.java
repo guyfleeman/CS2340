@@ -49,6 +49,14 @@ public final class LocalUserManager implements UserManager {
                 "the provided credentials did not exist or were invalid");
     }
 
+    /**
+     * gets the user type
+     * @param email email
+     * @param tok auth token
+     * @return type
+     * @throws UserAuthenticationException
+     * @throws InvalidDataException
+     */
     public String getUserType(final String email,
                               final String tok)
         throws UserAuthenticationException, InvalidDataException {
@@ -66,6 +74,16 @@ public final class LocalUserManager implements UserManager {
         throw new UserAuthenticationException("invalid credentials");
     }
 
+    /**
+     * creates user
+     * @param un username
+     * @param pw password
+     * @param email email
+     * @param firstname firstname
+     * @param lastname lastname
+     * @param type type
+     * @throws InvalidDataException
+     */
     public void createUser(final String un,
                               final String pw,
                               final String email,

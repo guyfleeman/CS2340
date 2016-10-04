@@ -10,17 +10,47 @@ import java.util.HashMap;
 /**
  * @author willstuckey
  * @date 10/2/16
- * <p></p>
+ * <p>User Profile data class</p>
  */
 public class UserProfile {
+    /**
+     * users title (e.g. Ms.)
+     */
     private String title;
+
+    /**
+     * users address, number then street
+     */
     private String address;
+
+    /**
+     * users city
+     */
     private String city;
+
+    /**
+     * users state
+     */
     private String state;
+
+    /**
+     * users zip
+     */
     private String zip;
 
+    /**
+     * creates a blank profile
+     */
     public UserProfile() {}
 
+    /**
+     * creates user profile
+     * @param title title
+     * @param address address
+     * @param city city
+     * @param state state
+     * @param zip zip
+     */
     public UserProfile(final String title,
                        final String address,
                        final String city,
@@ -73,6 +103,11 @@ public class UserProfile {
         this.zip = zip;
     }
 
+    /**
+     * fetches data from the bound ProfileManager
+     * @param pm profile manager
+     * @param user user for whom we load the profile
+     */
     public void populateFromDatabase(final ProfileManager pm,
                                      final User user) {
         try {
@@ -89,6 +124,11 @@ public class UserProfile {
         }
     }
 
+    /**
+     * fetch data from the bound ProfileManager
+     * @param pm profile manager
+     * @param user user for whom we write the profile
+     */
     public void writeToDatabase(final ProfileManager pm,
                                 final User user) {
         try {

@@ -67,6 +67,15 @@ public class RemoteUserManager implements UserManager {
         return rr.getResponseValue("sessionid");
     }
 
+    /**
+     * gets the user type from a post request
+     * TODO abstract away generic protected property fetch
+     * @param email email for auth
+     * @param tok token for auth
+     * @return user type
+     * @throws UserAuthenticationException if auth fails
+     * @throws InvalidDataException if null parameters are passed
+     */
     public String getUserType(final String email,
                               final String tok)
                     throws UserAuthenticationException, InvalidDataException {
@@ -97,6 +106,17 @@ public class RemoteUserManager implements UserManager {
         return rr.getResponseValue("type");
     }
 
+    /**
+     * creates a user
+     * @param un username
+     * @param pw password
+     * @param email email
+     * @param firstname firstname
+     * @param lastname lastname
+     * @param userClass user class
+     * @throws InvalidDataException null parameters
+     * @throws FailedToCreateUserException if there is a duplicate user
+     */
     public final void createUser(final String un,
                                     final String pw,
                                     final String email,

@@ -10,7 +10,7 @@ import javafx.scene.control.Label;
 import org.apache.log4j.Logger;
 
 /**
- *
+ * main screen controller
  */
 public class MainScreenController {
     private static final String VIEW_URI = "/frontpage/view/MainScreen.fxml";
@@ -23,6 +23,9 @@ public class MainScreenController {
         logger = Logger.getLogger(MainScreenController.class.getName());
     }
 
+    /**
+     * creates the view/controller
+     */
     public static void create() {
         try {
             logger.debug("loading view: " + VIEW_URI);
@@ -60,11 +63,17 @@ public class MainScreenController {
         userLabel.setText(null);
     }
 
+    /**
+     * handles profile switch
+     */
     @FXML
     private void handleProfileAction() {
         FXMain.setView("profile");
     }
 
+    /**
+     * handles logout
+     */
     @FXML
     private void handleLogoutAction() {
         logger.trace("Invoke -> LogInBtn::handleLoginAction()");

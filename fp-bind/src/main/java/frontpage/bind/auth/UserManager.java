@@ -18,6 +18,15 @@ public interface UserManager {
     String authenticateUser(final String email, final String tok)
             throws UserAuthenticationException, InvalidDataException;
 
+    /**
+     * fetches user type
+     * TODO probably enumerate for additional requests
+     * @param email email for auth
+     * @param tok auth token
+     * @return type
+     * @throws UserAuthenticationException
+     * @throws InvalidDataException
+     */
     String getUserType(final String email, final String tok)
             throws UserAuthenticationException, InvalidDataException;
 
