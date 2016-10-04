@@ -1,4 +1,4 @@
-package frontpage.backend.user.validator;
+package frontpage.backend.validator;
 
 /**
  * @author willstuckey
@@ -6,7 +6,7 @@ package frontpage.backend.user.validator;
  * <p></p>
  */
 public class DefaultPasswordValidator {
-    public boolean isValidPassword(final char[] pw) {
+    public boolean isValidPassword(final String pw) {
         return true;
     }
 }

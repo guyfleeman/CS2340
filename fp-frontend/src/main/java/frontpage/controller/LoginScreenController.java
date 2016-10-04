@@ -5,6 +5,7 @@ import frontpage.bind.auth.InvalidDataException;
 import frontpage.bind.auth.UserAuthenticationException;
 import frontpage.bind.auth.UserManager;
 import frontpage.model.User;
+import frontpage.model.UserClass;
 import frontpage.utils.DialogueUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -70,14 +71,20 @@ public class LoginScreenController {
         logger.trace("Invoke -> LogInBtn::handleLoginAction()");
         UserManager ua = FXMain.getBackend().getUserManager();
         try {
-            ua.authenticateUser(UNField.getText(), PwdField.getText());
-            FXMain.setUser(new User(UNField.getText(), PwdField.getText()));
-            ((MainScreenController) FXMain.getController("main")).setUserLabel(FXMain.getUser().getUsername());
+            String sessionTok = ua.authenticateUser(UNField.getText(),
+                    PwdField.getText());
+            User u = new User(UNField.getText(), sessionTok);
+            String type = ua.getUserType(u.getEmail(), u.getTok());
+            u.setUserClass(UserClass.valueOf(type));
+            FXMain.setUser(u);
+            FXMain.getUser().loadProfile();
+            ((MainScreenController) FXMain.getController("main"))
+                    .setUserLabel(FXMain.getUser().getEmail() + "[" + u.getUserClass() + "]");
             UNField.clear();
+            PwdField.clear();
             FXMain.setView("main");
         } catch (UserAuthenticationException | InvalidDataException e) {
             DialogueUtils.showMessage("Invalid Login Credentials");
-        } finally {
             PwdField.clear();
         }
     }

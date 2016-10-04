@@ -17,15 +17,26 @@ import java.util.Map;
 /**
  * @author willstuckey
  * @date 10/1/16
- * <p></p>
+ * <p>This class serves as the low level communications layer between our server API and user interface backend
+ * abstractions.</p>
+ *
+ * This class also contains definitions for known API entry points in the form of hosted php scripts.
  */
 public class RESTHandler {
     public static final String ACCOUNT_CREATION_ENTRY_POINT =
             "staging/water/api/create_account.php";
     public static final String ACCOUNT_AUTH_ENTRY_POINT =
             "staging/water/api/authenticate.php";
+    public static final String ACCOUNT_PROFILE_ENTRY_POINT =
+            "staging/water/api/profile.php";
+    public static final String ACCOUNT_USER_ENTRY_POINT =
+            "staging/water/api/user.php";
 
+    /**
+     * default encoding for URL
+     */
     private static final String DEFAULT_ENCODING = "UTF-8";
+
     /**
      * debugs the REST query, never deploy with this set to true
      * as passwords may be logged in plain text
@@ -33,6 +44,9 @@ public class RESTHandler {
     private static final boolean DEBUG_REST = false;
     private static final Logger logger;
 
+    /**
+     * REST actions, standard HTTP request codes
+     */
     public enum RestAction {
         POST,
         GET
@@ -44,11 +58,13 @@ public class RESTHandler {
     }
 
     /**
-     * makes an api request
+     * makes an api request. The API request will be made with an action, GET and POST are supported for now. The
+     * request will be made the a php script, or entry point on the server. The server address is pulled from
+     * global properties. The attribute map contains standard GET maps in the form of Key (published variable), Value.
      * @param action request action
      * @param apiEntryPoint entry point on public facing directory
      * @param attribMap map of attributes
-     * @return success
+     * @return RESTReport detailing types and points of failure, as well as received payload.
      */
     public static synchronized RESTReport apiRequest(final RestAction action,
                                      final String apiEntryPoint,
@@ -94,11 +110,14 @@ public class RESTHandler {
         }
 
         try {
+            logger.trace("Connection Type: " + action.toString());
             HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
             con.setRequestMethod(action.toString());
             con.setRequestProperty("Content-length", String.valueOf(query.length()));
             con.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
             con.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0;Windows98;DigExt)");
+            //con.setConnectTimeout(2000);
+            //con.setReadTimeout(5000);
             con.setDoOutput(true);
             con.setDoInput(true);
 
@@ -125,7 +144,7 @@ public class RESTHandler {
 
             return report;
         } catch (IOException e) {
-            logger.error("failed to open connection", e);
+            logger.error("failed to open connection" + e.getCause().getMessage(), e);
             return new RESTReport(true, e.getMessage());
         }
     }

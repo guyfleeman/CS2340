@@ -1,8 +1,13 @@
 package frontpage.backend;
 
+import frontpage.backend.profile.LocalProfileManager;
+import frontpage.backend.profile.ProfileManagerFactory;
+import frontpage.backend.user.LocalUserManager;
 import frontpage.backend.user.UserManagerFactory;
 import frontpage.bind.Backend;
 import frontpage.bind.auth.UserManager;
+import frontpage.bind.profile.ProfileManagementException;
+import frontpage.bind.profile.ProfileManager;
 import org.apache.log4j.Logger;
 
 /**
@@ -29,12 +34,20 @@ public class LocalBackend implements Backend {
         try {
             logger.info("initializing local user authenticator");
             UserManagerFactory.createInstance("local");
-        } catch (UserManagerFactory.NoSuchUserAuthenticatorException e) {
+            ProfileManagerFactory.createInstance("local");
+        } catch (UserManagerFactory.NoSuchUserAuthenticatorException
+                | ProfileManagementException e) {
             logger.fatal("could not provide backend", e);
         }
     }
 
     public UserManager getUserManager() {
         return UserManagerFactory.getInstance();
+    }
+
+    public ProfileManager getProfileManager() {
+        LocalProfileManager.setLum(
+                (LocalUserManager) UserManagerFactory.getInstance());
+        return ProfileManagerFactory.getInstance();
     }
 }

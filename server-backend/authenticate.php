@@ -84,10 +84,7 @@ try {
 		exit;
 	}
 } catch (PDOException $e) {
-	echo $e->getMessage();
-	//http_response_code(500);
+	http_response_code(500);
 	exit;
 }
-
-$dbcon = null;
 ?>

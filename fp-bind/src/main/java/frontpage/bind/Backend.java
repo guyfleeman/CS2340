@@ -1,6 +1,7 @@
 package frontpage.bind;
 
 import frontpage.bind.auth.UserManager;
+import frontpage.bind.profile.ProfileManager;
 
 /**
  * @author willstuckey
@@ -9,4 +10,6 @@ import frontpage.bind.auth.UserManager;
  */
 public interface Backend {
     UserManager getUserManager();
+
+    ProfileManager getProfileManager();
 }

@@ -33,7 +33,7 @@ public final class UserManagerFactory {
         logger = Logger.getLogger(UserManagerFactory.class);
         logger.setLevel(Level.ALL);
         userAuthenticatorMap = new HashMap<>();
-        userAuthenticatorMap.put("remote", RESTUserManager.class);
+        userAuthenticatorMap.put("remote", RemoteUserManager.class);
         logger.trace("Added map <\"remote\", "
                 + "frontpage.backend.auth.RESTUserManager>");
         userAuthenticatorMap.put("local", LocalUserManager.class);

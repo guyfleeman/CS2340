@@ -12,14 +12,14 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.102-ea" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.45" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <VBox prefHeight="86.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <AnchorPane prefHeight="90.0" prefWidth="600.0">
                <children>
                   <TextField fx:id="UNField" layoutX="195.0" layoutY="14.0" prefHeight="25.0" prefWidth="304.0" />
-                  <Label layoutX="111.0" layoutY="19.0" style="-fx-background-color: inherit;" text="Username:" />
+                  <Label layoutX="139.0" layoutY="19.0" prefHeight="16.0" prefWidth="55.0" style="-fx-background-color: inherit;" text="Email:" />
                   <PasswordField fx:id="PwdField" layoutX="194.0" layoutY="48.0" prefHeight="25.0" prefWidth="305.0" />
                   <Label layoutX="114.0" layoutY="53.0" text="Password:" />
                   <Button fx:id="LogInBtn" defaultButton="true" layoutX="510.0" layoutY="48.0" mnemonicParsing="false" onAction="#handleLoginAction" text="Log In" />

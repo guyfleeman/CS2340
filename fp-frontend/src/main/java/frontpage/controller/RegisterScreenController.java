@@ -2,6 +2,10 @@ package frontpage.controller;
 
 import frontpage.FXMain;
 
+import frontpage.bind.auth.FailedToCreateUserException;
+import frontpage.bind.auth.InvalidDataException;
+import frontpage.bind.auth.UserManager;
+import frontpage.utils.DialogueUtils;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +15,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.apache.log4j.Logger;
 import javafx.scene.control.ComboBox;
+import org.omg.CORBA.DynAnyPackage.Invalid;
 
 import java.util.LinkedList;
 
@@ -60,6 +65,9 @@ public class RegisterScreenController {
     }
 
 
+    /**
+     * initialize requires body for combo box
+     */
     @FXML
     @SuppressWarnings("unchecked")
     public void initialize() {
@@ -73,16 +81,69 @@ public class RegisterScreenController {
 
     @FXML
     private void handleCancelAction() {
-        System.out.println("im here");
         registerEmailField.clear();
         registerUNField.clear();
-        registerPwdField.clear();
-        confirmRegisterPwdField.clear();
+        clearPasswordFields();
         FXMain.setView("welcome");
     }
 
+    /**
+     * handles form validation and processing delgation for create user
+     *
+     * TODO at some point this should be threaded
+     */
     @FXML
     private void handleConfirmAction() {
+        String email = registerEmailField.getText();
+        String username = registerUNField.getText();
+        String password = registerPwdField.getText();
+        String confirmPassword = confirmRegisterPwdField.getText();
+        String type = (String) userTypeBox.getValue();
+        if (email == null || email.length() == 0) {
+            DialogueUtils.showMessage("Email field must be filled.");
+            clearPasswordFields();
+            return;
+        }
+
+        if (username == null || username.length() == 0) {
+            DialogueUtils.showMessage("Username field must be filled.");
+            clearPasswordFields();
+            return;
+        }
+
+        if (type == null || type.length() == 0) {
+            DialogueUtils.showMessage("Type must be selected.");
+            clearPasswordFields();
+            return;
+        }
+
+        if (password.equals(confirmPassword)) {
+            UserManager um = FXMain.getBackend().getUserManager();
+            try {
+                um.createUser(username, password, email, "none", "none", type);
+                DialogueUtils.showMessage("Account created successfully.");
+                registerEmailField.clear();
+                registerUNField.clear();
+                clearPasswordFields();
+                FXMain.setView("welcome");
+                return;
+            } catch (InvalidDataException e) {
+                DialogueUtils.showMessage("Account creation failed: " + e.getMessage());
+            } catch (FailedToCreateUserException e) {
+                DialogueUtils.showMessage("Account creation failed: " + e.getMessage());
+            }
+        } else {
+            DialogueUtils.showMessage("Passwords do not match.");
+        }
+
+        clearPasswordFields();
     }
 
+    /**
+     * helper method to clear passwords fields
+     */
+    private void clearPasswordFields() {
+        registerPwdField.clear();
+        confirmRegisterPwdField.clear();
+    }
 }

@@ -112,6 +112,8 @@ public class RESTReport {
                     value += kvPair[i];
                 }
                 map.put(kvPair[0], value);
+            } else if (kvPair.length == 1) {
+                map.put(kvPair[0], "");
             }
         }
     }

@@ -4,7 +4,10 @@ import frontpage.bind.auth.InvalidCredentialsException;
 import frontpage.bind.auth.InvalidDataException;
 import frontpage.bind.auth.UserAuthenticationException;
 import frontpage.bind.auth.UserManager;
+import frontpage.model.User;
+import frontpage.model.UserClass;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -12,11 +15,13 @@ import java.util.Arrays;
  * <p></p>
  */
 public final class LocalUserManager implements UserManager {
+    private ArrayList<User> users;
+
     /**
      * local constructor
      */
     LocalUserManager() {
-
+        users = new ArrayList<>();
     }
 
     /**
@@ -28,20 +33,74 @@ public final class LocalUserManager implements UserManager {
      */
     public String authenticateUser(final String un, final String pw)
             throws UserAuthenticationException {
-        if (un.equals("user") && pw.equals("pass")) {
-            return "";
+        if (un == null || pw == null) {
+            throw new InvalidCredentialsException(
+                    "the provided credentials were null");
+        }
+
+        for (User u : users) {
+            if (u.getEmail().equalsIgnoreCase(un)
+                    && u.getTok().equals(pw)) {
+                return u.getTok();
+            }
         }
 
         throw new InvalidCredentialsException(
                 "the provided credentials did not exist or were invalid");
     }
 
-    public boolean createUser(final String un,
-                              final char[] pw,
+    /**
+     * gets the user type
+     * @param email email
+     * @param tok auth token
+     * @return type
+     * @throws UserAuthenticationException
+     * @throws InvalidDataException
+     */
+    public String getUserType(final String email,
+                              final String tok)
+        throws UserAuthenticationException, InvalidDataException {
+        if (email == null || tok == null) {
+            throw new InvalidDataException("auth not provided");
+        }
+
+        for (User u : users) {
+            if (u.getEmail().equalsIgnoreCase(email)
+                    && u.getTok().equals(tok)) {
+                return u.getUserClass().toString();
+            }
+        }
+
+        throw new UserAuthenticationException("invalid credentials");
+    }
+
+    /**
+     * creates user
+     * @param un username
+     * @param pw password
+     * @param email email
+     * @param firstname firstname
+     * @param lastname lastname
+     * @param type type
+     * @throws InvalidDataException
+     */
+    public void createUser(final String un,
+                              final String pw,
                               final String email,
                               final String firstname,
-                              final String lastname)
+                              final String lastname,
+                              final String type)
             throws InvalidDataException {
-        return false;
+        for (User u : users ) {
+            if (u.getEmail().equalsIgnoreCase(email)) {
+                throw new InvalidDataException("user already taken");
+            }
+        }
+
+        users.add(new User(email, pw, un, UserClass.valueOf(type)));
+    }
+
+    public ArrayList<User> getUsers() {
+        return users;
     }
 }

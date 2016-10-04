@@ -19,15 +19,27 @@ public interface UserManager {
             throws UserAuthenticationException, InvalidDataException;
 
     /**
+     * fetches user type
+     * TODO probably enumerate for additional requests
+     * @param email email for auth
+     * @param tok auth token
+     * @return type
+     * @throws UserAuthenticationException
+     * @throws InvalidDataException
+     */
+    String getUserType(final String email, final String tok)
+            throws UserAuthenticationException, InvalidDataException;
+
+    /**
      * creates a user
      * @param un username
      * @param pw password
      * @param email email
      * @param firstname firstname
      * @param lastname lastname
-     * @return success
      * @throws InvalidDataException
      */
-    boolean createUser(String un, char[] pw, String email, String firstname,
-                       String lastname) throws InvalidDataException;
+    void createUser(final String un, final String pw, final String email,
+                       final String firstname, final String lastname, final String userClass)
+            throws InvalidDataException, FailedToCreateUserException;
 }
