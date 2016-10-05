@@ -1,11 +1,11 @@
-package frontpage.bind.auth;
+package frontpage.bind.errorhandling;
 
 /**
  * @author willstuckey
  * @date 10/1/16
  * <p></p>
  */
-public class InvalidDataException extends Exception {
+public class InvalidDataException extends BackendRequestException {
     public InvalidDataException() {
         super();
     }

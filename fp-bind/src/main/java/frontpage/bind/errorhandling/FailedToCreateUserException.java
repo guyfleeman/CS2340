@@ -1,11 +1,11 @@
-package frontpage.bind.auth;
+package frontpage.bind.errorhandling;
 
 /**
  * @author willstuckey
  * @date 10/3/16
  * <p></p>
  */
-public class FailedToCreateUserException extends Exception {
+public class FailedToCreateUserException extends BackendRequestException {
     public FailedToCreateUserException() {
         super();
     }

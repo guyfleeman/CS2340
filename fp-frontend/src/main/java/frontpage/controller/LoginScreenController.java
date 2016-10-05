@@ -1,8 +1,8 @@
 package frontpage.controller;
 
 import frontpage.FXMain;
-import frontpage.bind.auth.InvalidDataException;
-import frontpage.bind.auth.UserAuthenticationException;
+import frontpage.bind.errorhandling.InvalidDataException;
+import frontpage.bind.errorhandling.AuthenticationException;
 import frontpage.bind.auth.UserManager;
 import frontpage.model.User;
 import frontpage.model.UserClass;
@@ -83,7 +83,7 @@ public class LoginScreenController {
             UNField.clear();
             PwdField.clear();
             FXMain.setView("main");
-        } catch (UserAuthenticationException | InvalidDataException e) {
+        } catch (AuthenticationException | InvalidDataException e) {
             DialogueUtils.showMessage("Invalid Login Credentials");
             PwdField.clear();
         }

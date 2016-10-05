@@ -2,8 +2,8 @@ package frontpage.controller;
 
 import frontpage.FXMain;
 
-import frontpage.bind.auth.FailedToCreateUserException;
-import frontpage.bind.auth.InvalidDataException;
+import frontpage.bind.errorhandling.FailedToCreateUserException;
+import frontpage.bind.errorhandling.InvalidDataException;
 import frontpage.bind.auth.UserManager;
 import frontpage.utils.DialogueUtils;
 import javafx.collections.FXCollections;
@@ -15,7 +15,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.apache.log4j.Logger;
 import javafx.scene.control.ComboBox;
-import org.omg.CORBA.DynAnyPackage.Invalid;
 
 import java.util.LinkedList;
 

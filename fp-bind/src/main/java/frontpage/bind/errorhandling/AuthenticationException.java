@@ -1,15 +1,15 @@
-package frontpage.bind.auth;
+package frontpage.bind.errorhandling;
 
 /**
  * @author willstuckey
  * <p></p>
  */
-public class UserAuthenticationException extends Exception {
+public class AuthenticationException extends BackendRequestException {
     /**
      * default constructor
      * @param message message
      */
-    public UserAuthenticationException(final String message) {
+    public AuthenticationException(final String message) {
         super(message);
     }
 }

@@ -1,14 +1,12 @@
 package frontpage.backend.user;
 
-import frontpage.bind.auth.InvalidCredentialsException;
-import frontpage.bind.auth.InvalidDataException;
-import frontpage.bind.auth.UserAuthenticationException;
+import frontpage.bind.errorhandling.InvalidDataException;
+import frontpage.bind.errorhandling.AuthenticationException;
 import frontpage.bind.auth.UserManager;
 import frontpage.model.User;
 import frontpage.model.UserClass;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * @author willstuckey
@@ -29,15 +27,10 @@ public final class LocalUserManager implements UserManager {
      * @param un username
      * @param pw password
      * @return success
-     * @throws UserAuthenticationException if failure
+     * @throws AuthenticationException if failure
      */
     public String authenticateUser(final String un, final String pw)
-            throws UserAuthenticationException {
-        if (un == null || pw == null) {
-            throw new InvalidCredentialsException(
-                    "the provided credentials were null");
-        }
-
+            throws AuthenticationException {
         for (User u : users) {
             if (u.getEmail().equalsIgnoreCase(un)
                     && u.getTok().equals(pw)) {
@@ -45,8 +38,7 @@ public final class LocalUserManager implements UserManager {
             }
         }
 
-        throw new InvalidCredentialsException(
-                "the provided credentials did not exist or were invalid");
+        throw new AuthenticationException("the username and password didn't match any users");
     }
 
     /**
@@ -54,12 +46,12 @@ public final class LocalUserManager implements UserManager {
      * @param email email
      * @param tok auth token
      * @return type
-     * @throws UserAuthenticationException
+     * @throws AuthenticationException
      * @throws InvalidDataException
      */
     public String getUserType(final String email,
                               final String tok)
-        throws UserAuthenticationException, InvalidDataException {
+        throws AuthenticationException, InvalidDataException {
         if (email == null || tok == null) {
             throw new InvalidDataException("auth not provided");
         }
@@ -71,7 +63,7 @@ public final class LocalUserManager implements UserManager {
             }
         }
 
-        throw new UserAuthenticationException("invalid credentials");
+        throw new AuthenticationException("invalid credentials");
     }
 
     /**
