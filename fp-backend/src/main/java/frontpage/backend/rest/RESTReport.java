@@ -47,11 +47,15 @@ public class RESTReport {
     }
 
     public boolean success() {
-        return !rejected() && responseValues.get("status").contains("success");
+        return !wasInternalError()
+                && !rejected()
+                && responseValues.get("status") != null
+                && responseValues.get("status").contains("success");
     }
 
     public boolean rejected() {
-        return internalError || httpResponseCode >= 300;
+        return !wasInternalError()
+        && httpResponseCode >= 300;
     }
 
     public boolean wasInternalError() {

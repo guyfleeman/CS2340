@@ -1,6 +1,6 @@
 package frontpage.backend.user;
 
-import frontpage.bind.auth.InvalidDataException;
+import frontpage.bind.errorhandling.InvalidDataException;
 
 /**
  * @author willstuckey

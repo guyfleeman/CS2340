@@ -1,5 +1,9 @@
 package frontpage.bind.auth;
 
+import frontpage.bind.errorhandling.AuthenticationException;
+import frontpage.bind.errorhandling.BackendRequestException;
+import frontpage.bind.errorhandling.InvalidDataException;
+
 /**
  * @author willstuckey
  * <p></p>
@@ -11,12 +15,11 @@ public interface UserManager {
      * @param tok any token capable of authenticating the email
      * @return if security context is valid, tok for future auth
      *         if security context is invalid, empty string
-     * @throws InvalidCredentialsException if credentials are invalid
-     * @throws UserAuthenticationException if other errors occur while trying
+     * @throws AuthenticationException if other errors occur while trying
      *                                     to authenticate credentials
      */
     String authenticateUser(final String email, final String tok)
-            throws UserAuthenticationException, InvalidDataException;
+            throws BackendRequestException;
 
     /**
      * fetches user type
@@ -24,11 +27,11 @@ public interface UserManager {
      * @param email email for auth
      * @param tok auth token
      * @return type
-     * @throws UserAuthenticationException
+     * @throws AuthenticationException
      * @throws InvalidDataException
      */
     String getUserType(final String email, final String tok)
-            throws UserAuthenticationException, InvalidDataException;
+            throws BackendRequestException;
 
     /**
      * creates a user
@@ -41,5 +44,5 @@ public interface UserManager {
      */
     void createUser(final String un, final String pw, final String email,
                        final String firstname, final String lastname, final String userClass)
-            throws InvalidDataException, FailedToCreateUserException;
+            throws BackendRequestException;
 }

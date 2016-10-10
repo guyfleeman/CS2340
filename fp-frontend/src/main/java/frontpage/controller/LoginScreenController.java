@@ -1,8 +1,9 @@
 package frontpage.controller;
 
 import frontpage.FXMain;
-import frontpage.bind.auth.InvalidDataException;
-import frontpage.bind.auth.UserAuthenticationException;
+import frontpage.bind.errorhandling.BackendRequestException;
+import frontpage.bind.errorhandling.InvalidDataException;
+import frontpage.bind.errorhandling.AuthenticationException;
 import frontpage.bind.auth.UserManager;
 import frontpage.model.User;
 import frontpage.model.UserClass;
@@ -83,11 +84,15 @@ public class LoginScreenController {
             UNField.clear();
             PwdField.clear();
             FXMain.setView("main");
-        } catch (UserAuthenticationException | InvalidDataException e) {
-            DialogueUtils.showMessage("Invalid Login Credentials");
+        } catch (AuthenticationException e) {
+            DialogueUtils.showMessage("The provided credentials were invalid: " + e.getMessage());
+            PwdField.clear();
+        } catch (BackendRequestException e) {
+            DialogueUtils.showMessage("A error occurred on the backend: " + e.getMessage());
             PwdField.clear();
         } catch (Throwable t) {
-            DialogueUtils.showMessage("Unexpected Internal Error.\r\n\r\n" + t.getMessage());
+            DialogueUtils.showMessage("A runtime error has occurred in the handleLoginAction() method");
+            t.printStackTrace();
         }
     }
 

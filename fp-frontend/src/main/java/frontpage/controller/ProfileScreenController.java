@@ -1,22 +1,14 @@
 package frontpage.controller;
 
 import frontpage.FXMain;
-import frontpage.bind.auth.FailedToCreateUserException;
-import frontpage.bind.auth.InvalidDataException;
-import frontpage.bind.auth.UserManager;
 import frontpage.model.UserProfile;
 import frontpage.utils.DialogueUtils;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.apache.log4j.Logger;
-
-import java.util.LinkedList;
 
 /**
  * Created by Devan on 10/1/2016.
