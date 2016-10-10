@@ -192,6 +192,9 @@ public class RemoteUserManager implements UserManager {
         }
 
         if (!rr.success()) {
+            if (rr.getResponseValues().get("message").contains("credentials")) {
+                throw new AuthenticationException("matching account not found");
+            }
             throw new BackendRequestException("the request was unsuccessful: " + rr.getResponseValue("message"));
         }
     }

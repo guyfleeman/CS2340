@@ -2,6 +2,7 @@ package frontpage.controller;
 
 import frontpage.FXMain;
 
+import frontpage.bind.errorhandling.BackendRequestException;
 import frontpage.bind.errorhandling.FailedToCreateUserException;
 import frontpage.bind.errorhandling.InvalidDataException;
 import frontpage.bind.auth.UserManager;
@@ -126,10 +127,10 @@ public class RegisterScreenController {
                 clearPasswordFields();
                 FXMain.setView("welcome");
                 return;
-            } catch (InvalidDataException e) {
-                DialogueUtils.showMessage("Account creation failed: " + e.getMessage());
-            } catch (FailedToCreateUserException e) {
-                DialogueUtils.showMessage("Account creation failed: " + e.getMessage());
+            } catch (BackendRequestException e) {
+                DialogueUtils.showMessage("Account creation failed (" + e.getClass() + "): " + e.getMessage());
+            } catch (Throwable e) {
+                DialogueUtils.showMessage("A runtime error has occurred in the handleConfirmAction method");
             }
         } else {
             DialogueUtils.showMessage("Passwords do not match.");
