@@ -175,7 +175,7 @@ public class RemoteUserManager implements UserManager {
     protected void delegateExceptionGeneration(final RESTReport rr)
             throws BackendRequestException {
         if (rr.wasInternalError()) {
-            throw new BackendRequestException("internal error during user creation");
+            throw new BackendRequestException("internal error during user creation: " + rr.getInternalErrorMessage());
         }
 
         if (rr.rejected()) {
