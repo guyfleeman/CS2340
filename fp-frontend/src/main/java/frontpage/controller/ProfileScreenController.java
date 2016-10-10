@@ -2,6 +2,7 @@ package frontpage.controller;
 
 import frontpage.FXMain;
 import frontpage.model.UserProfile;
+import frontpage.utils.DialogueUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
