@@ -89,7 +89,6 @@ public class ProfileScreenController implements Updatable {
 
     @FXML
     private void handleUpdateAction() {
-        System.out.println("here");
         UserProfile up = FXMain.getUser().getUserProfile();
         up.setAddress(addressField.getText());
         up.setCity(cityField.getText());
@@ -97,6 +96,8 @@ public class ProfileScreenController implements Updatable {
         up.setZip(zipField.getText());
         up.setTitle(titleField.getText());
         FXMain.getUser().storeProfile();
+        DialogueUtils.showMessage("Profile Updated!");
+        FXMain.setView("main");
     }
 
 }
