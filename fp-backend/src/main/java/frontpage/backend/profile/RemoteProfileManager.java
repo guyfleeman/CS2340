@@ -38,7 +38,7 @@ public class RemoteProfileManager implements ProfileManager {
             throw new ProfileManagementException(rr.getResponseValue("message"));
         }
 
-        Map<String, String> ret = new HashMap<>(rr.getResponseValues());
+        Map<String, String> ret = new HashMap<>(rr.getSingleResponseMap());
         for (String s : ret.keySet()) {
             if (ret.get(s) == null
                     || ret.get(s).length() == 0
