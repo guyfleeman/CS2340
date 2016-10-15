@@ -2,11 +2,10 @@ package frontpage.controller;
 
 import frontpage.FXMain;
 import frontpage.bind.errorhandling.BackendRequestException;
-import frontpage.bind.errorhandling.InvalidDataException;
 import frontpage.bind.errorhandling.AuthenticationException;
-import frontpage.bind.auth.UserManager;
-import frontpage.model.User;
-import frontpage.model.UserClass;
+import frontpage.bind.user.UserManager;
+import frontpage.model.user.User;
+import frontpage.model.user.UserClass;
 import frontpage.utils.DialogueUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

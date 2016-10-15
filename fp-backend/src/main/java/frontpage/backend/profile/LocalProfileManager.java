@@ -1,10 +1,10 @@
 package frontpage.backend.profile;
 
 import frontpage.backend.user.LocalUserManager;
-import frontpage.bind.profile.ProfileManagementException;
+import frontpage.bind.errorhandling.ProfileManagementException;
 import frontpage.bind.profile.ProfileManager;
-import frontpage.model.User;
-import frontpage.model.UserProfile;
+import frontpage.model.user.User;
+import frontpage.model.user.UserProfile;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -3,9 +3,7 @@ package frontpage.controller;
 import frontpage.FXMain;
 
 import frontpage.bind.errorhandling.BackendRequestException;
-import frontpage.bind.errorhandling.FailedToCreateUserException;
-import frontpage.bind.errorhandling.InvalidDataException;
-import frontpage.bind.auth.UserManager;
+import frontpage.bind.user.UserManager;
 import frontpage.utils.DialogueUtils;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;

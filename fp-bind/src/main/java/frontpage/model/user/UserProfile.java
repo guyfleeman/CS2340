@@ -1,6 +1,6 @@
-package frontpage.model;
+package frontpage.model.user;
 
-import frontpage.bind.profile.ProfileManagementException;
+import frontpage.bind.errorhandling.ProfileManagementException;
 import frontpage.bind.profile.ProfileManager;
 import frontpage.utils.DialogueUtils;
 

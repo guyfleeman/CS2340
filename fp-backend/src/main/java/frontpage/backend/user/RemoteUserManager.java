@@ -9,8 +9,8 @@ import frontpage.bind.errorhandling.BackendRequestException;
 import frontpage.bind.errorhandling.FailedToCreateUserException;
 import frontpage.bind.errorhandling.InvalidDataException;
 import frontpage.bind.errorhandling.AuthenticationException;
-import frontpage.bind.auth.UserManager;
-import frontpage.model.User;
+import frontpage.bind.user.UserManager;
+import frontpage.model.user.User;
 import org.apache.log4j.Logger;
 
 import java.util.HashMap;

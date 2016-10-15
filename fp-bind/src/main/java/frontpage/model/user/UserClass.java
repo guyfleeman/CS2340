@@ -1,4 +1,4 @@
-package frontpage.model;
+package frontpage.model.user;
 
 /**
  * @author willstuckey

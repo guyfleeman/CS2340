@@ -9,7 +9,7 @@ import frontpage.controller.ProfileScreenController;
 import frontpage.controller.RegisterScreenController;
 import frontpage.controller.Updatable;
 import frontpage.controller.WelcomeScreenController;
-import frontpage.model.User;
+import frontpage.model.user.User;
 import frontpage.utils.DialogueUtils;
 import frontpage.utils.SceneControllerEntry;
 import javafx.application.Application;

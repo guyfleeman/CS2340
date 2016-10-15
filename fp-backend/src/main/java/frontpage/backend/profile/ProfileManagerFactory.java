@@ -1,6 +1,6 @@
 package frontpage.backend.profile;
 
-import frontpage.bind.profile.ProfileManagementException;
+import frontpage.bind.errorhandling.ProfileManagementException;
 import frontpage.bind.profile.ProfileManager;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;

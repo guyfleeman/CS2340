@@ -5,8 +5,9 @@ import frontpage.backend.profile.ProfileManagerFactory;
 import frontpage.backend.user.LocalUserManager;
 import frontpage.backend.user.UserManagerFactory;
 import frontpage.bind.Backend;
-import frontpage.bind.auth.UserManager;
-import frontpage.bind.profile.ProfileManagementException;
+import frontpage.bind.report.ReportManager;
+import frontpage.bind.user.UserManager;
+import frontpage.bind.errorhandling.ProfileManagementException;
 import frontpage.bind.profile.ProfileManager;
 import org.apache.log4j.Logger;
 
@@ -49,5 +50,9 @@ public class LocalBackend implements Backend {
         LocalProfileManager.setLum(
                 (LocalUserManager) UserManagerFactory.getInstance());
         return ProfileManagerFactory.getInstance();
+    }
+
+    public ReportManager getReportManager() {
+        return null;
     }
 }

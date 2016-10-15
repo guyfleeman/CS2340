@@ -1,7 +1,7 @@
 package frontpage.controller;
 
 import frontpage.FXMain;
-import frontpage.model.UserProfile;
+import frontpage.model.user.UserProfile;
 import frontpage.utils.DialogueUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -71,6 +71,8 @@ public class ProfileScreenController implements Updatable {
             zipField.setText(up.getZip());
             titleField.setText(up.getTitle());
         }
+
+
     }
 
     @FXML

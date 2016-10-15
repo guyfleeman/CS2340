@@ -31,6 +31,8 @@ public class RESTHandler {
             "staging/water/api/profile.php";
     public static final String ACCOUNT_USER_ENTRY_POINT =
             "staging/water/api/user.php";
+    public static final String REPORT_ENTRY_POINT =
+            "staging/water/api/report.php";
 
     /**
      * default encoding for URL

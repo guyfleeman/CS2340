@@ -2,9 +2,9 @@ package frontpage.backend.user;
 
 import frontpage.bind.errorhandling.InvalidDataException;
 import frontpage.bind.errorhandling.AuthenticationException;
-import frontpage.bind.auth.UserManager;
-import frontpage.model.User;
-import frontpage.model.UserClass;
+import frontpage.bind.user.UserManager;
+import frontpage.model.user.User;
+import frontpage.model.user.UserClass;
 
 import java.util.ArrayList;
 
