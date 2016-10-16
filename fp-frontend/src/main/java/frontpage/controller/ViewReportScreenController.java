@@ -7,8 +7,8 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import org.apache.log4j.Logger;
-
 import javax.swing.table.TableColumn;
+
 
 /**
  * Created by Devan on 10/16/2016.
@@ -18,7 +18,7 @@ public class ViewReportScreenController {
 
     private static Logger logger;
     private static Parent root;
-    private static frontpage.controller.ViewReportScreenController viewController;
+    private static frontpage.controller.ViewReportScreenController viewReportsController;
 
     static {
         logger = Logger.getLogger(frontpage.controller.ViewReportScreenController.class.getName());
@@ -29,8 +29,8 @@ public class ViewReportScreenController {
         try {
             logger.debug("loading view: " + VIEW_URI);
             FXMLLoader loader = new FXMLLoader(FXMain.class.getResource(VIEW_URI));
-            viewController = new frontpage.controller.ViewReportScreenController();
-            loader.setController(viewController);
+            viewReportsController = new frontpage.controller.ViewReportScreenController();
+            loader.setController(viewReportsController);
             root = loader.load();
         } catch (Exception e) {
             logger.error("failed to load view", e);
@@ -38,7 +38,7 @@ public class ViewReportScreenController {
     }
 
     public static Parent getRoot() { return root; }
-    public static frontpage.controller.ViewReportScreenController getViewReportController() {return viewController; }
+    public static frontpage.controller.ViewReportScreenController getViewReportController() {return viewReportsController; }
 
 
     @FXML private TableView viewReportsTable;
