@@ -3,12 +3,7 @@ package frontpage;
 import frontpage.backend.LocalBackend;
 import frontpage.backend.RemoteBackend;
 import frontpage.bind.Backend;
-import frontpage.controller.LoginScreenController;
-import frontpage.controller.MainScreenController;
-import frontpage.controller.ProfileScreenController;
-import frontpage.controller.RegisterScreenController;
-import frontpage.controller.Updatable;
-import frontpage.controller.WelcomeScreenController;
+import frontpage.controller.*;
 import frontpage.model.User;
 import frontpage.utils.DialogueUtils;
 import frontpage.utils.SceneControllerEntry;
@@ -118,6 +113,22 @@ public class FXMain extends Application {
                 ProfileScreenController.getRegisterController()
         );
         viewSceneMap.put("profile", psc);
+
+        SubmitWaterSourceReportController.create();
+        SceneControllerEntry<SubmitWaterSourceReportController> swsr = new SceneControllerEntry<>(
+                new Scene(SubmitWaterSourceReportController.getRoot(), RES_WIDTH, RES_HEIGHT),
+                SubmitWaterSourceReportController.getSourceReportController()
+        );
+        viewSceneMap.put("Submit source report", swsr);
+
+        SubmitWaterPurityReportController.create();
+        SceneControllerEntry<SubmitWaterPurityReportController> swpr = new SceneControllerEntry<>(
+                new Scene(SubmitWaterPurityReportController.getRoot(), RES_WIDTH, RES_HEIGHT),
+                SubmitWaterPurityReportController.getPurityReportController()
+        );
+        viewSceneMap.put("Submit purity report", swpr);
+
+
 
         setView("welcome");
         primaryStage.show();
