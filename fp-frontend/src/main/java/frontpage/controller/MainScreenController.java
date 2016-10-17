@@ -49,6 +49,8 @@ public class MainScreenController {
     @FXML private Label userLabel;
     @FXML private Button profileBtn;
     @FXML private Button logOutBtn;
+    @FXML private Button createSourceReport;
+    @FXML private Button viewSourceReports;
 
     private MainScreenController() {
 
@@ -81,5 +83,15 @@ public class MainScreenController {
         userLabel.setText(null);
         DialogueUtils.showMessage("You have been logged out.");
         FXMain.setView("welcome");
+    }
+
+    @FXML
+    private void handleCreateSourceReportSwitch() {
+        FXMain.setView("createsourcerpt");
+    }
+
+    @FXML
+    private void handleViewSourceReportsSwitch() {
+
     }
 }

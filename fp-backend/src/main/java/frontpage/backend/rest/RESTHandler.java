@@ -128,11 +128,13 @@ public class RESTHandler {
             conOutput.close();
 
             String responsePayload = "";
-            DataInputStream conInput = new DataInputStream(con.getInputStream());
-            for(int c = conInput.read(); c != -1; c = conInput.read()) {
-                responsePayload += (char) c;
+            if (!HTTPCodes.isError(con.getResponseCode())) {
+                DataInputStream conInput = new DataInputStream(con.getInputStream());
+                for (int c = conInput.read(); c != -1; c = conInput.read()) {
+                    responsePayload += (char) c;
+                }
+                conInput.close();
             }
-            conInput.close();
             logger.trace("Return Data: \r\n\r\n" + responsePayload);
             RESTReport report = new RESTReport(con.getResponseCode(), con.getResponseMessage(), responsePayload);
             logger.trace("Response Code:" + report.getHttpResponseCode());

@@ -1,4 +1,4 @@
-package frontpage.model;
+package frontpage.model.report;
 
 /**
  * Created by George on 10/15/2016.

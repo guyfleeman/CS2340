@@ -3,6 +3,7 @@ package frontpage;
 import frontpage.backend.LocalBackend;
 import frontpage.backend.RemoteBackend;
 import frontpage.bind.Backend;
+import frontpage.controller.CreateSourceReportController;
 import frontpage.controller.LoginScreenController;
 import frontpage.controller.MainScreenController;
 import frontpage.controller.ProfileScreenController;
@@ -118,6 +119,12 @@ public class FXMain extends Application {
                 ProfileScreenController.getRegisterController()
         );
         viewSceneMap.put("profile", psc);
+
+        CreateSourceReportController.create();
+        SceneControllerEntry<CreateSourceReportController> csrc = new SceneControllerEntry<>(
+                new Scene(CreateSourceReportController.getRoot(), RES_WIDTH, RES_HEIGHT),
+                CreateSourceReportController.getCreateSourceReportController());
+        viewSceneMap.put("createsourcerpt", csrc);
 
         setView("welcome");
         primaryStage.show();

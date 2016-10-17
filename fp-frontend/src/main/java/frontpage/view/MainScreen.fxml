@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.LinearGradient?>
 <?import javafx.scene.paint.Stop?>
@@ -12,19 +13,45 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.45" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <VBox prefHeight="86.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="86.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane prefHeight="90.0" prefWidth="600.0">
-               <children>
-                  <Button fx:id="logOutBtn" defaultButton="true" layoutX="265.0" layoutY="50.0" mnemonicParsing="false" onAction="#handleLogoutAction" text="Log Out" />
-                  <Label fx:id="userLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="108.0" layoutY="20.0" prefHeight="16.0" prefWidth="389.0" textAlignment="CENTER" />
-                  <Button fx:id="profileBtn" layoutX="271.0" layoutY="90.0" mnemonicParsing="false" onAction="#handleProfileAction" text="Profile" />
-               </children>
+            <Label fx:id="userLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="16.0" prefWidth="389.0" textAlignment="CENTER">
                <VBox.margin>
-                  <Insets />
+                  <Insets bottom="10.0" />
                </VBox.margin>
-            </AnchorPane>
+            </Label>
+            <Button fx:id="logOutBtn" defaultButton="true" mnemonicParsing="false" onAction="#handleLogoutAction" text="Log Out">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin></Button>
+            <Button fx:id="profileBtn" mnemonicParsing="false" onAction="#handleProfileAction" text="Profile">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin></Button>
+            <HBox alignment="CENTER" prefHeight="48.0" prefWidth="600.0">
+               <children>
+                  <Button fx:id="createSourceReport" mnemonicParsing="false" onAction="#handleCreateSourceReportSwitch" text="Create Source Report" />
+                  <Button fx:id="viewSourceReports" mnemonicParsing="false" onAction="#handleViewSourceReportSwitch" text="View Source Reports">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="600.0">
+               <children>
+                  <Button mnemonicParsing="false" text="Create Quality Report" />
+                  <Button mnemonicParsing="false" text="View Quality Reports">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
          </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
       </VBox>
    </center>
    <bottom>
