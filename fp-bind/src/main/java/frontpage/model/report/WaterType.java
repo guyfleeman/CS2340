@@ -9,5 +9,6 @@ public enum WaterType {
     STREAM,
     LAKE,
     SPRING,
-    OTHER
+    OTHER,
+    UNAVAILABLE
 }

@@ -78,8 +78,8 @@ public class CreateSourceReportController implements Updatable {
 
         reportID.setDisable(true);
         submitter.setDisable(true);
-        type.setValue(WaterType.BOTTLED);
-        condition.setValue(WaterCondition.WASTE);
+        type.setValue(WaterType.UNAVAILABLE);
+        condition.setValue(WaterCondition.UNAVAILABLE);
         date.setDisable(true);
     }
 
@@ -110,22 +110,29 @@ public class CreateSourceReportController implements Updatable {
             return false;
         }
 
-        reportID.setText(activeReport.getReportid());
-        submitter.setText(activeReport.getUsername());
-        title.setText(activeReport.getTitle());
-        loc.setText(activeReport.getLoc());
-        WaterType wt = activeReport.getType();
-        if (wt != null) {
-            type.setValue(wt);
+        try {
+            System.out.println("-------------------------------------------");
+            System.out.println(activeReport);
+            reportID.setText(activeReport.getReportid());
+            submitter.setText(activeReport.getUsername());
+            title.setText(activeReport.getTitle());
+            loc.setText(activeReport.getLoc());
+            WaterType wt = activeReport.getType();
+            if (wt != null) {
+                type.setValue(wt);
+            }
+            WaterCondition wc = activeReport.getCondition();
+            if (wc != null) {
+                condition.setValue(wc);
+            }
+            date.setText(activeReport.getReportTime().getMonthValue() + "/"
+                    + activeReport.getReportTime().getDayOfMonth() + "/"
+                    + activeReport.getReportTime().getYear());
+            description.setText(activeReport.getDescription());
+        } catch (Exception e) {
+            DialogueUtils.showMessage(e.getClass() + ", " + e.getMessage() + ", " + e.getCause());
+            e.printStackTrace();
         }
-        WaterCondition wc = activeReport.getCondition();
-        if (wc != null) {
-            condition.setValue(wc);
-        }
-        date.setText(activeReport.getReportTime().getMonthValue() + "/"
-                + activeReport.getReportTime().getDayOfMonth() + "/"
-                + activeReport.getReportTime().getYear());
-        description.setText(activeReport.getDescription());
         return true;
     }
 

@@ -7,6 +7,7 @@ public enum WaterCondition {
     WASTE,
     TREATABLECLEAR,
     TREATABLEMUDDY,
-    POTABLE
+    POTABLE,
+    UNAVAILABLE
 
 }

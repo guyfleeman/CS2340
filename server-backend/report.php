@@ -17,14 +17,14 @@ try {
     exit;
 }
 
-if (!(isset($_POST["type"]) && isset($_POST["action"]))) {
+if (!(isset($_POST["reporttype"]) && isset($_POST["action"]))) {
     http_response_code(400);
     exit;
 }
 
-$type = $_POST["type"];
+$reporttype = $_POST["reporttype"];
 $action = $_POST["action"];
-if (empty($type) || empty($action)) {
+if (empty($reporttype) || empty($action)) {
     http_response_code(400);
     exit;
 }
@@ -47,7 +47,7 @@ if ($action != "GET") {
     //TODO: probably move auth here...
 }
 
-if ($type == "source") {
+if ($reporttype == "source") {
     if ($action == "GET") {
         if (isset($_POST["reportid"]) && !empty($_POST["reportid"])) {
             try {
@@ -76,12 +76,12 @@ if ($type == "source") {
                 $resultnum = 1;
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)) {
                     $id = $row["id"];
-                    $pdostmt = "SELECT * FROM users WHERE id = :id";
-                    $stmt = $dbcon->prepare($pdostmt);
-                    $stmt->bindParam(":id", $email);
-                    $stmt->execute();
-                    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                    $username = $row["username"];
+                    $pdounstmt = "SELECT * FROM users WHERE id = :id";
+                    $unstmt = $dbcon->prepare($pdounstmt);
+                    $unstmt->bindParam(":id", $id);
+                    $unstmt->execute();
+                    $unrow = $unstmt->fetch(PDO::FETCH_ASSOC);
+                    $username = $unrow["username"];
 
                     echo "" . $resultnum . ":";
                     echo "username=" . $username . ",";
@@ -117,6 +117,7 @@ if ($type == "source") {
             $stmt->execute();
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             $id = $row["id"];
+            $username = $row["username"];
 
             $reportid = uniqid("", TRUE);
             $pdostmt = "INSERT INTO sourcereports "
@@ -130,7 +131,7 @@ if ($type == "source") {
 
             echo "status=success\r\n";
             echo "message=void source report created\r\n";
-            echo "submitter=" . $email . "\r\n";
+            echo "submitter=" . $username . "\r\n";
             echo "reportid=" . $reportid . "\r\n";
         } catch (PDOException $e) {
             //http_response_code(500);
@@ -244,6 +245,7 @@ if ($type == "source") {
             $stmt->bindParam(":cond", $cond);
             $stmt->bindParam(":name", $name);
             $stmt->bindParam(":description", $description);
+            $stmt->bindParam(":reportid", $reportid);
             $stmt->execute();
 
             echo "status=success\r\n";

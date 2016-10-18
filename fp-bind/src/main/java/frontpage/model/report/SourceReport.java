@@ -25,19 +25,18 @@ public class SourceReport {
         logger = Logger.getLogger(SourceReport.class);
     }
 
-    private LocalDateTime reportTime;
+    private LocalDateTime reportTime = LocalDateTime.now();
     private String reportid;
     private String title;
     private String description;
     private final StringProperty username = new SimpleStringProperty();
     private final StringProperty loc = new SimpleStringProperty();
-    private WaterType type;
-    private WaterCondition condition;
+    private WaterType type = WaterType.UNAVAILABLE;
+    private WaterCondition condition = WaterCondition.UNAVAILABLE;
 
     public SourceReport() {}
 
     public SourceReport(String user, String location, WaterType type, WaterCondition condition) {
-        reportTime = LocalDateTime.now();
         reportid = Integer.toString(++numberOfReports);
         username.set(user);
         loc.set(location);
@@ -109,6 +108,20 @@ public class SourceReport {
         rm.deleteSourceReport(auth.getEmail(),
                 auth.getUsername(),
                 reportid);
+    }
+
+    public String toString() {
+        String ret = "";
+        ret += "id: " + reportid + "\r\n";
+        ret += "title: " + title + "\r\n";
+        ret += "location: " + loc.getValue() + "\r\n";
+        ret += "description: " + description + "\r\n";
+        ret += "submitter: " + username.getValue() + "\r\n";
+        ret += "type: " + type.toString() + "\r\n";
+        ret += "condition: " + condition.toString() + "\r\n";
+        ret += "date: " + reportTime.toString() + "\r\n";
+        ret += "\r\n";
+        return ret;
     }
 
     public LocalDateTime getReportTime() {return reportTime;}

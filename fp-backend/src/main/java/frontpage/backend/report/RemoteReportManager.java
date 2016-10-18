@@ -20,7 +20,7 @@ public class RemoteReportManager implements ReportManager {
         final Map<String, String> attribs = new HashMap<>(4);
         attribs.put("email", email);
         attribs.put("tok", tok);
-        attribs.put("type", "source");
+        attribs.put("reporttype", "source");
         attribs.put("action", "ADD");
         RESTReport rr = RESTHandler.apiRequest(RESTHandler.RestAction.POST,
                 RESTHandler.REPORT_ENTRY_POINT,
@@ -50,7 +50,7 @@ public class RemoteReportManager implements ReportManager {
         attribs.put("email", email);
         attribs.put("tok", tok);
         attribs.put("reprotid", id);
-        attribs.put("type", "source");
+        attribs.put("reporttype", "source");
         attribs.put("action", "UPDATE");
         attribs.keySet().stream().filter(k -> attribs.get(k) == null
                 || attribs.get(k).length() == 0)
@@ -73,7 +73,7 @@ public class RemoteReportManager implements ReportManager {
     public Map<String, String> getSourceReport(final String id)
             throws BackendRequestException {
         Map<String, String> attribs = new HashMap<>(3);
-        attribs.put("type", "source");
+        attribs.put("reporttype", "source");
         attribs.put("action", "GET");
         attribs.put("reportid", id);
         RESTReport rr = RESTHandler.apiRequest(
@@ -99,7 +99,7 @@ public class RemoteReportManager implements ReportManager {
     public Map<String, String>[] getSourceReports(final int num)
             throws BackendRequestException {
         Map<String, String> attribs = new HashMap<>(3);
-        attribs.put("type", "source");
+        attribs.put("reporttype", "source");
         attribs.put("action", "GET");
         attribs.put("reportid", "ALL");
         RESTReport rr = RESTHandler.apiRequest(
@@ -145,7 +145,7 @@ public class RemoteReportManager implements ReportManager {
         attribs.put("email", email);
         attribs.put("tok", tok);
         attribs.put("reportid", id);
-        attribs.put("type", "source");
+        attribs.put("reporttype", "source");
         attribs.put("action", "delete");
         RESTReport rr = RESTHandler.apiRequest(
                 RESTHandler.RestAction.POST,
