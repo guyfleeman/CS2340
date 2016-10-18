@@ -49,8 +49,13 @@ public class MainScreenController {
     @FXML private Label userLabel;
     @FXML private Button profileBtn;
     @FXML private Button logOutBtn;
+<<<<<<< HEAD
     @FXML private Button createSourceReport;
     @FXML private Button viewSourceReports;
+=======
+    @FXML private Button submitReportBtn;
+    @FXML private Button submitSourceBtn;
+>>>>>>> fd27526fa07eb81d344ebc76318a24f48e001ec9
 
     private MainScreenController() {
 
@@ -72,6 +77,24 @@ public class MainScreenController {
     private void handleProfileAction() {
         FXMain.setView("profile");
     }
+
+    /**
+     * Handles source report submission
+     */
+    @FXML
+    private void handleSourceReportAction() {
+        FXMain.setView("Submit source report");
+    }
+
+    /**
+     * Handles purity report submission
+     */
+    @FXML
+    private void handlePurityReportAction() {
+        FXMain.setView("Submit purity report");
+    }
+
+
 
     /**
      * handles logout

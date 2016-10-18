@@ -126,6 +126,14 @@ public class FXMain extends Application {
                 CreateSourceReportController.getCreateSourceReportController());
         viewSceneMap.put("createsourcerpt", csrc);
 
+
+        SubmitWaterPurityReportController.create();
+        SceneControllerEntry<SubmitWaterPurityReportController> swpr = new SceneControllerEntry<>(
+                new Scene(SubmitWaterPurityReportController.getRoot(), RES_WIDTH, RES_HEIGHT),
+                SubmitWaterPurityReportController.getPurityReportController()
+        );
+        viewSceneMap.put("createpurityrpt", swpr);
+
         setView("welcome");
         primaryStage.show();
 
