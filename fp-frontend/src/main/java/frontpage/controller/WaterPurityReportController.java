@@ -18,15 +18,15 @@ import java.util.LinkedList;
  *
  * @author Kevin
  */
-public class SubmitWaterSourceReportController {
-    private static final String VIEW_URI = "/frontpage/view/SubmitWaterSourceReport.fxml";
+public class WaterPurityReportController {
+    private static final String VIEW_URI = "/frontpage/view/SubmitWaterPurityReport.fxml";
 
     private static Logger logger;
     private static Parent root;
-    private static SubmitWaterSourceReportController sourceReportController;
+    private static WaterPurityReportController purityReportController;
 
     static {
-        logger = Logger.getLogger(SubmitWaterSourceReportController.class.getName());
+        logger = Logger.getLogger(WaterPurityReportController.class.getName());
     }
 
 
@@ -34,28 +34,30 @@ public class SubmitWaterSourceReportController {
         try {
             logger.debug("loading view: " + VIEW_URI);
             FXMLLoader loader = new FXMLLoader(FXMain.class.getResource(VIEW_URI));
-            sourceReportController = new SubmitWaterSourceReportController();
-            loader.setController(sourceReportController);
+            purityReportController = new WaterPurityReportController();
+            loader.setController(purityReportController);
             root = loader.load();
         } catch (Exception e) {
-            logger.error("Failed to load view", e);
+            logger.error("failed to load view", e);
         }
     }
 
     public static Parent getRoot() { return root; }
-    public static SubmitWaterSourceReportController getSourceReportController() {return sourceReportController; }
+    public static WaterPurityReportController getPurityReportController() {return purityReportController; }
 
     @FXML private Button submitReportBtn;
     @FXML private Button cancelReportBtn;
     @FXML private TextField waterLocationField;
-    @FXML private ComboBox waterTypeBox;
+    @FXML private TextField contaminantPPMField;
+    @FXML private TextField virusPPMField;
     @FXML private ComboBox waterConditionBox;
 
-    private SubmitWaterSourceReportController() {
+    private WaterPurityReportController() {
     }
 
+
     /**
-     * Initialize Combo box options for waterConditionBox and waterTypeBox
+     * Initialize Combo box options for waterConditionBox
      */
     @FXML
     @SuppressWarnings("unchecked")
@@ -74,6 +76,8 @@ public class SubmitWaterSourceReportController {
     @FXML
     private void handleCancelAction() {
         waterLocationField.clear();
+        contaminantPPMField.clear();
+        virusPPMField.clear();
         FXMain.setView("Welcome back!");
     }
 
@@ -84,17 +88,32 @@ public class SubmitWaterSourceReportController {
     @FXML
     private void handleConfirmAction() {
         String waterLocation = waterLocationField.getText();
-        String waterType = (String) waterTypeBox.getValue();
+        String contaminantPPM = contaminantPPMField.getText();
+        String virusPPM = virusPPMField.getText();
         String waterCondition = (String) waterConditionBox.getValue();
         if (waterLocation == null || waterLocation.length() == 0) {
             DialogueUtils.showMessage("The water location field must be filled.");
             waterLocationField.requestFocus();
             return;
         }
+
+        if (contaminantPPM == null || contaminantPPM.length() == 0) {
+            DialogueUtils.showMessage("Contaminant PPM field must be filled.");
+            contaminantPPMField.requestFocus();
+            return;
+        }
+
+        if (virusPPM == null || virusPPM.length() == 0) {
+            DialogueUtils.showMessage("Virus PPM field must be filled.");
+            virusPPMField.requestFocus();
+            return;
+        }
             try {
-                //@TODO initialize source report according to the user submitting it
-                DialogueUtils.showMessage("Source report submitted successfully.");
+                //@TODO initialize purity report according to the user submitting it
+                DialogueUtils.showMessage("Purity report submitted successfully.");
                 waterLocationField.clear();
+                contaminantPPMField.clear();
+                virusPPMField.clear();
                 FXMain.setView("Welcome back!");
                 return;
             }

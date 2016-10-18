@@ -49,13 +49,8 @@ public class MainScreenController {
     @FXML private Label userLabel;
     @FXML private Button profileBtn;
     @FXML private Button logOutBtn;
-<<<<<<< HEAD
     @FXML private Button createSourceReport;
     @FXML private Button viewSourceReports;
-=======
-    @FXML private Button submitReportBtn;
-    @FXML private Button submitSourceBtn;
->>>>>>> fd27526fa07eb81d344ebc76318a24f48e001ec9
 
     private MainScreenController() {
 
