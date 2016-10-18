@@ -1,4 +1,4 @@
-package frontpage.bind.profile;
+package frontpage.bind.errorhandling;
 
 /**
  * @author willstuckey

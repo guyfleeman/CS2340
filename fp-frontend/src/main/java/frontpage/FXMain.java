@@ -3,8 +3,16 @@ package frontpage;
 import frontpage.backend.LocalBackend;
 import frontpage.backend.RemoteBackend;
 import frontpage.bind.Backend;
-import frontpage.controller.*;
-import frontpage.model.User;
+import frontpage.controller.CreateSourceReportController;
+import frontpage.controller.LoginScreenController;
+import frontpage.controller.MainScreenController;
+import frontpage.controller.ProfileScreenController;
+import frontpage.controller.RegisterScreenController;
+import frontpage.controller.Updatable;
+import frontpage.controller.ViewReportScreenController;
+import frontpage.controller.WaterPurityReportController;
+import frontpage.controller.WelcomeScreenController;
+import frontpage.model.user.User;
 import frontpage.utils.DialogueUtils;
 import frontpage.utils.SceneControllerEntry;
 import javafx.application.Application;
@@ -114,21 +122,24 @@ public class FXMain extends Application {
         );
         viewSceneMap.put("profile", psc);
 
-        SubmitWaterSourceReportController.create();
-        SceneControllerEntry<SubmitWaterSourceReportController> swsr = new SceneControllerEntry<>(
-                new Scene(SubmitWaterSourceReportController.getRoot(), RES_WIDTH, RES_HEIGHT),
-                SubmitWaterSourceReportController.getSourceReportController()
+        ViewReportScreenController.create();
+        SceneControllerEntry<ViewReportScreenController> vrsc = new SceneControllerEntry<>(
+                new Scene(ViewReportScreenController.getRoot(), RES_WIDTH, RES_HEIGHT),
+                ViewReportScreenController.getViewReportController());
+        viewSceneMap.put("viewsourcerpts", vrsc);
+
+        CreateSourceReportController.create();
+        SceneControllerEntry<CreateSourceReportController> csrc = new SceneControllerEntry<>(
+                new Scene(CreateSourceReportController.getRoot(), RES_WIDTH, RES_HEIGHT),
+                CreateSourceReportController.getCreateSourceReportController());
+        viewSceneMap.put("createsourcerpt", csrc);
+
+        WaterPurityReportController.create();
+        SceneControllerEntry<WaterPurityReportController> swpr = new SceneControllerEntry<>(
+                new Scene(WaterPurityReportController.getRoot(), RES_WIDTH, RES_HEIGHT),
+                WaterPurityReportController.getPurityReportController()
         );
-        viewSceneMap.put("Submit source report", swsr);
-
-        SubmitWaterPurityReportController.create();
-        SceneControllerEntry<SubmitWaterPurityReportController> swpr = new SceneControllerEntry<>(
-                new Scene(SubmitWaterPurityReportController.getRoot(), RES_WIDTH, RES_HEIGHT),
-                SubmitWaterPurityReportController.getPurityReportController()
-        );
-        viewSceneMap.put("Submit purity report", swpr);
-
-
+        viewSceneMap.put("createpurityrpt", swpr);
 
         setView("welcome");
         primaryStage.show();
@@ -147,7 +158,9 @@ public class FXMain extends Application {
 
         Object con = viewSceneMap.get(view.toLowerCase()).getController();
         if (con instanceof Updatable) {
-            ((Updatable) con).update();
+             if (!((Updatable) con).update()) {
+                 return false;
+             }
         }
         stage.setScene(s);
         return true;

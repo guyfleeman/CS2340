@@ -1,27 +1,34 @@
 package frontpage.controller;
 
 import frontpage.FXMain;
+import frontpage.bind.errorhandling.BackendRequestException;
+import frontpage.bind.report.ReportManager;
+import frontpage.model.report.SourceReport;
+import frontpage.utils.DialogueUtils;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import org.apache.log4j.Logger;
-import javax.swing.table.TableColumn;
+import javafx.scene.control.TableColumn;
+import java.util.Map;
 
 
 /**
  * Created by Devan on 10/16/2016.
  */
-public class ViewReportScreenController {
+public class ViewReportScreenController implements Updatable {
     private static final String VIEW_URI = "/frontpage/view/ViewReports.fxml";
 
     private static Logger logger;
     private static Parent root;
-    private static frontpage.controller.ViewReportScreenController viewReportsController;
+    private static ViewReportScreenController viewReportsController;
 
     static {
-        logger = Logger.getLogger(frontpage.controller.ViewReportScreenController.class.getName());
+        logger = Logger.getLogger(ViewReportScreenController.class.getName());
     }
 
 
@@ -29,7 +36,7 @@ public class ViewReportScreenController {
         try {
             logger.debug("loading view: " + VIEW_URI);
             FXMLLoader loader = new FXMLLoader(FXMain.class.getResource(VIEW_URI));
-            viewReportsController = new frontpage.controller.ViewReportScreenController();
+            viewReportsController = new ViewReportScreenController();
             loader.setController(viewReportsController);
             root = loader.load();
         } catch (Exception e) {
@@ -38,16 +45,17 @@ public class ViewReportScreenController {
     }
 
     public static Parent getRoot() { return root; }
-    public static frontpage.controller.ViewReportScreenController getViewReportController() {return viewReportsController; }
+    public static ViewReportScreenController getViewReportController() {return viewReportsController; }
 
 
-    @FXML private TableView viewReportsTable;
-    @FXML private TableColumn dateTimeCol;
-    @FXML private TableColumn reportNumCol;
-    @FXML private TableColumn reporterCol;
-    @FXML private TableColumn locationCol;
-    @FXML private TableColumn waterSourceTypeCol;
-    @FXML private TableColumn waterConditionCol;
+    private final ObservableList<SourceReport> reports = FXCollections.observableArrayList();
+    @FXML private TableView<SourceReport> viewReportsTable;
+    @FXML private TableColumn<SourceReport, String> dateTimeCol;
+    @FXML private TableColumn<SourceReport, String> reportNumCol;
+    @FXML private TableColumn<SourceReport, String> reporterCol;
+    @FXML private TableColumn<SourceReport, String> locationCol;
+    @FXML private TableColumn<SourceReport, String> waterSourceTypeCol;
+    @FXML private TableColumn<SourceReport, String> waterConditionCol;
     @FXML private Button ViewReportsReturnBtn;
 
     private ViewReportScreenController () {
@@ -56,15 +64,41 @@ public class ViewReportScreenController {
 
     @FXML
     private void initialize() {
+        dateTimeCol.setCellValueFactory(cellData -> cellData.getValue().getReportTime_t());
+        reportNumCol.setCellValueFactory(cellData -> cellData.getValue().getReportID_t());
+        reporterCol.setCellValueFactory(cellData -> cellData.getValue().getUsername_t());
+        locationCol.setCellValueFactory(cellData -> cellData.getValue().getLocation_t());
+        waterSourceTypeCol.setCellValueFactory(cellData -> cellData.getValue().getType_t());
+        waterConditionCol.setCellValueFactory(cellData -> cellData.getValue().getCondition_t());
+    }
 
+    @Override
+    public boolean update() {
+        ReportManager rm = FXMain.getBackend().getReportManager();
+        try {
+            Map<String, String>[] reportsData = rm.getSourceReports(0);
+            for (Map<String, String> reportData : reportsData) {
+                if (reportData.containsKey("index")) {
+                    reports.add(new SourceReport(reportData));
+                }
+            }
+
+            viewReportsTable.setItems(reports);
+            return true;
+        } catch (BackendRequestException e) {
+            DialogueUtils.showMessage("view report bre");
+        } catch (Exception e) {
+            DialogueUtils.showMessage("view report exception (type: " + e.getClass()
+                    + ", message: " + e.getMessage()
+                    + ", cause: " + e.getCause());
+        }
+
+        return false;
     }
 
     @FXML
-    private void hadleReturnAction() {
+    private void handleReturnAction() {
+        reports.clear();
         FXMain.setView("main");
     }
-
-
-
-
 }

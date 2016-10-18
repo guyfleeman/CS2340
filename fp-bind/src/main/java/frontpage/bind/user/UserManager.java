@@ -1,4 +1,4 @@
-package frontpage.bind.auth;
+package frontpage.bind.user;
 
 import frontpage.bind.errorhandling.AuthenticationException;
 import frontpage.bind.errorhandling.BackendRequestException;

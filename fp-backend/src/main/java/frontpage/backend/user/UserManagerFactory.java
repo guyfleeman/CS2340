@@ -1,6 +1,6 @@
 package frontpage.backend.user;
 
-import frontpage.bind.auth.UserManager;
+import frontpage.bind.user.UserManager;
 
 import java.util.HashMap;
 import java.util.Map;

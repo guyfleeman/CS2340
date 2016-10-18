@@ -2,7 +2,7 @@ package frontpage.backend.profile;
 
 import frontpage.backend.rest.RESTHandler;
 import frontpage.backend.rest.RESTReport;
-import frontpage.bind.profile.ProfileManagementException;
+import frontpage.bind.errorhandling.ProfileManagementException;
 import frontpage.bind.profile.ProfileManager;
 
 import java.util.HashMap;
@@ -22,7 +22,7 @@ public class RemoteProfileManager implements ProfileManager {
                     new NullPointerException());
         }
 
-        Map<String, String> attribs = new HashMap<>(2);
+        Map<String, String> attribs = new HashMap<>(3);
         attribs.put("action", "GET");
         attribs.put("email", email);
         attribs.put("tok", tok);
@@ -38,7 +38,7 @@ public class RemoteProfileManager implements ProfileManager {
             throw new ProfileManagementException(rr.getResponseValue("message"));
         }
 
-        Map<String, String> ret = new HashMap<>(rr.getResponseValues());
+        Map<String, String> ret = new HashMap<>(rr.getSingleResponseMap());
         for (String s : ret.keySet()) {
             if (ret.get(s) == null
                     || ret.get(s).length() == 0

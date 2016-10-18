@@ -1,4 +1,4 @@
-package frontpage.model;
+package frontpage.model.user;
 
 import frontpage.bind.profile.ProfileManager;
 import javafx.beans.property.SimpleStringProperty;

@@ -1,6 +1,7 @@
 package frontpage.bind;
 
-import frontpage.bind.auth.UserManager;
+import frontpage.bind.report.ReportManager;
+import frontpage.bind.user.UserManager;
 import frontpage.bind.profile.ProfileManager;
 
 /**
@@ -12,4 +13,6 @@ public interface Backend {
     UserManager getUserManager();
 
     ProfileManager getProfileManager();
+
+    ReportManager getReportManager();
 }

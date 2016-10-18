@@ -9,8 +9,8 @@ import frontpage.bind.errorhandling.BackendRequestException;
 import frontpage.bind.errorhandling.FailedToCreateUserException;
 import frontpage.bind.errorhandling.InvalidDataException;
 import frontpage.bind.errorhandling.AuthenticationException;
-import frontpage.bind.auth.UserManager;
-import frontpage.model.User;
+import frontpage.bind.user.UserManager;
+import frontpage.model.user.User;
 import org.apache.log4j.Logger;
 
 import java.util.HashMap;
@@ -192,7 +192,7 @@ public class RemoteUserManager implements UserManager {
         }
 
         if (!rr.success()) {
-            if (rr.getResponseValues().get("message").contains("credentials")) {
+            if (rr.getSingleResponseMap().get("message").contains("credentials")) {
                 throw new AuthenticationException("matching account not found");
             }
             throw new BackendRequestException("the request was unsuccessful: " + rr.getResponseValue("message"));

@@ -1,5 +1,7 @@
 package frontpage.bind.profile;
 
+import frontpage.bind.errorhandling.ProfileManagementException;
+
 import java.util.Map;
 
 /**
