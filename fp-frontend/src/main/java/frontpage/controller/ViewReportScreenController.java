@@ -97,7 +97,7 @@ public class ViewReportScreenController implements Updatable {
     }
 
     @FXML
-    private void hadleReturnAction() {
+    private void handleReturnAction() {
         reports.clear();
         FXMain.setView("main");
     }

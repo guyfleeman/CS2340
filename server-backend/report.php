@@ -84,14 +84,14 @@ if ($reporttype == "source") {
                     $username = $unrow["username"];
 
                     echo "" . $resultnum . ":";
-                    echo "username=" . $username . ",";
-                    echo "id=" . $id . ",";
-                    echo "reportid=" . $row["reportid"] . ",";
-                    echo "reportdt=" . $row["reportdt"] . ",";
-                    echo "location=" . $row["location"] . ",";
-                    echo "type=" . $row["type"] . ",";
-                    echo "cond=" . $row["cond"] . ",";
-                    echo "name=" . $row["name"] . ",";
+                    echo "username=" . $username . "|";
+                    echo "id=" . $id . "|";
+                    echo "reportid=" . $row["reportid"] . "|";
+                    echo "reportdt=" . $row["reportdt"] . "|";
+                    echo "location=" . $row["location"] . "|";
+                    echo "type=" . $row["type"] . "|";
+                    echo "cond=" . $row["cond"] . "|";
+                    echo "name=" . $row["name"] . "|";
                     echo "description=" . $row["description"];
                     echo "\r\n";
                     $resultnum++;
