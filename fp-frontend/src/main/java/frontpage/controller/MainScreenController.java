@@ -91,7 +91,7 @@ public class MainScreenController {
     }
 
     @FXML
-    private void handleViewSourceReportsSwitch() {
+    private void handleViewSourceReportSwitch() {
 
     }
 }

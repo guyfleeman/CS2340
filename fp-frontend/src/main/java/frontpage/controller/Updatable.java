@@ -6,5 +6,5 @@ package frontpage.controller;
  * <p></p>
  */
 public interface Updatable {
-    void update();
+    boolean update();
 }

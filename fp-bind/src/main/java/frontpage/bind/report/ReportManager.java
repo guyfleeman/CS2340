@@ -53,4 +53,31 @@ public interface ReportManager {
     Map<String, String>[] getSourceReports(final Map<String, String> properties,
                                            final Map<String, String> searchConstraints)
             throws BackendRequestException;
+
+    /**
+     * deletes a source report
+     * @param email
+     * @param tok
+     * @param id
+     * @throws BackendRequestException
+     */
+    void deleteSourceReport(final String email,
+                            final String tok,
+                            final String id)
+            throws BackendRequestException;
+
+    /**
+     * delete shell source reports.
+     * FAIL-STOP. This method offers no indication of success an
+     * as such does not guarantee it either. Used to delete shell
+     * reports in failure scenarios. Shell reports missed when this
+     * fails will be cleaned by server side cron after the report
+     * has aged beyond a week.
+     * @param email
+     * @param tok
+     * @param id
+     */
+    void __deleteSourceReport_fs_na(final String email,
+                                    final String tok,
+                                    final String id);
 }

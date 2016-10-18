@@ -55,7 +55,7 @@ public class ProfileScreenController implements Updatable {
 
     }
 
-    public void update() {
+    public boolean update() {
         addressField.clear();
         cityField.clear();
         stateField.clear();
@@ -72,7 +72,7 @@ public class ProfileScreenController implements Updatable {
             titleField.setText(up.getTitle());
         }
 
-
+        return true;
     }
 
     @FXML

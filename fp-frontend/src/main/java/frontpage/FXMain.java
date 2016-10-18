@@ -143,7 +143,9 @@ public class FXMain extends Application {
 
         Object con = viewSceneMap.get(view.toLowerCase()).getController();
         if (con instanceof Updatable) {
-            ((Updatable) con).update();
+             if (!((Updatable) con).update()) {
+                 return false;
+             }
         }
         stage.setScene(s);
         return true;

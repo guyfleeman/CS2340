@@ -58,7 +58,7 @@ public class CreateSourceReportController implements Updatable {
     @FXML private TextField reportID;
     @FXML private TextField submitter;
     @FXML private TextField title;
-    @FXML private TextArea location;
+    @FXML private TextArea loc;
     @FXML private ComboBox<WaterType> type;
     @FXML private ComboBox<WaterCondition> condition;
     @FXML private TextField date;
@@ -78,25 +78,106 @@ public class CreateSourceReportController implements Updatable {
 
         reportID.setDisable(true);
         submitter.setDisable(true);
+        type.setValue(WaterType.BOTTLED);
+        condition.setValue(WaterCondition.WASTE);
+        date.setDisable(true);
     }
 
-    public void update() {
+    public boolean update() {
         ReportManager rm = FXMain.getBackend().getReportManager();
+        activeReport = null;
         try {
             activeReport = SourceReport.createReport(rm, FXMain.getUser());
             activeReport.populateFromBackend(rm);
         } catch (BackendRequestException e) {
             DialogueUtils.showMessage("could not create report template");
+            if (activeReport != null) {
+                rm.__deleteSourceReport_fs_na(FXMain.getUser().getEmail(),
+                        FXMain.getUser().getTok(),
+                        activeReport.getReportid());
+            }
+            return false;
+        } catch (Exception e) {
+            DialogueUtils.showMessage("internal error on update view call for create source report controller" +
+                    " (type: " + e.getClass()
+                    + "message: " + e.getMessage() + ")");
+            e.printStackTrace();
+            if (activeReport != null) {
+                rm.__deleteSourceReport_fs_na(FXMain.getUser().getEmail(),
+                        FXMain.getUser().getTok(),
+                        activeReport.getReportid());
+            }
+            return false;
         }
+
+        reportID.setText(activeReport.getReportid());
+        submitter.setText(activeReport.getUsername());
+        title.setText(activeReport.getTitle());
+        loc.setText(activeReport.getLoc());
+        WaterType wt = activeReport.getType();
+        if (wt != null) {
+            type.setValue(wt);
+        }
+        WaterCondition wc = activeReport.getCondition();
+        if (wc != null) {
+            condition.setValue(wc);
+        }
+        date.setText(activeReport.getReportTime().getMonthValue() + "/"
+                + activeReport.getReportTime().getDayOfMonth() + "/"
+                + activeReport.getReportTime().getYear());
+        description.setText(activeReport.getDescription());
+        return true;
     }
 
     @FXML
     public void handleCancelAction() {
-        // delete functionality missing
+        ReportManager rm = FXMain.getBackend().getReportManager();
+        try {
+            activeReport.deleteFromBackend(rm, FXMain.getUser());
+        } catch (Exception e) {
+            logger.info("failed to clean up after cancel action");
+        }
+        FXMain.setView("main");
     }
 
     @FXML
     public void handleSubmitAction() {
+        String title = this.title.getText();
+        if (valid(title)) {
+            activeReport.setTitle(title);
+        } else {
+            DialogueUtils.showMessage("Title must be filled.");
+            return;
+        }
 
+        String loc = this.loc.getText();
+        if (valid(loc)) {
+            activeReport.setLoc(loc);
+        } else {
+            DialogueUtils.showMessage("Location must be filled.");
+        }
+
+        activeReport.setType(type.getValue());
+        activeReport.setCondition(condition.getValue());
+        activeReport.setDescription(description.getText());
+
+        ReportManager rm = FXMain.getBackend().getReportManager();
+        try {
+            activeReport.writeToBackend(rm, FXMain.getUser());
+        } catch (BackendRequestException e) {
+            DialogueUtils.showMessage("failed to update report (problem: "
+                    + e.getClass() + ", message: "
+                    + e.getMessage() + ")");
+        } catch (Exception e) {
+            DialogueUtils.showMessage("internal exception in handleSubmitReport " +
+                    "action handler (problem: "
+                    + e.getClass() + ", message: "
+                    + e.getMessage() + ")");
+        }
+        FXMain.setView("main");
+    }
+
+    private static boolean valid(final String dat) {
+        return dat != null && dat.length() > 1;
     }
 }

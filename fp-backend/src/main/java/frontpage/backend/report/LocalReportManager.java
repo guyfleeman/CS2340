@@ -47,4 +47,15 @@ public class LocalReportManager implements ReportManager {
             throws BackendRequestException {
         return (Map<String, String>[]) new Map[0];
     }
+
+    @Override
+    public void deleteSourceReport(String email, String tok, String id)
+            throws BackendRequestException {
+
+    }
+
+    @Override
+    public void __deleteSourceReport_fs_na(String email, String tok, String id) {
+        return;
+    }
 }

@@ -17,24 +17,34 @@ try {
     exit;
 }
 
-if (!(isset($_POST["email"])
-            && isset($_POST["tok"])
-            && isset($_POST["type"])
-            && isset($_POST["action"]))) {
+if (!(isset($_POST["type"]) && isset($_POST["action"]))) {
     http_response_code(400);
     exit;
 }
 
-$email = $_POST["email"];
-$tok = $_POST["tok"];
 $type = $_POST["type"];
 $action = $_POST["action"];
-if (empty($email)
-        || empty($tok)
-        || empty($type)
-        || empty($action)) {
+if (empty($type) || empty($action)) {
     http_response_code(400);
     exit;
+}
+
+$email = "";
+$tok = "";
+if ($action != "GET") {
+    if (!(isset($_POST["email"]) && isset($_POST["tok"]))) {
+        http_response_code(400);
+        exit;
+    }
+
+    $email = $_POST["email"];
+    $tok = $_POST["tok"];
+    if (empty($email) || empty($tok)) {
+        http_response_code(400);
+        exit;
+    }
+
+    //TODO: probably move auth here...
 }
 
 if ($type == "source") {
@@ -110,9 +120,9 @@ if ($type == "source") {
 
             $reportid = uniqid("", TRUE);
             $pdostmt = "INSERT INTO sourcereports "
-                . "(id, reportid, reportdt, location, type, cond, name, description) "
+                . "(id, reportid) "
                 . "VALUES "
-                . "(:id, :reportid, :reportdt, :location, :type, :cond, :name, :description)";
+                . "(:id, :reportid)";
             $stmt =  $dbcon->prepare($pdostmt);
             $stmt->bindParam(":id", $id);
             $stmt->bindParam(":reportid", $reportid);
@@ -123,7 +133,8 @@ if ($type == "source") {
             echo "submitter=" . $email . "\r\n";
             echo "reportid=" . $reportid . "\r\n";
         } catch (PDOException $e) {
-            http_response_code(500);
+            //http_response_code(500);
+            echo $e;
             exit;
         }
     } else if ($action == "UPDATE") {
@@ -182,7 +193,7 @@ if ($type == "source") {
                 $location = NULL;
             }
 
-            if (isset($_POST["type"]) && ! empty($_POST["type"])) {
+            if (isset($_POST["type"]) && !empty($_POST["type"])) {
                 $type = $_POST["type"];
             }
 
@@ -237,6 +248,36 @@ if ($type == "source") {
 
             echo "status=success\r\n";
             echo "message=source report updated\r\n";
+        } catch (PDOException $e) {
+            http_response_code(500);
+            exit;
+        }
+    } else if ($action == "DELETE") {
+        if (!(isset($_POST["reportid"]))) {
+            http_response_code(400);
+            exit;
+        }
+
+        $reportid = $_POST["reportid"];
+        if (empty($reportid)) {
+            http_parse_params(400);
+            exit;
+        }
+
+        if (!isAuthenticated($email, $tok)) {
+            http_response_code(401);
+            exit;
+        }
+
+        try {
+            $pdostmt = "DELETE FROM sourcereports WHERE reportid = :reportid";
+            $stmt = $dbcon->prepare($pdostmt);
+            $stmt->bindParam(":reportid", $reportid);
+            $stmt->execute();
+
+            echo "status=success\r\n";
+            echo "message=source report deleted\r\n";
+            echo "reportid=" . $reportid . "\r\n";
         } catch (PDOException $e) {
             http_response_code(500);
             exit;

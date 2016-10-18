@@ -52,6 +52,9 @@ public class RemoteReportManager implements ReportManager {
         attribs.put("reprotid", id);
         attribs.put("type", "source");
         attribs.put("action", "UPDATE");
+        attribs.keySet().stream().filter(k -> attribs.get(k) == null
+                || attribs.get(k).length() == 0)
+                .forEach(k -> attribs.put(k, "NULL"));
         RESTReport rr = RESTHandler.apiRequest(RESTHandler.RestAction.POST,
                 RESTHandler.REPORT_ENTRY_POINT,
                 attribs);
@@ -84,6 +87,12 @@ public class RemoteReportManager implements ReportManager {
         if (!rr.success()) {
             throw new BackendRequestException(rr.getResponseValue("message"));
         }
+
+        Map<String, String> ret = rr.getResponseValues()[1];
+        ret.keySet().stream().filter(k -> ret.get(k) == null
+                || ret.get(k).length() == 0
+                || ret.get(k).equalsIgnoreCase("null"))
+                .forEach(k -> ret.put(k, ""));
         return rr.getResponseValues()[1];
     }
 
@@ -104,6 +113,14 @@ public class RemoteReportManager implements ReportManager {
         if (!rr.success()) {
             throw new BackendRequestException(rr.getResponseValue("message"));
         }
+
+        Map<String, String>[] ret = rr.getResponseValues();
+        for (Map<String, String> m : ret) {
+            m.keySet().stream().filter(k -> m.get(k) == null
+                    || m.get(k).length() == 0
+                    || m.get(k).equalsIgnoreCase("null"))
+                    .forEach(k -> m.put(k, ""));
+        }
         return rr.getResponseValues();
     }
 
@@ -118,5 +135,35 @@ public class RemoteReportManager implements ReportManager {
                                                   final Map<String, String> searchConstraints)
             throws BackendRequestException {
         return null;
+    }
+
+    public void deleteSourceReport(final String email,
+                                   final String tok,
+                                   final String id)
+            throws BackendRequestException {
+        final Map<String, String> attribs = new HashMap<>(5);
+        attribs.put("email", email);
+        attribs.put("tok", tok);
+        attribs.put("reportid", id);
+        attribs.put("type", "source");
+        attribs.put("action", "delete");
+        RESTReport rr = RESTHandler.apiRequest(
+                RESTHandler.RestAction.POST,
+                RESTHandler.REPORT_ENTRY_POINT,
+                attribs);
+        if (rr.rejected()) {
+            throw new BackendRequestException(rr.toString());
+        }
+
+        if (!rr.success()) {
+            throw new BackendRequestException(rr.getResponseValue("message"));
+        }
+    }
+
+    @Override
+    public void __deleteSourceReport_fs_na(final String email,
+                                           final String tok,
+                                           final String id) {
+        try { deleteSourceReport(email, tok, id); } catch (Exception e) {}
     }
 }
