@@ -9,6 +9,7 @@ import frontpage.controller.MainScreenController;
 import frontpage.controller.ProfileScreenController;
 import frontpage.controller.RegisterScreenController;
 import frontpage.controller.Updatable;
+import frontpage.controller.WaterPurityReportController;
 import frontpage.controller.WelcomeScreenController;
 import frontpage.model.user.User;
 import frontpage.utils.DialogueUtils;
@@ -127,10 +128,10 @@ public class FXMain extends Application {
         viewSceneMap.put("createsourcerpt", csrc);
 
 
-        SubmitWaterPurityReportController.create();
-        SceneControllerEntry<SubmitWaterPurityReportController> swpr = new SceneControllerEntry<>(
-                new Scene(SubmitWaterPurityReportController.getRoot(), RES_WIDTH, RES_HEIGHT),
-                SubmitWaterPurityReportController.getPurityReportController()
+        WaterPurityReportController.create();
+        SceneControllerEntry<WaterPurityReportController> swpr = new SceneControllerEntry<>(
+                new Scene(WaterPurityReportController.getRoot(), RES_WIDTH, RES_HEIGHT),
+                WaterPurityReportController.getPurityReportController()
         );
         viewSceneMap.put("createpurityrpt", swpr);
 

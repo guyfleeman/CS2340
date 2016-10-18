@@ -19,7 +19,7 @@ import java.util.LinkedList;
  * @author Kevin
  */
 public class WaterPurityReportController {
-    private static final String VIEW_URI = "/frontpage/view/SubmitWaterPurityReport.fxml";
+    private static final String VIEW_URI = "/frontpage/view/WaterPurityReport.fxml";
 
     private static Logger logger;
     private static Parent root;
