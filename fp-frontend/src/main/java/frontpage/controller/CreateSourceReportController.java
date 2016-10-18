@@ -14,13 +14,14 @@ import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import org.apache.log4j.Logger;
 
 import java.util.LinkedList;
 
 /**
  * @author willstuckey
- * @date 10/17/16
  * <p></p>
  */
 public class CreateSourceReportController implements Updatable {
@@ -81,6 +82,20 @@ public class CreateSourceReportController implements Updatable {
         type.setValue(WaterType.UNAVAILABLE);
         condition.setValue(WaterCondition.UNAVAILABLE);
         date.setDisable(true);
+
+        //TODO: find solution for encoding new lines
+        loc.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode().equals(KeyCode.ENTER)) {
+                event.consume();
+            }
+        });
+
+        //TODO: find solution for encoding new lines
+        description.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode().equals(KeyCode.ENTER)) {
+                event.consume();
+            }
+        });
     }
 
     public boolean update() {

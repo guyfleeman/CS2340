@@ -188,7 +188,7 @@ public class RESTReport {
                 }
             }
         } else {
-            String[] indDataPair = raw.split(":");
+            String[] indDataPair = raw.split(":", 2);
             map.put("index", indDataPair[0]);
             addKVPairsToMap(map, indDataPair[1].replace(",", "\r\n"), false);
         }

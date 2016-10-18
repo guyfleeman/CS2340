@@ -146,7 +146,7 @@ public class RemoteReportManager implements ReportManager {
         attribs.put("tok", tok);
         attribs.put("reportid", id);
         attribs.put("reporttype", "source");
-        attribs.put("action", "delete");
+        attribs.put("action", "DELETE");
         RESTReport rr = RESTHandler.apiRequest(
                 RESTHandler.RestAction.POST,
                 RESTHandler.REPORT_ENTRY_POINT,

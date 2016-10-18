@@ -36,6 +36,10 @@ public class SourceReport {
 
     public SourceReport() {}
 
+    public SourceReport(final Map<String, String> ldf) {
+        loadFromMap(ldf);
+    }
+
     public SourceReport(String user, String location, WaterType type, WaterCondition condition) {
         reportid = Integer.toString(++numberOfReports);
         username.set(user);
@@ -56,17 +60,21 @@ public class SourceReport {
     public void populateFromBackend(final ReportManager rm)
             throws BackendRequestException {
         Map<String, String> res = rm.getSourceReport(reportid);
-        reportid = res.get("reportid");
-        title = res.get("name");
-        String dt = res.get("reportdt");
-        if (dt != null && dt.length() > 0) {
-            reportTime = LocalDateTime.parse(dt);
-        }
-        loc.setValue(res.get("location"));
-        username.setValue(res.get("username"));
-        description = res.get("description");
+        loadFromMap(res);
+    }
 
-        String type = res.get("type");
+    private void loadFromMap(Map<String, String> map) {
+        reportid = map.get("reportid");
+        title = map.get("name");
+        String dt = map.get("reportdt");
+        if (dt != null && dt.length() > 0) {
+            reportTime = LocalDateTime.parse(dt.replace(' ', 'T'));
+        }
+        loc.setValue(map.get("location"));
+        username.setValue(map.get("username"));
+        description = map.get("description");
+
+        String type = map.get("type");
         if (type != null && type.length() > 0) {
             try {
                 this.type = WaterType.valueOf(type);
@@ -75,7 +83,7 @@ public class SourceReport {
             }
         }
 
-        String cond = res.get("cond");
+        String cond = map.get("cond");
         if (cond != null && cond.length() > 0) {
             try {
                 this.condition = WaterCondition.valueOf(cond);
@@ -106,7 +114,7 @@ public class SourceReport {
                                   final User auth)
             throws BackendRequestException {
         rm.deleteSourceReport(auth.getEmail(),
-                auth.getUsername(),
+                auth.getTok(),
                 reportid);
     }
 
@@ -127,33 +135,37 @@ public class SourceReport {
     public LocalDateTime getReportTime() {return reportTime;}
     public String getReportid() {return reportid;}
     public String getUsername() {return username.getValue();}
-
     public String getLoc() {return loc.getValue();}
     public WaterType getType() {return type;}
     public WaterCondition getCondition() {return condition;}
     public void setCondition(WaterCondition cond) {condition = cond;}
-
     public String getTitle() {
         return title;
     }
-
     public void setTitle(String title) {
         this.title = title;
     }
-
     public String getDescription() {
         return description;
     }
-
     public void setDescription(String description) {
         this.description = description;
     }
-
     public void setLoc(final String loc) {
         this.loc.setValue(loc);
     }
-
     public void setType(WaterType type) {
         this.type = type;
+    }
+
+    public StringProperty getReportTime_t() { return new SimpleStringProperty(normalizeDT(reportTime)); }
+    public StringProperty getReportID_t() { return new SimpleStringProperty(reportid); }
+    public StringProperty getUsername_t() { return new SimpleStringProperty(username.getValue()); }
+    public StringProperty getLocation_t() { return new SimpleStringProperty(loc.getValue()); }
+    public StringProperty getType_t() { return new SimpleStringProperty(type.toString()); }
+    public StringProperty getCondition_t() { return new SimpleStringProperty(condition.toString()); }
+
+    private static String normalizeDT(final LocalDateTime ldt) {
+        return "" + ldt.getMonthValue() + "/" + ldt.getDayOfMonth() + "/" + ldt.getYear();
     }
 }

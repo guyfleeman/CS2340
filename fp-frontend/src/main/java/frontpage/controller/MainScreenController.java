@@ -110,6 +110,6 @@ public class MainScreenController {
 
     @FXML
     private void handleViewSourceReportSwitch() {
-
+        FXMain.setView("viewsourcerpts");
     }
 }
