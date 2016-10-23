@@ -51,6 +51,7 @@ public class MainScreenController {
     @FXML private Button logOutBtn;
     @FXML private Button createSourceReport;
     @FXML private Button viewSourceReports;
+    @FXML private Button mapBtn;
 
     private MainScreenController() {
 
@@ -87,6 +88,11 @@ public class MainScreenController {
     @FXML
     private void handlePurityReportAction() {
         FXMain.setView("Submit purity report");
+    }
+
+    @FXML
+    private void handleMapAction() {
+        FXMain.setView("map");
     }
 
 
