@@ -8,6 +8,7 @@ import frontpage.controller.LoginScreenController;
 import frontpage.controller.MainScreenController;
 import frontpage.controller.ProfileScreenController;
 import frontpage.controller.RegisterScreenController;
+import frontpage.controller.SourceReportMapController;
 import frontpage.controller.Updatable;
 import frontpage.controller.ViewReportScreenController;
 import frontpage.controller.WaterPurityReportController;
@@ -140,6 +141,12 @@ public class FXMain extends Application {
                 WaterPurityReportController.getPurityReportController()
         );
         viewSceneMap.put("createpurityrpt", swpr);
+
+        SourceReportMapController.create();
+        SceneControllerEntry<SourceReportMapController> srpc = new SceneControllerEntry<>(
+                new Scene(SourceReportMapController.getRoot(), RES_WIDTH, RES_HEIGHT),
+                SourceReportMapController.getSourceReportMapController());
+        viewSceneMap.put("map", srpc);
 
         setView("welcome");
         primaryStage.show();

@@ -68,7 +68,7 @@ public class RESTHandler {
      * @param attribMap map of attributes
      * @return RESTReport detailing types and points of failure, as well as received payload.
      */
-    public static synchronized RESTReport apiRequest(final RestAction action,
+    public static RESTReport apiRequest(final RestAction action,
                                      final String apiEntryPoint,
                                      final Map<String, String> attribMap) {
         logger.debug("API Request Invoked");
@@ -148,7 +148,7 @@ public class RESTHandler {
 
             return report;
         } catch (IOException e) {
-            logger.error("failed to open connection" + e.getCause().getMessage(), e);
+            logger.error("failed to open connection" + e.getCause(), e);
             return new RESTReport(true, e.getMessage());
         }
     }

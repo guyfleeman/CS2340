@@ -65,7 +65,10 @@ project(':fp-bind') {
 }
 
 project(':fp-frontend') {
-    // delegated to submodule
+    dependencies {
+        compile('com.lynden:GMapsFX:1.1.1')
+        compile('com.google.code.gson:gson:2.2.4')
+    }
 }
 
 project(':fp-backend') {
