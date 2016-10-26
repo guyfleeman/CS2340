@@ -72,7 +72,7 @@ public class SourceReportMap implements MapComponentInitializedListener {
         mapView.addMapInializedListener(this);
 
         MapOptions options = new MapOptions();
-        LatLong center = new LatLong(34, -88);
+        LatLong center = new LatLong(34, -84);
         options.center(center)
                 .zoom(9)
                 .overviewMapControl(false)
