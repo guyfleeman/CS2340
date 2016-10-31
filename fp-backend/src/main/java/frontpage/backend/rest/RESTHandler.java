@@ -118,24 +118,26 @@ public class RESTHandler {
             con.setRequestProperty("Content-length", String.valueOf(query.length()));
             con.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
             con.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0;Windows98;DigExt)");
-            //con.setConnectTimeout(2000);
-            //con.setReadTimeout(5000);
+            con.setConnectTimeout(2000);
+            con.setReadTimeout(5000);
             con.setDoOutput(true);
             con.setDoInput(true);
 
-            DataOutputStream conOutput = new DataOutputStream(con.getOutputStream());
-            conOutput.writeBytes(query);
-            conOutput.close();
-
             String responsePayload = "";
             if (!HTTPCodes.isError(con.getResponseCode())) {
+                DataOutputStream conOutput = new DataOutputStream(con.getOutputStream());
+                conOutput.writeBytes(query);
+                conOutput.close();
+
                 DataInputStream conInput = new DataInputStream(con.getInputStream());
                 for (int c = conInput.read(); c != -1; c = conInput.read()) {
                     responsePayload += (char) c;
                 }
                 conInput.close();
             }
+
             logger.trace("Return Data: \r\n\r\n" + responsePayload);
+
             RESTReport report = new RESTReport(con.getResponseCode(), con.getResponseMessage(), responsePayload);
             logger.trace("Response Code:" + report.getHttpResponseCode());
             logger.trace("Response Message: " + report.getHttpResponseMessage());
