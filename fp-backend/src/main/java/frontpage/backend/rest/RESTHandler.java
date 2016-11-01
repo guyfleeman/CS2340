@@ -123,12 +123,12 @@ public class RESTHandler {
             con.setDoOutput(true);
             con.setDoInput(true);
 
+            DataOutputStream conOutput = new DataOutputStream(con.getOutputStream());
+            conOutput.writeBytes(query);
+            conOutput.close();
+
             String responsePayload = "";
             if (!HTTPCodes.isError(con.getResponseCode())) {
-                DataOutputStream conOutput = new DataOutputStream(con.getOutputStream());
-                conOutput.writeBytes(query);
-                conOutput.close();
-
                 DataInputStream conInput = new DataInputStream(con.getInputStream());
                 for (int c = conInput.read(); c != -1; c = conInput.read()) {
                     responsePayload += (char) c;
