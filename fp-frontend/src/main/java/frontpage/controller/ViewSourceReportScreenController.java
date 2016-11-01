@@ -2,7 +2,7 @@ package frontpage.controller;
 
 import frontpage.FXMain;
 import frontpage.bind.errorhandling.BackendRequestException;
-import frontpage.bind.report.ReportManager;
+import frontpage.bind.report.SourceReportManager;
 import frontpage.model.report.SourceReport;
 import frontpage.utils.DialogueUtils;
 import javafx.collections.FXCollections;
@@ -11,24 +11,25 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import org.apache.log4j.Logger;
-import javafx.scene.control.TableColumn;
+
 import java.util.Map;
 
 
 /**
  * Created by Devan on 10/16/2016.
  */
-public class ViewReportScreenController implements Updatable {
-    private static final String VIEW_URI = "/frontpage/view/ViewReports.fxml";
+public class ViewSourceReportScreenController implements Updatable {
+    private static final String VIEW_URI = "/frontpage/view/ViewWaterSourceReports.fxml";
 
     private static Logger logger;
     private static Parent root;
-    private static ViewReportScreenController viewReportsController;
+    private static ViewSourceReportScreenController viewReportsController;
 
     static {
-        logger = Logger.getLogger(ViewReportScreenController.class.getName());
+        logger = Logger.getLogger(ViewSourceReportScreenController.class.getName());
     }
 
 
@@ -36,7 +37,7 @@ public class ViewReportScreenController implements Updatable {
         try {
             logger.debug("loading view: " + VIEW_URI);
             FXMLLoader loader = new FXMLLoader(FXMain.class.getResource(VIEW_URI));
-            viewReportsController = new ViewReportScreenController();
+            viewReportsController = new ViewSourceReportScreenController();
             loader.setController(viewReportsController);
             root = loader.load();
         } catch (Exception e) {
@@ -45,7 +46,7 @@ public class ViewReportScreenController implements Updatable {
     }
 
     public static Parent getRoot() { return root; }
-    public static ViewReportScreenController getViewReportController() {return viewReportsController; }
+    public static ViewSourceReportScreenController getViewReportController() {return viewReportsController; }
 
 
     private final ObservableList<SourceReport> reports = FXCollections.observableArrayList();
@@ -58,7 +59,7 @@ public class ViewReportScreenController implements Updatable {
     @FXML private TableColumn<SourceReport, String> waterConditionCol;
     @FXML private Button ViewReportsReturnBtn;
 
-    private ViewReportScreenController () {
+    private ViewSourceReportScreenController() {
 
     }
 
@@ -74,7 +75,7 @@ public class ViewReportScreenController implements Updatable {
 
     @Override
     public boolean update() {
-        ReportManager rm = FXMain.getBackend().getReportManager();
+        SourceReportManager rm = FXMain.getBackend().getSourceReportManager();
         try {
             Map<String, String>[] reportsData = rm.getSourceReports(0);
             for (Map<String, String> reportData : reportsData) {

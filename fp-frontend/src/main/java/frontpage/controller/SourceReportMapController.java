@@ -1,19 +1,16 @@
 package frontpage.controller;
 
 import com.lynden.gmapsfx.GoogleMapView;
-import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.GoogleMap;
 import com.lynden.gmapsfx.javascript.object.InfoWindow;
 import com.lynden.gmapsfx.javascript.object.InfoWindowOptions;
 import com.lynden.gmapsfx.javascript.object.LatLong;
-import com.lynden.gmapsfx.javascript.object.MapOptions;
-import com.lynden.gmapsfx.javascript.object.MapTypeIdEnum;
 import com.lynden.gmapsfx.javascript.object.Marker;
 import com.lynden.gmapsfx.javascript.object.MarkerOptions;
 import frontpage.FXMain;
 import frontpage.bind.errorhandling.BackendRequestException;
-import frontpage.bind.report.ReportManager;
+import frontpage.bind.report.SourceReportManager;
 import frontpage.model.report.SourceReport;
 import frontpage.utils.DialogueUtils;
 import frontpage.view.SourceReportMap;
@@ -21,7 +18,6 @@ import javafx.scene.Parent;
 import netscape.javascript.JSObject;
 import org.apache.log4j.Logger;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
@@ -74,7 +70,7 @@ public class SourceReportMapController implements SourceReportMapControllerInter
 
     private boolean loadReports() {
         Vector<SourceReport> reports = new Vector<>();
-        ReportManager rm = FXMain.getBackend().getReportManager();
+        SourceReportManager rm = FXMain.getBackend().getSourceReportManager();
         try {
             Map<String, String>[] reportsData = rm.getSourceReports(0);
             for (Map<String, String> reportData : reportsData) {

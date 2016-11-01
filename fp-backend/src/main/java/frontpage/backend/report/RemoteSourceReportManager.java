@@ -3,7 +3,7 @@ package frontpage.backend.report;
 import frontpage.backend.rest.RESTHandler;
 import frontpage.backend.rest.RESTReport;
 import frontpage.bind.errorhandling.BackendRequestException;
-import frontpage.bind.report.ReportManager;
+import frontpage.bind.report.SourceReportManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +13,7 @@ import java.util.Map;
  * @date 10/14/16
  * <p></p>
  */
-public class RemoteReportManager implements ReportManager {
+public class RemoteSourceReportManager implements SourceReportManager {
     public String addSourceReport(final String email,
                                   final String tok)
             throws BackendRequestException {
@@ -49,7 +49,7 @@ public class RemoteReportManager implements ReportManager {
         final Map<String, String> attribs = new HashMap<>(properties);
         attribs.put("email", email);
         attribs.put("tok", tok);
-        attribs.put("reprotid", id);
+        attribs.put("reportid", id);
         attribs.put("reporttype", "source");
         attribs.put("action", "UPDATE");
         attribs.keySet().stream().filter(k -> attribs.get(k) == null

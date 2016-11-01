@@ -8,7 +8,7 @@ import java.util.Map;
  * @date 10/14/16
  * <p></p>
  */
-public interface ReportManager {
+public interface SourceReportManager {
     /**
      * adds a blank source report
      * @return report UUID

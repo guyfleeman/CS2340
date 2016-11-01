@@ -78,8 +78,8 @@ public class LoginScreenController {
             u.setUserClass(UserClass.valueOf(type));
             FXMain.setUser(u);
             FXMain.getUser().loadProfile();
-            ((MainScreenController) FXMain.getController("main"))
-                    .setUserLabel(FXMain.getUser().getEmail() + "[" + u.getUserClass() + "]");
+//            ((MainScreenController) FXMain.getController("main"))
+//                    .setUserLabel(FXMain.getUser().getEmail() + "[" + u.getUserClass() + "]");
             UNField.clear();
             PwdField.clear();
             FXMain.setView("main");

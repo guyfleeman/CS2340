@@ -4,7 +4,8 @@ import frontpage.backend.profile.ProfileManagerFactory;
 import frontpage.backend.report.ReportManagerFactory;
 import frontpage.backend.user.UserManagerFactory;
 import frontpage.bind.Backend;
-import frontpage.bind.report.ReportManager;
+import frontpage.bind.report.PurityReportManager;
+import frontpage.bind.report.SourceReportManager;
 import frontpage.bind.user.UserManager;
 import frontpage.bind.errorhandling.ProfileManagementException;
 import frontpage.bind.profile.ProfileManager;
@@ -44,7 +45,11 @@ public class RemoteBackend implements Backend {
         return ProfileManagerFactory.getInstance();
     }
 
-    public ReportManager getReportManager() {
-        return ReportManagerFactory.getInstance();
+    public SourceReportManager getSourceReportManager() {
+        return ReportManagerFactory.getSourceInstance();
+    }
+
+    public PurityReportManager getPurityReportManager() {
+        return ReportManagerFactory.getPurityInstance();
     }
 }

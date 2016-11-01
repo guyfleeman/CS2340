@@ -2,7 +2,8 @@ package frontpage.controller;
 
 import frontpage.FXMain;
 import frontpage.bind.errorhandling.BackendRequestException;
-import frontpage.bind.report.ReportManager;
+import frontpage.bind.report.SourceReportManager;
+import frontpage.model.report.PurityReport;
 import frontpage.model.report.SourceReport;
 import frontpage.model.report.WaterCondition;
 import frontpage.model.report.WaterType;
@@ -32,7 +33,7 @@ public class CreateSourceReportController implements Updatable {
     private static CreateSourceReportController loginController;
 
     static {
-        logger = Logger.getLogger(LoginScreenController.class.getName());
+        logger = Logger.getLogger(CreateSourceReportController.class.getName());
     }
 
     public static void create() {
@@ -99,7 +100,7 @@ public class CreateSourceReportController implements Updatable {
     }
 
     public boolean update() {
-        ReportManager rm = FXMain.getBackend().getReportManager();
+        SourceReportManager rm = FXMain.getBackend().getSourceReportManager();
         activeReport = null;
         try {
             activeReport = SourceReport.createReport(rm, FXMain.getUser());
@@ -153,7 +154,7 @@ public class CreateSourceReportController implements Updatable {
 
     @FXML
     public void handleCancelAction() {
-        ReportManager rm = FXMain.getBackend().getReportManager();
+        SourceReportManager rm = FXMain.getBackend().getSourceReportManager();
         try {
             activeReport.deleteFromBackend(rm, FXMain.getUser());
         } catch (Exception e) {
@@ -183,7 +184,7 @@ public class CreateSourceReportController implements Updatable {
         activeReport.setCondition(condition.getValue());
         activeReport.setDescription(description.getText());
 
-        ReportManager rm = FXMain.getBackend().getReportManager();
+        SourceReportManager rm = FXMain.getBackend().getSourceReportManager();
         try {
             activeReport.writeToBackend(rm, FXMain.getUser());
         } catch (BackendRequestException e) {

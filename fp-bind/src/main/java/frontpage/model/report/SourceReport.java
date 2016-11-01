@@ -1,7 +1,7 @@
 package frontpage.model.report;
 
 import frontpage.bind.errorhandling.BackendRequestException;
-import frontpage.bind.report.ReportManager;
+import frontpage.bind.report.SourceReportManager;
 import frontpage.model.user.User;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -39,7 +39,7 @@ public class SourceReport {
         loadFromMap(ldf);
     }
 
-    public static SourceReport createReport(final ReportManager rm,
+    public static SourceReport createReport(final SourceReportManager rm,
                                             final User auth)
             throws BackendRequestException {
         final SourceReport ret = new SourceReport();
@@ -48,7 +48,7 @@ public class SourceReport {
         return ret;
     }
 
-    public void populateFromBackend(final ReportManager rm)
+    public void populateFromBackend(final SourceReportManager rm)
             throws BackendRequestException {
         Map<String, String> res = rm.getSourceReport(reportid);
         loadFromMap(res);
@@ -84,11 +84,10 @@ public class SourceReport {
         }
     }
 
-    public void writeToBackend(final ReportManager rm,
+    public void writeToBackend(final SourceReportManager rm,
                                final User auth)
             throws BackendRequestException {
         Map<String, String> attribs = new HashMap<>();
-        attribs.put("reportid", reportid);
         attribs.put("reportdt", reportTime.toString());
         attribs.put("location", loc.getValue());
         attribs.put("type", type.toString());
@@ -101,7 +100,7 @@ public class SourceReport {
                 attribs);
     }
 
-    public void deleteFromBackend(final ReportManager rm,
+    public void deleteFromBackend(final SourceReportManager rm,
                                   final User auth)
             throws BackendRequestException {
         rm.deleteSourceReport(auth.getEmail(),
