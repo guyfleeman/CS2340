@@ -19,7 +19,6 @@ import java.util.Map;
  */
 public class SourceReport {
     private static Logger logger;
-    private static int numberOfReports = 0;
 
     static {
         logger = Logger.getLogger(SourceReport.class);
@@ -38,14 +37,6 @@ public class SourceReport {
 
     public SourceReport(final Map<String, String> ldf) {
         loadFromMap(ldf);
-    }
-
-    public SourceReport(String user, String location, WaterType type, WaterCondition condition) {
-        reportid = Integer.toString(++numberOfReports);
-        username.set(user);
-        loc.set(location);
-        this.type = type;
-        this.condition = condition;
     }
 
     public static SourceReport createReport(final SourceReportManager rm,

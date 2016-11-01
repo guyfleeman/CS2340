@@ -2,7 +2,6 @@ package frontpage.model.report;
 
 import frontpage.bind.errorhandling.BackendRequestException;
 import frontpage.bind.report.PurityReportManager;
-import frontpage.bind.report.SourceReportManager;
 import frontpage.model.user.User;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -13,6 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * @author George Tang
  * @author willstuckey
  * @date 10/31/16
  * <p></p>
