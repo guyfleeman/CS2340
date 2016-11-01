@@ -12,51 +12,53 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by George on 10/15/2016.
- *
- * @author George Tang
- * @author willstuckey
+ * Created by George on 10/31/2016.
  */
-public class SourceReport {
+public class PurityReport {
     private static Logger logger;
 
     static {
-        logger = Logger.getLogger(SourceReport.class);
+        logger = Logger.getLogger(PurityReport.class);
     }
 
     private LocalDateTime reportTime = LocalDateTime.now();
-    private String reportid;
     private String title;
     private String description;
+    private String reportid;
     private final StringProperty username = new SimpleStringProperty();
     private final StringProperty loc = new SimpleStringProperty();
-    private WaterType type = WaterType.UNAVAILABLE;
-    private WaterCondition condition = WaterCondition.UNAVAILABLE;
+    private WaterEvaluation eval = WaterEvaluation.UNAVAILABLE;
+    private String virusPPM;
+    private String contaminantPPM;
 
-    public SourceReport() {}
 
-    public SourceReport(final Map<String, String> ldf) {
+    public PurityReport() {}
+
+    public PurityReport(final Map<String, String> ldf) {
         loadFromMap(ldf);
     }
 
-    public static SourceReport createReport(final ReportManager rm,
+
+
+    public static PurityReport createReport(final ReportManager rm,
                                             final User auth)
             throws BackendRequestException {
-        final SourceReport ret = new SourceReport();
-        ret.reportid = rm.addSourceReport(auth.getEmail(), auth.getTok());
+        final PurityReport ret = new PurityReport();
+        ret.reportid = rm.addPurityReport(auth.getEmail(), auth.getTok());
         ret.username.setValue(auth.getUsername());
         return ret;
     }
 
     public void populateFromBackend(final ReportManager rm)
             throws BackendRequestException {
-        Map<String, String> res = rm.getSourceReport(reportid);
+        Map<String, String> res = rm.getPurityReport(reportid);
         loadFromMap(res);
     }
 
     private void loadFromMap(Map<String, String> map) {
         reportid = map.get("reportid");
         title = map.get("name");
+
         String dt = map.get("reportdt");
         if (dt != null && dt.length() > 0) {
             reportTime = LocalDateTime.parse(dt.replace(' ', 'T'));
@@ -64,24 +66,18 @@ public class SourceReport {
         loc.setValue(map.get("location"));
         username.setValue(map.get("username"));
         description = map.get("description");
+        virusPPM = map.get("virusPPM");
+        contaminantPPM = map.get("contaminantPPM");
 
-        String type = map.get("type");
-        if (type != null && type.length() > 0) {
+        String eval = map.get("eval");
+        if (eval != null && eval.length() > 0) {
             try {
-                this.type = WaterType.valueOf(type);
+                this.eval = WaterEvaluation.valueOf(eval);
             } catch (Exception e) {
-                logger.warn("could not parse value for WaterType: " + type, e);
+                logger.warn("could not parse value for WaterEvaluation: " + eval, e);
             }
         }
 
-        String cond = map.get("cond");
-        if (cond != null && cond.length() > 0) {
-            try {
-                this.condition = WaterCondition.valueOf(cond);
-            } catch (Exception e) {
-                logger.warn("could not parse value for WaterCondition: " + cond, e);
-            }
-        }
     }
 
     public void writeToBackend(final ReportManager rm,
@@ -91,11 +87,12 @@ public class SourceReport {
         attribs.put("reportid", reportid);
         attribs.put("reportdt", reportTime.toString());
         attribs.put("location", loc.getValue());
-        attribs.put("type", type.toString());
-        attribs.put("cond", condition.toString());
+        attribs.put("eval", eval.toString());
         attribs.put("name", title);
         attribs.put("description", description);
-        rm.updateSourceReport(auth.getEmail(),
+        attribs.put("virusPPM", virusPPM);
+        attribs.put("contaminantPPM", contaminantPPM);
+        rm.updatePurityReport(auth.getEmail(),
                 auth.getTok(),
                 reportid,
                 attribs);
@@ -104,7 +101,7 @@ public class SourceReport {
     public void deleteFromBackend(final ReportManager rm,
                                   final User auth)
             throws BackendRequestException {
-        rm.deleteSourceReport(auth.getEmail(),
+        rm.deletePurityReport(auth.getEmail(),
                 auth.getTok(),
                 reportid);
     }
@@ -116,8 +113,9 @@ public class SourceReport {
         ret += "location: " + loc.getValue() + "\r\n";
         ret += "description: " + description + "\r\n";
         ret += "submitter: " + username.getValue() + "\r\n";
-        ret += "type: " + type.toString() + "\r\n";
-        ret += "condition: " + condition.toString() + "\r\n";
+        ret += "virus PPM: " + virusPPM + "\r\n";
+        ret += "contaminant PPM: " + contaminantPPM + "\r\n";
+        ret += "evaluation: " + eval.toString() + "\r\n";
         ret += "date: " + reportTime.toString() + "\r\n";
         ret += "\r\n";
         return ret;
@@ -127,9 +125,12 @@ public class SourceReport {
     public String getReportid() {return reportid;}
     public String getUsername() {return username.getValue();}
     public String getLoc() {return loc.getValue();}
-    public WaterType getType() {return type;}
-    public WaterCondition getCondition() {return condition;}
-    public void setCondition(WaterCondition cond) {condition = cond;}
+    public WaterEvaluation getEval() {return eval;}
+    public void setEval(WaterEvaluation eval) {this.eval = eval;}
+    public String getVirusPPM() {return virusPPM;}
+    public void setVirusPPM(String virus) {virusPPM = virus;}
+    public String getContaminantPPM() {return contaminantPPM;}
+    public void setContaminantPPM(String contam) {contaminantPPM = contam;}
     public String getTitle() {
         return title;
     }
@@ -145,18 +146,18 @@ public class SourceReport {
     public void setLoc(final String loc) {
         this.loc.setValue(loc);
     }
-    public void setType(WaterType type) {
-        this.type = type;
-    }
 
     public StringProperty getReportTime_t() { return new SimpleStringProperty(normalizeDT(reportTime)); }
     public StringProperty getReportID_t() { return new SimpleStringProperty(reportid); }
     public StringProperty getUsername_t() { return new SimpleStringProperty(username.getValue()); }
     public StringProperty getLocation_t() { return new SimpleStringProperty(loc.getValue()); }
-    public StringProperty getType_t() { return new SimpleStringProperty(type.toString()); }
-    public StringProperty getCondition_t() { return new SimpleStringProperty(condition.toString()); }
+    public StringProperty getEval_t() { return new SimpleStringProperty(eval.toString()); }
+    public StringProperty getVirusPPM_t() { return new SimpleStringProperty(virusPPM); }
+    public StringProperty getContaminantPPM_t() { return new SimpleStringProperty(contaminantPPM); }
+
 
     private static String normalizeDT(final LocalDateTime ldt) {
         return "" + ldt.getMonthValue() + "/" + ldt.getDayOfMonth() + "/" + ldt.getYear();
     }
+
 }
