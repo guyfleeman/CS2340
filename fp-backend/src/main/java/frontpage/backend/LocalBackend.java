@@ -5,6 +5,7 @@ import frontpage.backend.profile.ProfileManagerFactory;
 import frontpage.backend.user.LocalUserManager;
 import frontpage.backend.user.UserManagerFactory;
 import frontpage.bind.Backend;
+import frontpage.bind.report.PurityReportManager;
 import frontpage.bind.report.SourceReportManager;
 import frontpage.bind.user.UserManager;
 import frontpage.bind.errorhandling.ProfileManagementException;
@@ -53,6 +54,10 @@ public class LocalBackend implements Backend {
     }
 
     public SourceReportManager getSourceReportManager() {
+        return null;
+    }
+
+    public PurityReportManager getPurityReportManager() {
         return null;
     }
 }

@@ -1,6 +1,8 @@
 package frontpage.controller;
 
 import frontpage.FXMain;
+import frontpage.model.user.User;
+import frontpage.model.user.UserClass;
 import frontpage.utils.DialogueUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +14,7 @@ import org.apache.log4j.Logger;
 /**
  * main screen controller
  */
-public class MainScreenController {
+public class MainScreenController implements  Updatable {
     private static final String VIEW_URI = "/frontpage/view/MainScreen.fxml";
 
     private static Logger logger;
@@ -51,19 +53,32 @@ public class MainScreenController {
     @FXML private Button logOutBtn;
     @FXML private Button createSourceReport;
     @FXML private Button viewSourceReports;
+    @FXML private Button createPurityReport;
+    @FXML private Button viewPurityReports;
     @FXML private Button mapBtn;
 
     private MainScreenController() {
 
     }
 
-    public void setUserLabel(final String text) {
+    private void setUserLabel(final String text) {
         userLabel.setText("Logged In As: " + text);
     }
 
     @FXML
     public void initialize() {
         userLabel.setText(null);
+        createPurityReport.setDisable(true);
+        viewPurityReports.setDisable(true);
+    }
+
+    public boolean update() {
+        User u = FXMain.getUser();
+        setUserLabel(u.getEmail() + " [" + u.getUserClass() + "]");
+        createPurityReport.setDisable(!(u.getUserClass() == UserClass.WORKER));
+        viewPurityReports.setDisable(!(u.getUserClass() == UserClass.MANAGER
+                || u.getUserClass() == UserClass.ADMIN));
+        return true;
     }
 
     /**
@@ -117,5 +132,15 @@ public class MainScreenController {
     @FXML
     private void handleViewSourceReportSwitch() {
         FXMain.setView("viewsourcerpts");
+    }
+
+    @FXML
+    private void handleCreatePurityReportAction() {
+        FXMain.setView("createpurityrpt");
+    }
+
+    @FXML
+    private void handleViewPurityReportsAction() {
+        FXMain.setView("viewpurityrpts");
     }
 }

@@ -18,7 +18,7 @@ public class WelcomeScreenController {
     private static WelcomeScreenController welcomeController;
 
     static {
-        logger = Logger.getLogger(MainScreenController.class.getName());
+        logger = Logger.getLogger(WelcomeScreenController.class.getName());
     }
 
     public static void create() {

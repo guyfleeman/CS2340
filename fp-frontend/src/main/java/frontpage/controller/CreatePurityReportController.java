@@ -6,9 +6,6 @@ import frontpage.bind.report.PurityReportManager;
 import frontpage.bind.report.SourceReportManager;
 import frontpage.model.report.PurityCondition;
 import frontpage.model.report.PurityReport;
-import frontpage.model.report.SourceReport;
-import frontpage.model.report.WaterCondition;
-import frontpage.model.report.WaterType;
 import frontpage.utils.DialogueUtils;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -32,21 +29,21 @@ public class CreatePurityReportController implements Updatable {
 
     private static Logger logger;
     private static Parent root;
-    private static CreatePurityReportController loginController;
+    private static CreatePurityReportController purityReportController;
 
     static {
-        logger = Logger.getLogger(LoginScreenController.class.getName());
+        logger = Logger.getLogger(CreatePurityReportController.class.getName());
     }
 
     public static void create() {
         try {
             logger.debug("loading view: " + VIEW_URI);
             FXMLLoader loader = new FXMLLoader(FXMain.class.getResource(VIEW_URI));
-            loginController = new CreatePurityReportController();
-            loader.setController(loginController);
+            purityReportController = new CreatePurityReportController();
+            loader.setController(purityReportController);
             root = loader.load();
         } catch (Exception e) {
-            logger.error("failed to load view", e);
+            logger.error("failed to load view: " + e.getCause(), e);
         }
     }
 
@@ -54,8 +51,8 @@ public class CreatePurityReportController implements Updatable {
         return root;
     }
 
-    public static CreatePurityReportController getCreateSourceReportController() {
-        return loginController;
+    public static CreatePurityReportController getPurityReportController() {
+        return purityReportController;
     }
 
     private PurityReport activeReport;
@@ -63,13 +60,13 @@ public class CreatePurityReportController implements Updatable {
     @FXML private TextField submitter;
     @FXML private TextField date;
     @FXML private TextArea loc;
-    @FXML private ComboBox<PurityCondition> condition;
+    @FXML private ComboBox<PurityCondition> purity;
     @FXML private TextField virusPPM;
     @FXML private TextField contaminantPPM;
 
     @FXML
     public void initialize() {
-        condition.setItems(FXCollections.observableList(new LinkedList<PurityCondition>(){{
+        purity.setItems(FXCollections.observableList(new LinkedList<PurityCondition>(){{
             for (PurityCondition pc : PurityCondition.values())
                 add(pc);
         }}));
@@ -77,7 +74,7 @@ public class CreatePurityReportController implements Updatable {
         reportID.setDisable(true);
         submitter.setDisable(true);
         date.setDisable(true);
-        condition.setValue(PurityCondition.UNAVAILABLE);
+        purity.setValue(PurityCondition.UNAVAILABLE);
 
         //TODO: find solution for encoding new lines
         loc.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
@@ -118,11 +115,11 @@ public class CreatePurityReportController implements Updatable {
             System.out.println("-------------------------------------------");
             System.out.println(activeReport);
             reportID.setText(activeReport.getId());
-            submitter.setText(activeReport.getUsername());
+            submitter.setText(activeReport.getSubmitter());
             loc.setText(activeReport.getLocation());
             PurityCondition pc = activeReport.getCondition();
             if (pc != null) {
-                condition.setValue(pc);
+                purity.setValue(pc);
             }
             date.setText(activeReport.getNormalizedDatetime());
             virusPPM.setText(activeReport.getVirusPPM());
@@ -136,9 +133,9 @@ public class CreatePurityReportController implements Updatable {
 
     @FXML
     public void handleCancelAction() {
-        SourceReportManager rm = FXMain.getBackend().getSourceReportManager();
+        PurityReportManager pm = FXMain.getBackend().getPurityReportManager();
         try {
-            activeReport.deleteFromBackend(rm, FXMain.getUser());
+            activeReport.deleteFromBackend(pm, FXMain.getUser());
         } catch (Exception e) {
             logger.info("failed to clean up after cancel action");
         }
@@ -152,9 +149,10 @@ public class CreatePurityReportController implements Updatable {
             activeReport.setLocation(loc);
         } else {
             DialogueUtils.showMessage("Location must be filled.");
+            return;
         }
 
-        activeReport.setCondition(condition.getValue());
+        activeReport.setCondition(purity.getValue());
 
         String virusPPMStr = virusPPM.getText();
         if (isInt(virusPPMStr)) {
@@ -163,26 +161,30 @@ public class CreatePurityReportController implements Updatable {
                 activeReport.setVirusPPM(Integer.toString(num));
             } else {
                 DialogueUtils.showMessage("virus ppm must be between 0 and 1000000");
+                return;
             }
         } else {
             DialogueUtils.showMessage("virus ppm must be a number");
+            return;
         }
 
         String contaminantPPMStr = contaminantPPM.getText();
         if (isInt(contaminantPPMStr)) {
             int num = Integer.parseInt(contaminantPPMStr);
             if (bounded(num, 0, (int) 1e6)) {
-                activeReport.setVirusPPM(Integer.toString(num));
+                activeReport.setContaminantPPM(Integer.toString(num));
             } else {
                 DialogueUtils.showMessage("contaminant ppm must be between 0 and 1000000");
+                return;
             }
         } else {
             DialogueUtils.showMessage("contaminant ppm must be a number");
+            return;
         }
 
-        SourceReportManager rm = FXMain.getBackend().getSourceReportManager();
+        PurityReportManager pm = FXMain.getBackend().getPurityReportManager();
         try {
-            activeReport.writeToBackend(rm, FXMain.getUser());
+            activeReport.writeToBackend(pm, FXMain.getUser());
         } catch (BackendRequestException e) {
             DialogueUtils.showMessage("failed to update report (problem: "
                     + e.getClass() + ", message: "

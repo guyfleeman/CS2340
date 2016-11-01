@@ -48,10 +48,10 @@ public class SourceReport {
         this.condition = condition;
     }
 
-    public static PurityReport createReport(final SourceReportManager rm,
+    public static SourceReport createReport(final SourceReportManager rm,
                                             final User auth)
             throws BackendRequestException {
-        final PurityReport ret = new SourceReport();
+        final SourceReport ret = new SourceReport();
         ret.reportid = rm.addSourceReport(auth.getEmail(), auth.getTok());
         ret.username.setValue(auth.getUsername());
         return ret;
@@ -97,7 +97,6 @@ public class SourceReport {
                                final User auth)
             throws BackendRequestException {
         Map<String, String> attribs = new HashMap<>();
-        attribs.put("reportid", reportid);
         attribs.put("reportdt", reportTime.toString());
         attribs.put("location", loc.getValue());
         attribs.put("type", type.toString());

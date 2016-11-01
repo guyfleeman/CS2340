@@ -59,12 +59,12 @@
                   <Insets right="20.0" />
                </GridPane.margin></VBox>
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <children>
-                  <TextArea fx:id="location" prefHeight="200.0" prefWidth="200.0" />
-               </children>
                <GridPane.margin>
                   <Insets bottom="2.0" right="20.0" top="2.0" />
-               </GridPane.margin></VBox>
+               </GridPane.margin>
+               <children>
+                  <TextArea fx:id="loc" prefHeight="200.0" prefWidth="200.0" />
+               </children></VBox>
             <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <children>
                   <ComboBox fx:id="purity" prefWidth="150.0" />

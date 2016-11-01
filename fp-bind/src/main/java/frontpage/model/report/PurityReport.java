@@ -26,10 +26,10 @@ public class PurityReport {
 
     private String id;
     private String sourceRptId;
-    private String username;
+    private String submitter;
     private LocalDateTime datetime = LocalDateTime.now();
     private String location;
-    private PurityCondition condition;
+    private PurityCondition condition = PurityCondition.UNAVAILABLE;
     private String virusPPM;
     private String contaminantPPM;
 
@@ -44,7 +44,7 @@ public class PurityReport {
             throws BackendRequestException {
         final PurityReport ret = new PurityReport();
         ret.id = rm.addPurityReport(auth.getEmail(), auth.getTok());
-        ret.username = auth.getUsername();
+        ret.submitter = auth.getUsername();
         return ret;
     }
 
@@ -56,13 +56,13 @@ public class PurityReport {
 
     private void loadFromMap(Map<String, String> map) {
         id = map.get("reportid");
-        sourceRptId = map.get("sourceid");
+        sourceRptId = map.get("sourcerptid");
         String dt = map.get("reportdt");
         if (dt != null && dt.length() > 0) {
             datetime = LocalDateTime.parse(dt.replace(' ', 'T'));
         }
         location = map.get("location");
-        username = map.get("username");
+        submitter = map.get("username");
 
         String type = map.get("cond");
         if (type != null && type.length() > 0) {
@@ -77,27 +77,26 @@ public class PurityReport {
         contaminantPPM = map.get("contaminantppm");
     }
 
-    public void writeToBackend(final SourceReportManager rm,
+    public void writeToBackend(final PurityReportManager rm,
                                final User auth)
             throws BackendRequestException {
         Map<String, String> attribs = new HashMap<>();
-        attribs.put("reportid", id);
         attribs.put("sourceid", sourceRptId);
         attribs.put("reportdt", datetime.toString());
         attribs.put("location", location);
         attribs.put("cond", condition.toString());
         attribs.put("virusppm", virusPPM);
         attribs.put("contaminantppm", contaminantPPM);
-        rm.updateSourceReport(auth.getEmail(),
+        rm.updatePurityReport(auth.getEmail(),
                 auth.getTok(),
                 id,
                 attribs);
     }
 
-    public void deleteFromBackend(final SourceReportManager rm,
+    public void deleteFromBackend(final PurityReportManager rm,
                                   final User auth)
             throws BackendRequestException {
-        rm.deleteSourceReport(auth.getEmail(),
+        rm.deletePurityReport(auth.getEmail(),
                 auth.getTok(),
                 id);
     }
@@ -106,7 +105,7 @@ public class PurityReport {
         String ret = "";
         ret += "id: " + id + "\r\n";
         ret += "location: " + location + "\r\n";
-        ret += "submitter: " + username + "\r\n";
+        ret += "submitter: " + submitter + "\r\n";
         ret += "condition: " + condition.toString() + "\r\n";
         ret += "date: " + datetime.toString() + "\r\n";
         ret += "virus ppm: " + virusPPM + "\r\n";
@@ -131,12 +130,12 @@ public class PurityReport {
         this.sourceRptId = sourceRptId;
     }
 
-    public String getUsername() {
-        return username;
+    public String getSubmitter() {
+        return submitter;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setSubmitter(String submitter) {
+        this.submitter = submitter;
     }
 
     public LocalDateTime getDatetime() {
@@ -188,11 +187,11 @@ public class PurityReport {
     }
 
     public StringProperty getRptId_t() {
-        return new SimpleStringProperty(sourceRptId);
+        return new SimpleStringProperty(id);
     }
 
     public StringProperty getReporter_t() {
-        return new SimpleStringProperty(username);
+        return new SimpleStringProperty(submitter);
     }
 
     public StringProperty getLocation_t() {

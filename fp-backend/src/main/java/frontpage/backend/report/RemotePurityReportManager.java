@@ -49,7 +49,7 @@ public class RemotePurityReportManager implements PurityReportManager {
         final Map<String, String> attribs = new HashMap<>(properties);
         attribs.put("email", email);
         attribs.put("tok", tok);
-        attribs.put("reprotid", id);
+        attribs.put("reportid", id);
         attribs.put("reporttype", "purity");
         attribs.put("action", "UPDATE");
         attribs.keySet().stream().filter(k -> attribs.get(k) == null

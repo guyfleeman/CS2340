@@ -33,7 +33,7 @@ public class CreateSourceReportController implements Updatable {
     private static CreateSourceReportController loginController;
 
     static {
-        logger = Logger.getLogger(LoginScreenController.class.getName());
+        logger = Logger.getLogger(CreateSourceReportController.class.getName());
     }
 
     public static void create() {
@@ -56,7 +56,7 @@ public class CreateSourceReportController implements Updatable {
         return loginController;
     }
 
-    private PurityReport activeReport;
+    private SourceReport activeReport;
     @FXML private TextField reportID;
     @FXML private TextField submitter;
     @FXML private TextField title;

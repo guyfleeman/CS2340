@@ -316,7 +316,7 @@ if ($reporttype == "source") {
                 echo "--- BEGIN ---\r\n";
                 $resultnum = 1;
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)) {
-                    $id = $row["id"];
+                    $id = $row["userid"];
                     $pdounstmt = "SELECT * FROM users WHERE id = :id";
                     $unstmt = $dbcon->prepare($pdounstmt);
                     $unstmt->bindParam(":id", $id);
@@ -327,7 +327,7 @@ if ($reporttype == "source") {
                     echo "" . $resultnum . ":";
                     echo "username=" . $username . "|";
                     echo "userid=" . $id . "|";
-                    echo "sourceid" . $row["sourcerptid"] . "|";
+                    echo "sourceid=" . $row["sourcerptid"] . "|";
                     echo "reportid=" . $row["reportid"] . "|";
                     echo "reportdt=" . $row["reportdt"] . "|";
                     echo "location=" . $row["location"] . "|";
@@ -371,8 +371,8 @@ if ($reporttype == "source") {
             $stmt->execute();
 
             echo "status=success\r\n";
-            echo "message=void source report created\r\n";
-            echo "submitter=" . $username . "\r\n";
+            echo "message=void purity report created\r\n";
+            echo "username=" . $username . "\r\n";
             echo "reportid=" . $reportid . "\r\n";
         } catch (PDOException $e) {
             //http_response_code(500);
@@ -403,7 +403,7 @@ if ($reporttype == "source") {
             $stmt->execute();
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            $id = $row["id"];
+            $userid = $row["userid"];
             $sourceid = $row["sourcerptid"];
             $reportdt = $row["reportdt"];
             $location = $row["location"];
@@ -411,12 +411,12 @@ if ($reporttype == "source") {
             $virusppm = $row["virusppm"];
             $contaminantppm = $row["contaminantppm"];
 
-            if (isset($_POST["id"]) && !empty($_POST["id"])) {
-                $id = $_POST["id"];
+            if (isset($_POST["userid"]) && !empty($_POST["userid"])) {
+                $userid = $_POST["userid"];
             }
 
-            if (empty($id)) {
-                $id = NULL;
+            if (empty($userid)) {
+                $userid = NULL;
             }
 
             if (isset($_POST["sourcerptid"]) && !empty($_POST["sourcerptid"])) {
@@ -467,9 +467,9 @@ if ($reporttype == "source") {
                 $contaminantppm = NULL;
             }
 
-            $pdostmt = "UPDATE sourcereports "
+            $pdostmt = "UPDATE purityreports "
                 . "SET "
-                . "id = :id, "
+                . "userid = :userid, "
                 . "sourcerptid = :sourcerptid, "
                 . "reportdt = :reportdt, "
                 . "location = :location, "
@@ -479,13 +479,14 @@ if ($reporttype == "source") {
                 . "WHERE "
                 . "reportid = :reportid";
             $stmt = $dbcon->prepare($pdostmt);
-            $stmt->bindParam(":id", $id);
+            $stmt->bindParam(":userid", $userid);
             $stmt->bindParam(":sourcerptid", $sourcerptid);
             $stmt->bindParam(":reportdt", $reportdt);
             $stmt->bindParam(":location", $location);
             $stmt->bindParam(":cond", $cond);
             $stmt->bindParam(":virusppm", $virusppm);
             $stmt->bindParam(":contaminantppm", $contaminantppm);
+            $stmt->bindParam(":reportid", $reportid);
             $stmt->execute();
 
             echo "status=success\r\n";

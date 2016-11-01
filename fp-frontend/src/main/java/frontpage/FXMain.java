@@ -3,6 +3,7 @@ package frontpage;
 import frontpage.backend.LocalBackend;
 import frontpage.backend.RemoteBackend;
 import frontpage.bind.Backend;
+import frontpage.controller.CreatePurityReportController;
 import frontpage.controller.CreateSourceReportController;
 import frontpage.controller.LoginScreenController;
 import frontpage.controller.MainScreenController;
@@ -11,6 +12,7 @@ import frontpage.controller.RegisterScreenController;
 import frontpage.controller.SourceReportMapController;
 import frontpage.controller.Updatable;
 import frontpage.controller.ViewPurityReportScreenController;
+import frontpage.controller.ViewSourceReportScreenController;
 import frontpage.controller.WelcomeScreenController;
 import frontpage.model.user.User;
 import frontpage.utils.DialogueUtils;
@@ -122,10 +124,10 @@ public class FXMain extends Application {
         );
         viewSceneMap.put("profile", psc);
 
-        ViewPurityReportScreenController.create();
-        SceneControllerEntry<ViewPurityReportScreenController> vrsc = new SceneControllerEntry<>(
-                new Scene(ViewPurityReportScreenController.getRoot(), RES_WIDTH, RES_HEIGHT),
-                ViewPurityReportScreenController.getViewReportController());
+        ViewSourceReportScreenController.create();
+        SceneControllerEntry<ViewSourceReportScreenController> vrsc = new SceneControllerEntry<>(
+                new Scene(ViewSourceReportScreenController.getRoot(), RES_WIDTH, RES_HEIGHT),
+                ViewSourceReportScreenController.getViewReportController());
         viewSceneMap.put("viewsourcerpts", vrsc);
 
         CreateSourceReportController.create();
@@ -134,12 +136,18 @@ public class FXMain extends Application {
                 CreateSourceReportController.getCreateSourceReportController());
         viewSceneMap.put("createsourcerpt", csrc);
 
+        ViewPurityReportScreenController.create();
+        SceneControllerEntry<ViewPurityReportScreenController> vpsc = new SceneControllerEntry<>(
+                new Scene(ViewPurityReportScreenController.getRoot(), RES_WIDTH, RES_HEIGHT),
+                ViewPurityReportScreenController.getViewReportController());
+        viewSceneMap.put("viewpurityrpts", vpsc);
+
         CreatePurityReportController.create();
-        SceneControllerEntry<CreatePurityReportController> swpr = new SceneControllerEntry<>(
+        SceneControllerEntry<CreatePurityReportController> cprc = new SceneControllerEntry<>(
                 new Scene(CreatePurityReportController.getRoot(), RES_WIDTH, RES_HEIGHT),
                 CreatePurityReportController.getPurityReportController()
         );
-        viewSceneMap.put("createpurityrpt", swpr);
+        viewSceneMap.put("createpurityrpt", cprc);
 
         SourceReportMapController.create();
         SceneControllerEntry<SourceReportMapController> srpc = new SceneControllerEntry<>(
