@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.45" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <TableView fx:id="viewReportsTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <columns>
+            <TableColumn fx:id="dateTimeCol" prefWidth="56.0" text="Date" />
+            <TableColumn fx:id="reportNumCol" prefWidth="73.0" text="Number" />
+            <TableColumn fx:id="reporterCol" prefWidth="86.0" text="Reporter" />
+            <TableColumn fx:id="locationCol" prefWidth="77.0" text="Location" />
+            <TableColumn fx:id="conditionCol" prefWidth="89.0" text="Condition" />
+            <TableColumn fx:id="virusPPMCol" prefWidth="90.0" text="Virus PPM" />
+            <TableColumn fx:id="contaminantPPMCol" prefWidth="128.0" text="Contaminant PPM" />
+        </columns>
+      </TableView>
+   </center>
+   <bottom>
+      <AnchorPane prefHeight="40.0" prefWidth="640.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="viewReportsReturnBtn" layoutX="233.0" layoutY="8.0" mnemonicParsing="false" onAction="#handleReturnAction" text="Return to Main Screen" />
+         </children>
+      </AnchorPane>
+   </bottom>
+</BorderPane>

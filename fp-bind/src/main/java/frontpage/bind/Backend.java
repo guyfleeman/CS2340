@@ -1,6 +1,7 @@
 package frontpage.bind;
 
-import frontpage.bind.report.ReportManager;
+import frontpage.bind.report.PurityReportManager;
+import frontpage.bind.report.SourceReportManager;
 import frontpage.bind.user.UserManager;
 import frontpage.bind.profile.ProfileManager;
 
@@ -14,5 +15,7 @@ public interface Backend {
 
     ProfileManager getProfileManager();
 
-    ReportManager getReportManager();
+    SourceReportManager getSourceReportManager();
+
+    PurityReportManager getPurityReportManager();
 }

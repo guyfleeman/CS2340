@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.45" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox alignment="CENTER" prefHeight="45.0" prefWidth="600.0">
+         <children>
+            <Label text="Create Purity Report" />
+         </children></HBox>
+      <GridPane>
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="30.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+        </columnConstraints>
+        <rowConstraints>
+           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+           <RowConstraints minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
+           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+           <RowConstraints minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+               <children>
+                  <TextField fx:id="reportID" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets right="20.0" />
+               </GridPane.margin></VBox>
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <TextField fx:id="submitter" />
+               </children>
+               <GridPane.margin>
+                  <Insets right="20.0" />
+               </GridPane.margin></VBox>
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                  <TextField fx:id="date" />
+               </children>
+               <GridPane.margin>
+                  <Insets right="20.0" />
+               </GridPane.margin></VBox>
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <children>
+                  <TextArea fx:id="location" prefHeight="200.0" prefWidth="200.0" />
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="2.0" right="20.0" top="2.0" />
+               </GridPane.margin></VBox>
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <children>
+                  <ComboBox fx:id="purity" prefWidth="150.0" />
+               </children></VBox>
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <children>
+                  <TextField fx:id="virusPPM" />
+               </children>
+               <GridPane.margin>
+                  <Insets right="20.0" />
+               </GridPane.margin></VBox>
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <children>
+                  <TextField fx:id="contaminantPPM" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets right="20.0" />
+               </GridPane.margin></VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="cancel" mnemonicParsing="false" onAction="#handleCancelAction" text="Cancel" />
+                        <Button fx:id="submit" mnemonicParsing="false" onAction="#handleSubmitAction" text="Submit">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+               </children></VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label text="Report ID:" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+               <children>
+                  <Label text="Submitter:" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
+               <children>
+                  <Label text="Date:" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="41.0" prefWidth="215.0" GridPane.rowIndex="3">
+               <children>
+                  <Label text="Location:" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="4">
+               <children>
+                  <Label text="Purity:" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="5">
+               <children>
+                  <Label text="Virus PPM:" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="6">
+               <children>
+                  <Label text="Contaminant PPM:" />
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="7" />
+         </children>
+      </GridPane>
+   </children>
+</VBox>

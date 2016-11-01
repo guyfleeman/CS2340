@@ -2,7 +2,9 @@ package frontpage.controller;
 
 import frontpage.FXMain;
 import frontpage.bind.errorhandling.BackendRequestException;
+import frontpage.bind.report.PurityReportManager;
 import frontpage.bind.report.SourceReportManager;
+import frontpage.model.report.PurityCondition;
 import frontpage.model.report.PurityReport;
 import frontpage.model.report.SourceReport;
 import frontpage.model.report.WaterCondition;
@@ -25,12 +27,12 @@ import java.util.LinkedList;
  * @author willstuckey
  * <p></p>
  */
-public class CreateSourceReportController implements Updatable {
-    private static final String VIEW_URI = "/frontpage/view/CreateSourceReportScreen.fxml";
+public class CreatePurityReportController implements Updatable {
+    private static final String VIEW_URI = "/frontpage/view/CreatePurityReportScreen.fxml";
 
     private static Logger logger;
     private static Parent root;
-    private static CreateSourceReportController loginController;
+    private static CreatePurityReportController loginController;
 
     static {
         logger = Logger.getLogger(LoginScreenController.class.getName());
@@ -40,7 +42,7 @@ public class CreateSourceReportController implements Updatable {
         try {
             logger.debug("loading view: " + VIEW_URI);
             FXMLLoader loader = new FXMLLoader(FXMain.class.getResource(VIEW_URI));
-            loginController = new CreateSourceReportController();
+            loginController = new CreatePurityReportController();
             loader.setController(loginController);
             root = loader.load();
         } catch (Exception e) {
@@ -52,37 +54,30 @@ public class CreateSourceReportController implements Updatable {
         return root;
     }
 
-    public static CreateSourceReportController getCreateSourceReportController() {
+    public static CreatePurityReportController getCreateSourceReportController() {
         return loginController;
     }
 
     private PurityReport activeReport;
     @FXML private TextField reportID;
     @FXML private TextField submitter;
-    @FXML private TextField title;
-    @FXML private TextArea loc;
-    @FXML private ComboBox<WaterType> type;
-    @FXML private ComboBox<WaterCondition> condition;
     @FXML private TextField date;
-    @FXML private TextArea description;
+    @FXML private TextArea loc;
+    @FXML private ComboBox<PurityCondition> condition;
+    @FXML private TextField virusPPM;
+    @FXML private TextField contaminantPPM;
 
     @FXML
     public void initialize() {
-        type.setItems(FXCollections.observableList(new LinkedList<WaterType>(){{
-            for (WaterType wt : WaterType.values())
-                add(wt);
-        }}));
-
-        condition.setItems(FXCollections.observableList(new LinkedList<WaterCondition>(){{
-            for (WaterCondition wc : WaterCondition.values())
-                add(wc);
+        condition.setItems(FXCollections.observableList(new LinkedList<PurityCondition>(){{
+            for (PurityCondition pc : PurityCondition.values())
+                add(pc);
         }}));
 
         reportID.setDisable(true);
         submitter.setDisable(true);
-        type.setValue(WaterType.UNAVAILABLE);
-        condition.setValue(WaterCondition.UNAVAILABLE);
         date.setDisable(true);
+        condition.setValue(PurityCondition.UNAVAILABLE);
 
         //TODO: find solution for encoding new lines
         loc.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
@@ -90,27 +85,20 @@ public class CreateSourceReportController implements Updatable {
                 event.consume();
             }
         });
-
-        //TODO: find solution for encoding new lines
-        description.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getCode().equals(KeyCode.ENTER)) {
-                event.consume();
-            }
-        });
     }
 
     public boolean update() {
-        SourceReportManager rm = FXMain.getBackend().getSourceReportManager();
+        PurityReportManager pm = FXMain.getBackend().getPurityReportManager();
         activeReport = null;
         try {
-            activeReport = SourceReport.createReport(rm, FXMain.getUser());
-            activeReport.populateFromBackend(rm);
+            activeReport = PurityReport.createReport(pm, FXMain.getUser());
+            activeReport.populateFromBackend(pm);
         } catch (BackendRequestException e) {
             DialogueUtils.showMessage("could not create report template");
             if (activeReport != null) {
-                rm.__deleteSourceReport_fs_na(FXMain.getUser().getEmail(),
+                pm.__deletePurityReport_fs_na(FXMain.getUser().getEmail(),
                         FXMain.getUser().getTok(),
-                        activeReport.getReportid());
+                        activeReport.getId());
             }
             return false;
         } catch (Exception e) {
@@ -119,9 +107,9 @@ public class CreateSourceReportController implements Updatable {
                     + "message: " + e.getMessage() + ")");
             e.printStackTrace();
             if (activeReport != null) {
-                rm.__deleteSourceReport_fs_na(FXMain.getUser().getEmail(),
+                pm.__deletePurityReport_fs_na(FXMain.getUser().getEmail(),
                         FXMain.getUser().getTok(),
-                        activeReport.getReportid());
+                        activeReport.getId());
             }
             return false;
         }
@@ -129,22 +117,16 @@ public class CreateSourceReportController implements Updatable {
         try {
             System.out.println("-------------------------------------------");
             System.out.println(activeReport);
-            reportID.setText(activeReport.getReportid());
+            reportID.setText(activeReport.getId());
             submitter.setText(activeReport.getUsername());
-            title.setText(activeReport.getTitle());
-            loc.setText(activeReport.getLoc());
-            WaterType wt = activeReport.getType();
-            if (wt != null) {
-                type.setValue(wt);
+            loc.setText(activeReport.getLocation());
+            PurityCondition pc = activeReport.getCondition();
+            if (pc != null) {
+                condition.setValue(pc);
             }
-            WaterCondition wc = activeReport.getCondition();
-            if (wc != null) {
-                condition.setValue(wc);
-            }
-            date.setText(activeReport.getReportTime().getMonthValue() + "/"
-                    + activeReport.getReportTime().getDayOfMonth() + "/"
-                    + activeReport.getReportTime().getYear());
-            description.setText(activeReport.getDescription());
+            date.setText(activeReport.getNormalizedDatetime());
+            virusPPM.setText(activeReport.getVirusPPM());
+            contaminantPPM.setText(activeReport.getContaminantPPM());
         } catch (Exception e) {
             DialogueUtils.showMessage(e.getClass() + ", " + e.getMessage() + ", " + e.getCause());
             e.printStackTrace();
@@ -165,24 +147,38 @@ public class CreateSourceReportController implements Updatable {
 
     @FXML
     public void handleSubmitAction() {
-        String title = this.title.getText();
-        if (valid(title)) {
-            activeReport.setTitle(title);
-        } else {
-            DialogueUtils.showMessage("Title must be filled.");
-            return;
-        }
-
         String loc = this.loc.getText();
         if (valid(loc)) {
-            activeReport.setLoc(loc);
+            activeReport.setLocation(loc);
         } else {
             DialogueUtils.showMessage("Location must be filled.");
         }
 
-        activeReport.setType(type.getValue());
         activeReport.setCondition(condition.getValue());
-        activeReport.setDescription(description.getText());
+
+        String virusPPMStr = virusPPM.getText();
+        if (isInt(virusPPMStr)) {
+            int num = Integer.parseInt(virusPPMStr);
+            if (bounded(num, 0, (int) 1e6)) {
+                activeReport.setVirusPPM(Integer.toString(num));
+            } else {
+                DialogueUtils.showMessage("virus ppm must be between 0 and 1000000");
+            }
+        } else {
+            DialogueUtils.showMessage("virus ppm must be a number");
+        }
+
+        String contaminantPPMStr = contaminantPPM.getText();
+        if (isInt(contaminantPPMStr)) {
+            int num = Integer.parseInt(contaminantPPMStr);
+            if (bounded(num, 0, (int) 1e6)) {
+                activeReport.setVirusPPM(Integer.toString(num));
+            } else {
+                DialogueUtils.showMessage("contaminant ppm must be between 0 and 1000000");
+            }
+        } else {
+            DialogueUtils.showMessage("contaminant ppm must be a number");
+        }
 
         SourceReportManager rm = FXMain.getBackend().getSourceReportManager();
         try {
@@ -202,5 +198,19 @@ public class CreateSourceReportController implements Updatable {
 
     private static boolean valid(final String dat) {
         return dat != null && dat.length() > 1;
+    }
+
+    private static boolean isInt(final String dat) {
+        try {
+            Integer.parseInt(dat);
+        } catch (Exception e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private static boolean bounded(int num, int lo, int hi) {
+        return (num >= lo && num <= hi);
     }
 }

@@ -1,25 +1,24 @@
 package frontpage.backend.report;
 
 import frontpage.bind.errorhandling.BackendRequestException;
-import frontpage.bind.report.ReportManager;
+import frontpage.bind.report.PurityReportManager;
 
 import java.util.Map;
 
 /**
  * @author willstuckey
- * @date 10/14/16
+ * @date 10/31/16
  * <p></p>
  */
-public class LocalReportManager implements ReportManager {
+public class LocalPurityReportManager implements PurityReportManager {
     @Override
-    public String addSourceReport(final String email,
-                                  final String tok)
+    public String addPurityReport(final String email, final String tok)
             throws BackendRequestException {
         return null;
     }
 
     @Override
-    public boolean updateSourceReport(final String email,
+    public boolean updatePurityReport(final String email,
                                       final String tok,
                                       final String id,
                                       final Map<String, String> properties)
@@ -28,34 +27,39 @@ public class LocalReportManager implements ReportManager {
     }
 
     @Override
-    public Map<String, String> getSourceReport(final String id)
+    public Map<String, String> getPurityReport(final String id)
             throws BackendRequestException {
         return null;
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public Map<String, String>[] getSourceReports(final int num)
+    public Map<String, String>[] getPurityReports(final int num)
             throws BackendRequestException {
         return (Map<String, String>[]) new Map[0];
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public Map<String, String>[] getSourceReports(final Map<String, String> properties,
-                                                  final Map<String, String> searchConstraints)
+    public Map<String, String>[] getPurityReports(
+            final Map<String, String> properties,
+            final Map<String, String> searchConstraints)
             throws BackendRequestException {
         return (Map<String, String>[]) new Map[0];
     }
 
     @Override
-    public void deleteSourceReport(String email, String tok, String id)
+    public void deletePurityReport(final String email,
+                                   final String tok,
+                                   final String id)
             throws BackendRequestException {
 
     }
 
     @Override
-    public void __deleteSourceReport_fs_na(String email, String tok, String id) {
-        return;
+    public void __deletePurityReport_fs_na(final String email,
+                                           final String tok,
+                                           final String id) {
+
     }
 }

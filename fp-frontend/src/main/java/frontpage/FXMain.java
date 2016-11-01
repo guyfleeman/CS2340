@@ -10,8 +10,7 @@ import frontpage.controller.ProfileScreenController;
 import frontpage.controller.RegisterScreenController;
 import frontpage.controller.SourceReportMapController;
 import frontpage.controller.Updatable;
-import frontpage.controller.ViewReportScreenController;
-import frontpage.controller.WaterPurityReportController;
+import frontpage.controller.ViewPurityReportScreenController;
 import frontpage.controller.WelcomeScreenController;
 import frontpage.model.user.User;
 import frontpage.utils.DialogueUtils;
@@ -123,10 +122,10 @@ public class FXMain extends Application {
         );
         viewSceneMap.put("profile", psc);
 
-        ViewReportScreenController.create();
-        SceneControllerEntry<ViewReportScreenController> vrsc = new SceneControllerEntry<>(
-                new Scene(ViewReportScreenController.getRoot(), RES_WIDTH, RES_HEIGHT),
-                ViewReportScreenController.getViewReportController());
+        ViewPurityReportScreenController.create();
+        SceneControllerEntry<ViewPurityReportScreenController> vrsc = new SceneControllerEntry<>(
+                new Scene(ViewPurityReportScreenController.getRoot(), RES_WIDTH, RES_HEIGHT),
+                ViewPurityReportScreenController.getViewReportController());
         viewSceneMap.put("viewsourcerpts", vrsc);
 
         CreateSourceReportController.create();
@@ -135,10 +134,10 @@ public class FXMain extends Application {
                 CreateSourceReportController.getCreateSourceReportController());
         viewSceneMap.put("createsourcerpt", csrc);
 
-        WaterPurityReportController.create();
-        SceneControllerEntry<WaterPurityReportController> swpr = new SceneControllerEntry<>(
-                new Scene(WaterPurityReportController.getRoot(), RES_WIDTH, RES_HEIGHT),
-                WaterPurityReportController.getPurityReportController()
+        CreatePurityReportController.create();
+        SceneControllerEntry<CreatePurityReportController> swpr = new SceneControllerEntry<>(
+                new Scene(CreatePurityReportController.getRoot(), RES_WIDTH, RES_HEIGHT),
+                CreatePurityReportController.getPurityReportController()
         );
         viewSceneMap.put("createpurityrpt", swpr);
 
