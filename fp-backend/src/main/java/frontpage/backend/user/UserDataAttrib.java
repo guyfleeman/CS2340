@@ -2,13 +2,36 @@ package frontpage.backend.user;
 
 /**
  * @author willstuckey
- * @date 10/5/16
  * <p></p>
  */
 public enum UserDataAttrib {
+    /**
+     * account's classification
+     *
+     * USER
+     * WORKER
+     * MANAGER
+     * ADMIN
+     */
     TYPE,
+
+    /**
+     * account username
+     */
     USERNAME,
+
+    /**
+     * account email
+     */
     EMAIL,
+
+    /**
+     * account first name
+     */
     FIRSTNAME,
+
+    /**
+     * account last name
+     */
     LASTNAME
 }

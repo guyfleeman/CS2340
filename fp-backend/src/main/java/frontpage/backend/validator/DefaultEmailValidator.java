@@ -4,15 +4,28 @@ import java.util.regex.Pattern;
 
 /**
  * @author willstuckey
- * @date 10/1/16
  * <p></p>
  */
 public class DefaultEmailValidator implements EmailValidator {
-    public static final String EMAIL_PATTERN = "";
-    public DefaultEmailValidator() {}
+    /**
+     * RFC compliant email validation regex
+     */
+    public static final String EMAIL_PATTERN =
+            "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
 
-    public boolean isValidEmail(final String email) {
-        return Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
+    /**
+     * default constructor
+     */
+    public DefaultEmailValidator() { }
+
+    /**
+     * check is an email is valid.
+     * Uses RFC compliant regex.
+     * @param email email
+     * @return validity of email.
+     */
+    public final boolean isValidEmail(final String email) {
+        return Pattern.compile(EMAIL_PATTERN,
                 Pattern.CASE_INSENSITIVE).matcher(email).find();
     }
 }

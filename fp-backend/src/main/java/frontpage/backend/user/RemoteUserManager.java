@@ -6,7 +6,6 @@ import frontpage.backend.rest.RESTReport;
 import frontpage.backend.validator.DefaultEmailValidator;
 import frontpage.backend.validator.DefaultPasswordValidator;
 import frontpage.bind.errorhandling.BackendRequestException;
-import frontpage.bind.errorhandling.FailedToCreateUserException;
 import frontpage.bind.errorhandling.InvalidDataException;
 import frontpage.bind.errorhandling.AuthenticationException;
 import frontpage.bind.user.UserManager;
@@ -22,6 +21,9 @@ import java.util.Map;
  * for connection information.</p>
  */
 public class RemoteUserManager implements UserManager {
+    /**
+     * class logger
+     */
     private static Logger logger;
 
     static {
@@ -31,7 +33,7 @@ public class RemoteUserManager implements UserManager {
     /**
      * creates a SQL User Authenticator from the global properties
      */
-    RemoteUserManager() {}
+    RemoteUserManager() { }
 
 
     /**
@@ -44,13 +46,15 @@ public class RemoteUserManager implements UserManager {
     public final String authenticateUser(final String email, final String tok)
             throws BackendRequestException {
         if (email == null || tok == null) {
-            throw new InvalidDataException("one or more parameters was null or empty");
+            throw new InvalidDataException(
+                    "one or more parameters was null or empty");
         }
 
         final Map<String, String> attribs = new HashMap<>(2);
         attribs.put("email", email);
         attribs.put("password", tok);
-        final RESTReport rr = RESTHandler.apiRequest(RESTHandler.RestAction.GET,
+        final RESTReport rr = RESTHandler.apiRequest(
+                RESTHandler.RestAction.GET,
                 RESTHandler.ACCOUNT_AUTH_ENTRY_POINT,
                 attribs);
         delegateExceptionGeneration(rr);
@@ -62,7 +66,7 @@ public class RemoteUserManager implements UserManager {
      * @param dataAttrib the property
      * @param user user for auth
      * @return property value
-     * @throws BackendRequestException
+     * @throws BackendRequestException request failure
      */
     public String getUserProperty(final UserDataAttrib dataAttrib,
                                   final User user)
@@ -76,7 +80,7 @@ public class RemoteUserManager implements UserManager {
      * @param email email for auth
      * @param tok token for auth
      * @return property value
-     * @throws BackendRequestException
+     * @throws BackendRequestException request failure
      */
     public String getUserProperty(final UserDataAttrib dataAttrib,
                                   final String email,
@@ -87,7 +91,8 @@ public class RemoteUserManager implements UserManager {
         attribs.put("email", email);
         attribs.put("tok", tok);
         attribs.put("property", property);
-        final RESTReport rr = RESTHandler.apiRequest(RESTHandler.RestAction.GET,
+        final RESTReport rr = RESTHandler.apiRequest(
+                RESTHandler.RestAction.GET,
                 RESTHandler.ACCOUNT_USER_ENTRY_POINT,
                 attribs);
         delegateExceptionGeneration(rr);
@@ -102,19 +107,22 @@ public class RemoteUserManager implements UserManager {
      * @return user type
      * @throws AuthenticationException if auth fails
      * @throws InvalidDataException if null parameters are passed
+     * @throws BackendRequestException other errors
      */
-    public String getUserType(final String email,
+    public final String getUserType(final String email,
                               final String tok)
                     throws BackendRequestException {
         if (email == null || tok == null) {
-            throw new InvalidDataException("one or more parameters was null or empty");
+            throw new InvalidDataException(
+                    "one or more parameters was null or empty");
         }
 
         final Map<String, String> attribs = new HashMap<>(2);
         attribs.put("email", email);
         attribs.put("tok", tok);
         attribs.put("property", "type");
-        final RESTReport rr = RESTHandler.apiRequest(RESTHandler.RestAction.GET,
+        final RESTReport rr = RESTHandler.apiRequest(
+                RESTHandler.RestAction.GET,
                 RESTHandler.ACCOUNT_USER_ENTRY_POINT,
                 attribs);
         delegateExceptionGeneration(rr);
@@ -130,7 +138,7 @@ public class RemoteUserManager implements UserManager {
      * @param lastname lastname
      * @param userClass user class
      * @throws InvalidDataException null parameters
-     * @throws FailedToCreateUserException if there is a duplicate user
+     * @throws BackendRequestException other errors
      */
     public final void createUser(final String un,
                                     final String pw,
@@ -145,11 +153,13 @@ public class RemoteUserManager implements UserManager {
         }
 
         if (!(new DefaultPasswordValidator().isValidPassword(pw))) {
-            throw new InvalidPasswordExcpetion("the password failed validation");
+            throw new InvalidPasswordExcpetion(
+                    "the password failed validation");
         }
 
         if (!(new DefaultEmailValidator().isValidEmail(email))) {
-            throw new InvalidEmailException("the email address failed validation");
+            throw new InvalidEmailException(
+                    "the email address failed validation");
         }
 
         final Map<String, String> attribs = new HashMap<>(5);
@@ -159,7 +169,8 @@ public class RemoteUserManager implements UserManager {
         attribs.put("firstname", firstname);
         attribs.put("lastname", lastname);
         attribs.put("type", userClass);
-        final RESTReport rr = RESTHandler.apiRequest(RESTHandler.RestAction.POST,
+        final RESTReport rr = RESTHandler.apiRequest(
+                RESTHandler.RestAction.POST,
                 RESTHandler.ACCOUNT_CREATION_ENTRY_POINT,
                 attribs);
         delegateExceptionGeneration(rr);
@@ -170,32 +181,43 @@ public class RemoteUserManager implements UserManager {
      * NOTE: this is not done in the constructor of the RR because
      * response codes vary by implementation and context.
      * @param rr RESTReport
-     * @throws BackendRequestException
+     * @throws BackendRequestException if the backend request cannot
+     *                                 be made
      */
-    protected void delegateExceptionGeneration(final RESTReport rr)
+    protected final void delegateExceptionGeneration(final RESTReport rr)
             throws BackendRequestException {
         if (rr.wasInternalError()) {
-            throw new BackendRequestException("internal error during user creation: " + rr.getInternalErrorMessage());
+            throw new BackendRequestException(
+                    "internal error during user creation: "
+                            + rr.getInternalErrorMessage());
         }
 
         if (rr.rejected()) {
             if (rr.getHttpResponseCode() == HTTPCodes.INTERNAL_SERVER_ERROR) {
-                throw new BackendRequestException("an unrecoverable error occurred " +
-                        "on the server");
+                throw new BackendRequestException(
+                        "an unrecoverable error occurred "
+                                + "on the server");
             } else if (rr.getHttpResponseCode() == HTTPCodes.BAD_REQUEST) {
-                throw new BackendRequestException("an unrecoverable error occurred " +
-                        "with the request made to the server");
+                throw new BackendRequestException(
+                        "an unrecoverable error occurred "
+                                + "with the request made to the server");
             } else if (rr.getHttpResponseCode() == HTTPCodes.UNAUTHORIZED) {
-                throw new AuthenticationException("the authentication credentials " +
-                        "were rejected by the server");
+                throw new AuthenticationException(
+                        "the authentication credentials "
+                                + "were rejected by the server");
             }
         }
 
         if (!rr.success()) {
-            if (rr.getSingleResponseMap().get("message").contains("credentials")) {
-                throw new AuthenticationException("matching account not found");
+            if (rr.getSingleResponseMap()
+                    .get("message")
+                    .contains("credentials")) {
+                throw new AuthenticationException(
+                        "matching account not found");
             }
-            throw new BackendRequestException("the request was unsuccessful: " + rr.getResponseValue("message"));
+            throw new BackendRequestException(
+                    "the request was unsuccessful: "
+                            + rr.getResponseValue("message"));
         }
     }
 }
