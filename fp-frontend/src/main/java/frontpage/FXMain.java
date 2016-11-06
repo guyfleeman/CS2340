@@ -8,6 +8,7 @@ import frontpage.controller.CreateSourceReportController;
 import frontpage.controller.LoginScreenController;
 import frontpage.controller.MainScreenController;
 import frontpage.controller.ProfileScreenController;
+import frontpage.controller.PurityGraphController;
 import frontpage.controller.RegisterScreenController;
 import frontpage.controller.SourceReportMapController;
 import frontpage.controller.Updatable;
@@ -154,6 +155,12 @@ public class FXMain extends Application {
                 new Scene(SourceReportMapController.getRoot(), RES_WIDTH, RES_HEIGHT),
                 SourceReportMapController.getSourceReportMapController());
         viewSceneMap.put("map", srpc);
+
+        PurityGraphController.create();
+        SceneControllerEntry<PurityGraphController> pgc = new SceneControllerEntry<>(
+                new Scene(PurityGraphController.getRoot(), RES_WIDTH, RES_HEIGHT),
+                PurityGraphController.getPurityGraphController());
+        viewSceneMap.put("puritygraph", pgc);
 
         setView("welcome");
         primaryStage.show();
