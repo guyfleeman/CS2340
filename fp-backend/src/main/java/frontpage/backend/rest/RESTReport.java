@@ -66,7 +66,7 @@ public class RESTReport {
     }
 
     /**
-     * creates a rest report whos request could not be formed
+     * creates a rest report who's request could not be formed
      * @param internalError status of internal error
      * @param internalErrorMessage internal error message
      */
@@ -181,7 +181,7 @@ public class RESTReport {
     }
 
     /**
-     * gets the http response message from the reponse header
+     * gets the http response message from the response header
      * @return response message
      */
     public String getHttpResponseMessage() {

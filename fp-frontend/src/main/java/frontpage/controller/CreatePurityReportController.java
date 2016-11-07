@@ -23,6 +23,7 @@ import java.util.LinkedList;
  * @author willstuckey
  * <p></p>
  */
+@SuppressWarnings("unused")
 public class CreatePurityReportController implements Updatable {
     private static final String VIEW_URI = "/frontpage/view/CreatePurityReportScreen.fxml";
 

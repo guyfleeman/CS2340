@@ -2,7 +2,6 @@ package frontpage.bind.user;
 
 import frontpage.bind.errorhandling.AuthenticationException;
 import frontpage.bind.errorhandling.BackendRequestException;
-import frontpage.bind.errorhandling.InvalidDataException;
 
 /**
  * @author willstuckey
@@ -27,8 +26,7 @@ public interface UserManager {
      * @param email email for auth
      * @param tok auth token
      * @return type
-     * @throws AuthenticationException
-     * @throws InvalidDataException
+     * @throws BackendRequestException errors
      */
     String getUserType(final String email, final String tok)
             throws BackendRequestException;
@@ -40,7 +38,7 @@ public interface UserManager {
      * @param email email
      * @param firstname firstname
      * @param lastname lastname
-     * @throws InvalidDataException
+     * @throws BackendRequestException errors
      */
     @SuppressWarnings("SameParameterValue")
     void createUser(final String un, final String pw, final String email,

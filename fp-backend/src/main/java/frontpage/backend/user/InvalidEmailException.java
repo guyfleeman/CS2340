@@ -6,7 +6,7 @@ import frontpage.bind.errorhandling.InvalidDataException;
  * @author willstuckey
  * <p></p>
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class InvalidEmailException extends InvalidDataException {
     /**
      * invalid email

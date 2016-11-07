@@ -4,6 +4,7 @@ package frontpage.bind.errorhandling;
  * @author willstuckey
  * <p></p>
  */
+@SuppressWarnings("unused")
 public class ProfileManagementException extends Exception {
     public ProfileManagementException() {
         super();

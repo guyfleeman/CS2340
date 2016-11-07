@@ -7,7 +7,7 @@ package frontpage.bind.errorhandling;
  *
  * <p></p>
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class FailedToCreateUserException extends BackendRequestException {
     public FailedToCreateUserException() {
         super();

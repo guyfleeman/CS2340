@@ -4,7 +4,7 @@ package frontpage.bind.errorhandling;
  * @author willstuckey
  * <p></p>
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class InvalidDataException extends BackendRequestException {
     public InvalidDataException() {
         super();

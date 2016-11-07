@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
  * @author Devan
  * @author willstuckey
  */
+@SuppressWarnings("unused")
 public class ProfileScreenController implements Updatable {
     private static final String VIEW_URI = "/frontpage/view/ManageProfileScreen.fxml";
 

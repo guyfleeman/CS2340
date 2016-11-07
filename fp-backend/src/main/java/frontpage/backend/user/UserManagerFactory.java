@@ -81,6 +81,7 @@ public final class UserManagerFactory {
     /**
      * NoSuchUserAuthenticatorException
      */
+    @SuppressWarnings("UnusedParameters")
     public static final class NoSuchUserAuthenticatorException
             extends Exception {
         /**

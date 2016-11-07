@@ -25,6 +25,7 @@ import java.util.Vector;
  * @author willstuckey
  * <p></p>
  */
+@SuppressWarnings("unused")
 public class SourceReportMapController implements SourceReportMapControllerInterface, Updatable {
     private static final Logger logger;
     private static Parent root;

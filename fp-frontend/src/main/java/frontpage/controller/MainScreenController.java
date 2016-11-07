@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 /**
  * main screen controller
  */
+@SuppressWarnings("unused")
 public class MainScreenController implements  Updatable {
     private static final String VIEW_URI = "/frontpage/view/MainScreen.fxml";
 

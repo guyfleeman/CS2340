@@ -22,6 +22,7 @@ import java.util.Map;
  * @author Devan
  * <p></p>
  */
+@SuppressWarnings("unused")
 public class ViewSourceReportScreenController implements Updatable {
     private static final String VIEW_URI = "/frontpage/view/ViewWaterSourceReports.fxml";
 

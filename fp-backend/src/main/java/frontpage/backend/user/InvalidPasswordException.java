@@ -6,12 +6,12 @@ import frontpage.bind.errorhandling.InvalidDataException;
  * @author willstuckey
  * <p></p>
  */
-@SuppressWarnings("WeakerAccess")
-public class InvalidPasswordExcpetion extends InvalidDataException {
+@SuppressWarnings({"WeakerAccess", "unused"})
+public class InvalidPasswordException extends InvalidDataException {
     /**
      * default constructor
      */
-    public InvalidPasswordExcpetion() {
+    public InvalidPasswordException() {
         super();
     }
 
@@ -20,7 +20,7 @@ public class InvalidPasswordExcpetion extends InvalidDataException {
      * @param message message
      */
     @SuppressWarnings("SameParameterValue")
-    public InvalidPasswordExcpetion(final String message) {
+    public InvalidPasswordException(final String message) {
         super(message);
     }
 
@@ -28,7 +28,7 @@ public class InvalidPasswordExcpetion extends InvalidDataException {
      * invalid password
      * @param t cause
      */
-    public InvalidPasswordExcpetion(final Throwable t) {
+    public InvalidPasswordException(final Throwable t) {
         super(t);
     }
 
@@ -37,7 +37,7 @@ public class InvalidPasswordExcpetion extends InvalidDataException {
      * @param message message
      * @param t cause
      */
-    public InvalidPasswordExcpetion(final String message, final Throwable t) {
+    public InvalidPasswordException(final String message, final Throwable t) {
         super(message, t);
     }
 }

@@ -42,7 +42,7 @@ public interface PurityReportManager {
      * gets most recent purity reports
      * @return array containing one map describing each result
      */
-    @SuppressWarnings("SameParameterValue")
+    @SuppressWarnings({"SameParameterValue", "UnusedParameters"})
     Map<String, String>[] getPurityReports(final int num)
             throws BackendRequestException;
 
@@ -52,17 +52,17 @@ public interface PurityReportManager {
      * @param searchConstraints constraints for properties
      * @return array containing one map describing each result
      */
-    @SuppressWarnings("RedundantThrows")
+    @SuppressWarnings({"RedundantThrows", "UnusedParameters"})
     Map<String, String>[] getPurityReports(final Map<String, String> properties,
                                            final Map<String, String> searchConstraints)
             throws BackendRequestException;
 
     /**
      * deletes a purity report
-     * @param email
-     * @param tok
-     * @param id
-     * @throws BackendRequestException
+     * @param email email for auth
+     * @param tok token for auth
+     * @param id report id
+     * @throws BackendRequestException errors
      */
     void deletePurityReport(final String email,
                             final String tok,
@@ -76,9 +76,9 @@ public interface PurityReportManager {
      * reports in failure scenarios. Shell reports missed when this
      * fails will be cleaned by server side cron after the report
      * has aged beyond a week.
-     * @param email
-     * @param tok
-     * @param id
+     * @param email email for auth
+     * @param tok token for auth
+     * @param id report id
      */
     void __deletePurityReport_fs_na(final String email,
                                     final String tok,

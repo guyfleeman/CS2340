@@ -24,6 +24,7 @@ import java.util.LinkedList;
  * @author willstuckey
  * <p></p>
  */
+@SuppressWarnings("unused")
 public class CreateSourceReportController implements Updatable {
     private static final String VIEW_URI = "/frontpage/view/CreateSourceReportScreen.fxml";
 

@@ -23,6 +23,7 @@ import java.util.LinkedList;
  * @author Devan
  * @author willstuckey
  */
+@SuppressWarnings("unused")
 public class RegisterScreenController {
     private static final String VIEW_URI = "/frontpage/view/RegisterUserScreen.fxml";
 
@@ -86,7 +87,7 @@ public class RegisterScreenController {
     }
 
     /**
-     * handles form validation and processing delgation for create user
+     * handles form validation and processing delegation for create user
      *
      * TODO at some point this should be threaded
      */

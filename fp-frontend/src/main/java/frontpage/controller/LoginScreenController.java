@@ -21,6 +21,7 @@ import org.apache.log4j.Logger;
  * @author George
  * @author willstuckey
  */
+@SuppressWarnings("unused")
 public class LoginScreenController {
     private static final String VIEW_URI = "/frontpage/view/LoginScreen.fxml";
 

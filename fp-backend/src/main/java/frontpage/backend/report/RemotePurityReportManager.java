@@ -127,8 +127,8 @@ public class RemotePurityReportManager implements PurityReportManager {
      * CURRENTLY UNDER MINIMAL IMPLEMENTATION (returns null)
      * @param properties properties to search for
      * @param searchConstraints constraints for properties
-     * @return
-     * @throws BackendRequestException
+     * @return null
+     * @throws BackendRequestException errors
      */
     public Map<String, String>[] getPurityReports(final Map<String, String> properties,
                                                   final Map<String, String> searchConstraints)

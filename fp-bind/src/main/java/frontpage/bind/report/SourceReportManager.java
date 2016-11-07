@@ -41,7 +41,7 @@ public interface SourceReportManager {
      * gets most recent source reports
      * @return array containing one map describing each result
      */
-    @SuppressWarnings("SameParameterValue")
+    @SuppressWarnings({"SameParameterValue", "UnusedParameters"})
     Map<String, String>[] getSourceReports(final int num)
             throws BackendRequestException;
 
@@ -51,17 +51,17 @@ public interface SourceReportManager {
      * @param searchConstraints constraints for properties
      * @return array containing one map describing each result
      */
-    @SuppressWarnings("RedundantThrows")
+    @SuppressWarnings({"RedundantThrows", "UnusedParameters"})
     Map<String, String>[] getSourceReports(final Map<String, String> properties,
                                            final Map<String, String> searchConstraints)
             throws BackendRequestException;
 
     /**
      * deletes a source report
-     * @param email
-     * @param tok
-     * @param id
-     * @throws BackendRequestException
+     * @param email email for auth
+     * @param tok token for auth
+     * @param id report id
+     * @throws BackendRequestException errors
      */
     void deleteSourceReport(final String email,
                             final String tok,
@@ -75,9 +75,9 @@ public interface SourceReportManager {
      * reports in failure scenarios. Shell reports missed when this
      * fails will be cleaned by server side cron after the report
      * has aged beyond a week.
-     * @param email
-     * @param tok
-     * @param id
+     * @param email email for auth
+     * @param tok token for auth
+     * @param id report id
      */
     void __deleteSourceReport_fs_na(final String email,
                                     final String tok,

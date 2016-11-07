@@ -156,7 +156,7 @@ public class RemoteUserManager implements UserManager {
 
         //noinspection ConstantConditions
         if (!(new DefaultPasswordValidator().isValidPassword(pw))) {
-            throw new InvalidPasswordExcpetion(
+            throw new InvalidPasswordException(
                     "the password failed validation");
         }
 
@@ -180,7 +180,7 @@ public class RemoteUserManager implements UserManager {
     }
 
     /**
-     * generates exceptions based on the reuslts of a RESTReport
+     * generates exceptions based on the results of a RESTReport
      * NOTE: this is not done in the constructor of the RR because
      * response codes vary by implementation and context.
      * @param rr RESTReport

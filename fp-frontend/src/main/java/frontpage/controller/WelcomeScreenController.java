@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 /**
  *
  */
+@SuppressWarnings("unused")
 public class WelcomeScreenController {
     private static final String VIEW_URI = "/frontpage/view/WelcomeScreen.fxml";
 
