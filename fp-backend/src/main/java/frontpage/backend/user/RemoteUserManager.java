@@ -26,10 +26,10 @@ public class RemoteUserManager implements UserManager {
      * class logger
      */
     @SuppressWarnings("FieldCanBeLocal")
-    private static final Logger logger;
+    private static final Logger LOGGER;
 
     static {
-        logger = Logger.getLogger(RemoteUserManager.class.getName());
+        LOGGER = Logger.getLogger(RemoteUserManager.class.getName());
     }
 
     /**

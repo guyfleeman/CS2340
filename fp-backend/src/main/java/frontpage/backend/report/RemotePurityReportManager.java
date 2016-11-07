@@ -10,9 +10,16 @@ import java.util.Map;
 
 /**
  * @author willstuckey
- * <p></p>
+ * <p>Purity Report Manager for remote server</p>
  */
 public class RemotePurityReportManager implements PurityReportManager {
+    /**
+     * adds a purity report
+     * @param email email for auth
+     * @param tok token for auth
+     * @return report id
+     * @throws BackendRequestException errors
+     */
     public String addPurityReport(final String email,
                                   final String tok)
             throws BackendRequestException {
@@ -40,6 +47,15 @@ public class RemotePurityReportManager implements PurityReportManager {
         return id;
     }
 
+    /**
+     * updates a purity report with new data
+     * @param email email for auth
+     * @param tok token for auth
+     * @param id UUID of source report
+     * @param properties report properties to be written
+     * @return success
+     * @throws BackendRequestException errors
+     */
     public boolean updatePurityReport(final String email,
                                       final String tok,
                                       final String id,
@@ -66,9 +82,16 @@ public class RemotePurityReportManager implements PurityReportManager {
         }
 
         Map<String, String> ret = rr.getSingleResponseMap();
-        return (ret.get("status") != null && ret.get("status").equals("success"));
+        return (ret.get("status") != null
+                && ret.get("status").equals("success"));
     }
 
+    /**
+     * gets a purity report
+     * @param id UUID of source report
+     * @return report data
+     * @throws BackendRequestException errors
+     */
     public Map<String, String> getPurityReport(final String id)
             throws BackendRequestException {
         Map<String, String> attribs = new HashMap<>(3);
@@ -95,6 +118,12 @@ public class RemotePurityReportManager implements PurityReportManager {
         return rr.getResponseValues()[1];
     }
 
+    /**
+     * gets a number of purity reports
+     * @param num number of reports in history
+     * @return report data
+     * @throws BackendRequestException error
+     */
     public Map<String, String>[] getPurityReports(final int num)
             throws BackendRequestException {
         Map<String, String> attribs = new HashMap<>(3);
@@ -130,12 +159,20 @@ public class RemotePurityReportManager implements PurityReportManager {
      * @return null
      * @throws BackendRequestException errors
      */
-    public Map<String, String>[] getPurityReports(final Map<String, String> properties,
-                                                  final Map<String, String> searchConstraints)
+    public Map<String, String>[] getPurityReports(
+            final Map<String, String> properties,
+            final Map<String, String> searchConstraints)
             throws BackendRequestException {
         return null;
     }
 
+    /**
+     * deletes a purity report
+     * @param email email for auth
+     * @param tok token for auth
+     * @param id report id
+     * @throws BackendRequestException errors
+     */
     public void deletePurityReport(final String email,
                                    final String tok,
                                    final String id)
@@ -159,11 +196,21 @@ public class RemotePurityReportManager implements PurityReportManager {
         }
     }
 
+    /**
+     * deletes a purity report
+     *
+     * stop on error rather than propagating it up
+     * @param email email for auth
+     * @param tok token for auth
+     * @param id report id
+     */
     @Override
     public void __deletePurityReport_fs_na(final String email,
                                            final String tok,
                                            final String id) {
         //noinspection EmptyCatchBlock
-        try { deletePurityReport(email, tok, id); } catch (Exception e) {}
+        try {
+            deletePurityReport(email, tok, id);
+        } catch (Exception e) { }
     }
 }

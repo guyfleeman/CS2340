@@ -16,19 +16,19 @@ public final class ReportManagerFactory {
     /**
      * class logger
      */
-    private static final Logger logger;
+    private static final Logger LOGGER;
 
     /**
      * map of type keys to backend classes for source reports
      */
     private static final Map<String,
-            Class<? extends SourceReportManager>> sourceReportManagerMap;
+            Class<? extends SourceReportManager>> SOURCE_REPORT_MANAGER_MAP;
 
     /**
      * map of type keys to backend classes for purity reports
      */
     private static final Map<String,
-            Class<? extends PurityReportManager>> purityReportManagerMap;
+            Class<? extends PurityReportManager>> PURITY_REPORT_MANAGER_MAP;
 
     /**
      * instance of backend for source management
@@ -41,14 +41,18 @@ public final class ReportManagerFactory {
     private static PurityReportManager purityInstance;
 
     static {
-        logger = Logger.getLogger(ReportManagerFactory.class.getName());
-        logger.setLevel(Level.ALL);
-        sourceReportManagerMap = new HashMap<>();
-        purityReportManagerMap = new HashMap<>();
-        sourceReportManagerMap.put("remote", RemoteSourceReportManager.class);
-        sourceReportManagerMap.put("local", LocalSourceReportManager.class);
-        purityReportManagerMap.put("remote", RemotePurityReportManager.class);
-        purityReportManagerMap.put("local", LocalPurityReportManager.class);
+        LOGGER = Logger.getLogger(ReportManagerFactory.class.getName());
+        LOGGER.setLevel(Level.ALL);
+        SOURCE_REPORT_MANAGER_MAP = new HashMap<>();
+        PURITY_REPORT_MANAGER_MAP = new HashMap<>();
+        SOURCE_REPORT_MANAGER_MAP.put("remote",
+                RemoteSourceReportManager.class);
+        SOURCE_REPORT_MANAGER_MAP.put("local",
+                LocalSourceReportManager.class);
+        PURITY_REPORT_MANAGER_MAP.put("remote",
+                RemotePurityReportManager.class);
+        PURITY_REPORT_MANAGER_MAP.put("local",
+                LocalPurityReportManager.class);
     }
 
     /**
@@ -64,14 +68,14 @@ public final class ReportManagerFactory {
     @SuppressWarnings("SameParameterValue")
     public static void createInstance(final String type) {
         Class<? extends SourceReportManager> sourceClass =
-                sourceReportManagerMap.get(type);
+                SOURCE_REPORT_MANAGER_MAP.get(type);
         Class<? extends PurityReportManager> purityClass =
-                purityReportManagerMap.get(type);
+                PURITY_REPORT_MANAGER_MAP.get(type);
         try {
             sourceInstance = sourceClass.newInstance();
             purityInstance = purityClass.newInstance();
         } catch (Exception e) {
-            logger.error("failed to create report manager "
+            LOGGER.error("failed to create report manager "
                     + "instance for backend", e);
         }
     }

@@ -17,13 +17,13 @@ public final class UserManagerFactory {
      * class logger
      */
     @SuppressWarnings("FieldCanBeLocal")
-    private static final Logger logger;
+    private static final Logger LOGGER;
 
     /**
      * type map
      */
     private static final Map<String,
-            Class<? extends UserManager>> userAuthenticatorMap;
+            Class<? extends UserManager>> USER_AUTHENTICATOR_MAP;
 
     /**
      * instance
@@ -31,14 +31,14 @@ public final class UserManagerFactory {
     private static UserManager instance;
 
     static {
-        logger = Logger.getLogger(UserManagerFactory.class);
-        logger.setLevel(Level.ALL);
-        userAuthenticatorMap = new HashMap<>();
-        userAuthenticatorMap.put("remote", RemoteUserManager.class);
-        logger.trace("Added map <\"remote\", "
+        LOGGER = Logger.getLogger(UserManagerFactory.class);
+        LOGGER.setLevel(Level.ALL);
+        USER_AUTHENTICATOR_MAP = new HashMap<>();
+        USER_AUTHENTICATOR_MAP.put("remote", RemoteUserManager.class);
+        LOGGER.trace("Added map <\"remote\", "
                 + "frontpage.backend.auth.RESTUserManager>");
-        userAuthenticatorMap.put("local", LocalUserManager.class);
-        logger.trace("Added map <\"local\", "
+        USER_AUTHENTICATOR_MAP.put("local", LocalUserManager.class);
+        LOGGER.trace("Added map <\"local\", "
                 + "frontpage.backend.auth.LocalUserManager>");
     }
 
@@ -50,13 +50,13 @@ public final class UserManagerFactory {
     public static void createInstance(final String type)
             throws NoSuchUserAuthenticatorException {
         if (type == null
-                || !userAuthenticatorMap.containsKey(type.toLowerCase())) {
+                || !USER_AUTHENTICATOR_MAP.containsKey(type.toLowerCase())) {
             throw new NoSuchUserAuthenticatorException(
                     "Cannot create user authenticator for type " + type + ".");
         }
 
         Class<? extends UserManager> authClass =
-                userAuthenticatorMap.get(type);
+                USER_AUTHENTICATOR_MAP.get(type);
         try {
             instance = authClass.newInstance();
         } catch (Exception e) {

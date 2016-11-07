@@ -86,6 +86,12 @@ public class RemoteSourceReportManager implements SourceReportManager {
                 && ret.get("status").equals("success"));
     }
 
+    /**
+     * gets a source report
+     * @param id UUID of source report
+     * @return report data
+     * @throws BackendRequestException for errors
+     */
     public Map<String, String> getSourceReport(final String id)
             throws BackendRequestException {
         Map<String, String> attribs = new HashMap<>(3);

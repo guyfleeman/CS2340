@@ -14,15 +14,32 @@ import java.util.Map;
  * <p>Fallback profile manager</p>
  */
 public class LocalProfileManager implements ProfileManager {
+    /**
+     * user manager instance
+     */
     private static LocalUserManager lum;
 
+    /**
+     * default constructor
+     */
     public LocalProfileManager() {
     }
 
+    /**
+     * sets user manager instance
+     * @param lum user manager
+     */
     public static void setLum(LocalUserManager lum) {
         LocalProfileManager.lum = lum;
     }
 
+    /**
+     * gets a profile
+     * @param email email for auth
+     * @param tok token for auth
+     * @return data
+     * @throws ProfileManagementException errors
+     */
     public Map<String, String> getProfile(final String email,
                                           final String tok)
         throws ProfileManagementException {
@@ -43,6 +60,14 @@ public class LocalProfileManager implements ProfileManager {
         throw new ProfileManagementException("no matching user found");
     }
 
+    /**
+     * sets profile
+     * @param email email for auth
+     * @param tok token for auth
+     * @param profiles profile data
+     * @return success
+     * @throws ProfileManagementException errors
+     */
     public boolean setProfile(final String email,
                               final String tok,
                               final Map<String, String> profiles)
