@@ -9,7 +9,6 @@ import java.util.HashMap;
 
 /**
  * @author willstuckey
- * @date 10/2/16
  * <p>User Profile data class</p>
  */
 public class UserProfile {

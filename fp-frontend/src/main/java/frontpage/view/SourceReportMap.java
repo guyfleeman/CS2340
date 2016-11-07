@@ -15,7 +15,6 @@ import javafx.scene.layout.VBox;
 
 /**
  * @author willstuckey
- * @date 10/22/16
  * <p></p>
  */
 @SuppressWarnings("WeakerAccess")

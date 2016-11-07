@@ -23,7 +23,6 @@ import java.util.Vector;
 
 /**
  * @author willstuckey
- * @date 10/22/16
  * <p></p>
  */
 public class SourceReportMapController implements SourceReportMapControllerInterface, Updatable {

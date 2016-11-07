@@ -10,7 +10,6 @@ import java.util.Map;
 
 /**
  * @author willstuckey
- * @date 10/14/16
  * <p>Implementation of backend Source Report Manager for remote servers.</p>
  */
 public class RemoteSourceReportManager implements SourceReportManager {

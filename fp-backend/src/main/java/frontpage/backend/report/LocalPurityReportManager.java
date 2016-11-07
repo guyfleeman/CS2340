@@ -7,7 +7,6 @@ import java.util.Map;
 
 /**
  * @author willstuckey
- * @date 10/31/16
  * <p></p>
  */
 public class LocalPurityReportManager implements PurityReportManager {

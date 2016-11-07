@@ -4,7 +4,6 @@ import javafx.scene.Scene;
 
 /**
  * @author willstuckey
- * @date 9/27/16
  * <p></p>
  */
 @SuppressWarnings("WeakerAccess")

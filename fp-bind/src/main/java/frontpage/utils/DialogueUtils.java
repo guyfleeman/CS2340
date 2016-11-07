@@ -22,7 +22,6 @@ import javax.swing.*;
 
 /**
  * @author guyfleeman (aka willstuckey)
- * @date 6/25/14
  * <p>A small wrapper for generating popups and prompts.</p>
  */
 @SuppressWarnings("WeakerAccess")

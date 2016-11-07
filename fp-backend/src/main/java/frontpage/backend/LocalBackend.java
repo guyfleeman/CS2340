@@ -14,7 +14,6 @@ import org.apache.log4j.Logger;
 
 /**
  * @author willstuckey
- * @date 9/27/16
  * <p>This class represents the api provided for a local backend.</p>
  */
 public class LocalBackend implements Backend {

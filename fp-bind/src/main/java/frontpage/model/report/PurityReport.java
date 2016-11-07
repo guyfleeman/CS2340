@@ -14,7 +14,6 @@ import java.util.Map;
 /**
  * @author George Tang
  * @author willstuckey
- * @date 10/31/16
  * <p></p>
  */
 @SuppressWarnings("WeakerAccess")

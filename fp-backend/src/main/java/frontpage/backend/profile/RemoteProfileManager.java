@@ -10,7 +10,6 @@ import java.util.Map;
 
 /**
  * @author willstuckey
- * @date 10/3/16
  * <p></p>
  */
 public class RemoteProfileManager implements ProfileManager {

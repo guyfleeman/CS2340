@@ -11,7 +11,6 @@ import java.util.Map;
 
 /**
  * @author willstuckey
- * @date 10/3/16
  * <p>Fallback profile manager</p>
  */
 public class LocalProfileManager implements ProfileManager {

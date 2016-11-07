@@ -13,7 +13,6 @@ import org.apache.log4j.Logger;
 
 /**
  * @author willstuckey
- * @date 9/27/16
  * <p></p>
  */
 public class RemoteBackend implements Backend {
