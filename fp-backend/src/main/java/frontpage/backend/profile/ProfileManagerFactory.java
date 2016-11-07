@@ -16,12 +16,13 @@ public final class ProfileManagerFactory {
     /**
      * class logger
      */
-    private static Logger logger;
+    @SuppressWarnings("FieldCanBeLocal")
+    private static final Logger logger;
 
     /**
      * type map
      */
-    private static Map<String,
+    private static final Map<String,
             Class<? extends ProfileManager>> userAuthenticatorMap;
 
     /**

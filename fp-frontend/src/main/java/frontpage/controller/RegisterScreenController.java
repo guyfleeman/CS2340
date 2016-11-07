@@ -26,7 +26,7 @@ import java.util.LinkedList;
 public class RegisterScreenController {
     private static final String VIEW_URI = "/frontpage/view/RegisterUserScreen.fxml";
 
-    private static Logger logger;
+    private static final Logger logger;
     private static Parent root;
     private static RegisterScreenController registerController;
 

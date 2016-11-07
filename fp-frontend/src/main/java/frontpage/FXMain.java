@@ -160,6 +160,7 @@ public class FXMain extends Application {
 
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     public static boolean setView(final String view) {
         if (view == null) {
             return false;

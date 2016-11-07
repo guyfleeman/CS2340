@@ -6,6 +6,7 @@ import frontpage.bind.errorhandling.InvalidDataException;
  * @author willstuckey
  * <p></p>
  */
+@SuppressWarnings("WeakerAccess")
 public class InvalidEmailException extends InvalidDataException {
     /**
      * invalid email
@@ -18,6 +19,7 @@ public class InvalidEmailException extends InvalidDataException {
      * invalid email
      * @param message message
      */
+    @SuppressWarnings("SameParameterValue")
     public InvalidEmailException(final String message) {
         super(message);
     }

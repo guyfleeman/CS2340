@@ -7,6 +7,7 @@ import javafx.scene.Scene;
  * @date 9/27/16
  * <p></p>
  */
+@SuppressWarnings("WeakerAccess")
 public class SceneControllerEntry<C> {
     private Scene scene;
     private C controller;
@@ -16,6 +17,7 @@ public class SceneControllerEntry<C> {
         this(scene, controller, null);
     }
 
+    @SuppressWarnings("SameParameterValue")
     public SceneControllerEntry(Scene scene, C controller, Class<C> controllerClass) {
         this.scene = scene;
         this.controller = controller;

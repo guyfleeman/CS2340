@@ -1,11 +1,14 @@
 package frontpage.model.report;
 
 /**
- * Created by George on 10/31/2016.
+ * @author George
+ * @date 10/31/2016
+ * <p></p>
  */
 public enum WaterEvaluation {
     SAFE,
     TREATABLE,
     UNSAFE,
     UNAVAILABLE
+
 }

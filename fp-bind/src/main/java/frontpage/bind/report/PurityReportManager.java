@@ -24,6 +24,7 @@ public interface PurityReportManager {
      * @param properties report properties to be written
      * @return success
      */
+    @SuppressWarnings("UnusedReturnValue")
     boolean updatePurityReport(final String email,
                                final String tok,
                                final String id,
@@ -42,6 +43,7 @@ public interface PurityReportManager {
      * gets most recent purity reports
      * @return array containing one map describing each result
      */
+    @SuppressWarnings("SameParameterValue")
     Map<String, String>[] getPurityReports(final int num)
             throws BackendRequestException;
 
@@ -51,6 +53,7 @@ public interface PurityReportManager {
      * @param searchConstraints constraints for properties
      * @return array containing one map describing each result
      */
+    @SuppressWarnings("RedundantThrows")
     Map<String, String>[] getPurityReports(final Map<String, String> properties,
                                            final Map<String, String> searchConstraints)
             throws BackendRequestException;

@@ -54,6 +54,7 @@ public class LocalSourceReportManager implements SourceReportManager {
 
     }
 
+    @SuppressWarnings({"UnnecessaryReturnStatement", "EmptyMethod"})
     @Override
     public void __deleteSourceReport_fs_na(String email, String tok, String id) {
         return;

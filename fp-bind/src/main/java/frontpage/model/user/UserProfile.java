@@ -132,7 +132,7 @@ public class UserProfile {
     public void writeToDatabase(final ProfileManager pm,
                                 final User user) {
         try {
-            Map<String, String> props = new HashMap<String, String>(5);
+            Map<String, String> props = new HashMap<>(5);
             props.put("address", address);
             props.put("city", city);
             props.put("state", state);

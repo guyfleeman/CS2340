@@ -16,12 +16,13 @@ public final class UserManagerFactory {
     /**
      * class logger
      */
-    private static Logger logger;
+    @SuppressWarnings("FieldCanBeLocal")
+    private static final Logger logger;
 
     /**
      * type map
      */
-    private static Map<String,
+    private static final Map<String,
             Class<? extends UserManager>> userAuthenticatorMap;
 
     /**
@@ -110,6 +111,7 @@ public final class UserManagerFactory {
          * @param message message
          * @param t cause
          */
+        @SuppressWarnings("SameParameterValue")
         public NoSuchUserAuthenticatorException(
                 final String message,
                 final Throwable t) {

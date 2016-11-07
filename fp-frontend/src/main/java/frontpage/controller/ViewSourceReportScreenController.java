@@ -19,12 +19,14 @@ import java.util.Map;
 
 
 /**
- * Created by Devan on 10/16/2016.
+ * @author Devan
+ * @date 10/16/2016
+ * <p></p>
  */
 public class ViewSourceReportScreenController implements Updatable {
     private static final String VIEW_URI = "/frontpage/view/ViewWaterSourceReports.fxml";
 
-    private static Logger logger;
+    private static final Logger logger;
     private static Parent root;
     private static ViewSourceReportScreenController viewReportsController;
 

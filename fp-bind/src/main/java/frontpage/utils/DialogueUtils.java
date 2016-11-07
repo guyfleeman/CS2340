@@ -25,6 +25,7 @@ import javax.swing.*;
  * @date 6/25/14
  * <p>A small wrapper for generating popups and prompts.</p>
  */
+@SuppressWarnings("WeakerAccess")
 public class DialogueUtils
 {
     /**
@@ -32,6 +33,7 @@ public class DialogueUtils
      * @param message the displayed message/question
      * @return the boolean value of the response
      */
+    @SuppressWarnings("SameParameterValue")
     public static boolean askYesNo(String message)
     {
         return (JOptionPane.showConfirmDialog(
@@ -57,6 +59,7 @@ public class DialogueUtils
      * @param message the message
      * @param title the title of the prompt
      */
+    @SuppressWarnings("SameParameterValue")
     public static void showMessage(String message, String title)
     {
         JOptionPane.showMessageDialog(null, message, title, JOptionPane.WARNING_MESSAGE);

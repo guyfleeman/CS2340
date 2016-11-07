@@ -17,8 +17,9 @@ import java.util.Map;
  * @date 10/31/16
  * <p></p>
  */
+@SuppressWarnings("WeakerAccess")
 public class PurityReport {
-    private static Logger logger;
+    private static final Logger logger;
 
     static {
         logger = Logger.getLogger(PurityReport.class.getName());

@@ -22,7 +22,7 @@ task wrapper(type: Wrapper) {
 task testGradleHome << {
     println gradle.gradleHomeDir
     if (gradle.gradleHomeDir == null
-            || gradle.gradleHomeDir.toString().equals("")) {
+            || gradle.gradleHomeDir.toString() == "") {
         throw new StopActionException("Gradle is unaware of its home and will not confirm its dependencies.");
     }
 }

@@ -7,6 +7,7 @@ import java.util.Map;
  * @author willstuckey
  * <p></p>
  */
+@SuppressWarnings("WeakerAccess")
 public class RESTReport {
     /**
      * if the REST request generated an internal error before
@@ -69,6 +70,7 @@ public class RESTReport {
      * @param internalError status of internal error
      * @param internalErrorMessage internal error message
      */
+    @SuppressWarnings("SameParameterValue")
     protected RESTReport(final boolean internalError,
                          final String internalErrorMessage) {
         this(internalError, internalErrorMessage, -1, null, null);
@@ -134,6 +136,7 @@ public class RESTReport {
      * returns if the request was completely successful
      * @return success
      */
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean success() {
         return !wasInternalError()
                 && !rejected()

@@ -42,6 +42,7 @@ public interface UserManager {
      * @param lastname lastname
      * @throws InvalidDataException
      */
+    @SuppressWarnings("SameParameterValue")
     void createUser(final String un, final String pw, final String email,
                        final String firstname, final String lastname, final String userClass)
             throws BackendRequestException;

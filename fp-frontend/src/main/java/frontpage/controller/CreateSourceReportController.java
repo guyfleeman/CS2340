@@ -3,7 +3,6 @@ package frontpage.controller;
 import frontpage.FXMain;
 import frontpage.bind.errorhandling.BackendRequestException;
 import frontpage.bind.report.SourceReportManager;
-import frontpage.model.report.PurityReport;
 import frontpage.model.report.SourceReport;
 import frontpage.model.report.WaterCondition;
 import frontpage.model.report.WaterType;
@@ -28,7 +27,7 @@ import java.util.LinkedList;
 public class CreateSourceReportController implements Updatable {
     private static final String VIEW_URI = "/frontpage/view/CreateSourceReportScreen.fxml";
 
-    private static Logger logger;
+    private static final Logger logger;
     private static Parent root;
     private static CreateSourceReportController loginController;
 

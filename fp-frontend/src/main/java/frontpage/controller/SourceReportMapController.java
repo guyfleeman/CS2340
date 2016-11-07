@@ -27,7 +27,7 @@ import java.util.Vector;
  * <p></p>
  */
 public class SourceReportMapController implements SourceReportMapControllerInterface, Updatable {
-    private static Logger logger;
+    private static final Logger logger;
     private static Parent root;
     private static SourceReportMapController sourceReportMapController;
 
@@ -50,6 +50,7 @@ public class SourceReportMapController implements SourceReportMapControllerInter
         return sourceReportMapController;
     }
 
+    @SuppressWarnings("FieldCanBeLocal")
     private GoogleMapView view;
     private GoogleMap map;
 

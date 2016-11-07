@@ -18,7 +18,7 @@ import org.apache.log4j.Logger;
  * <p>This class represents the api provided for a local backend.</p>
  */
 public class LocalBackend implements Backend {
-    private static Logger logger;
+    private static final Logger logger;
 
     static {
         logger = Logger.getLogger(LocalBackend.class);

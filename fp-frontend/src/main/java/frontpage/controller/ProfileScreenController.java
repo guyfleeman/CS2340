@@ -19,7 +19,7 @@ import org.apache.log4j.Logger;
 public class ProfileScreenController implements Updatable {
     private static final String VIEW_URI = "/frontpage/view/ManageProfileScreen.fxml";
 
-    private static Logger logger;
+    private static final Logger logger;
     private static Parent root;
     private static ProfileScreenController registerController;
 
@@ -75,6 +75,7 @@ public class ProfileScreenController implements Updatable {
         return true;
     }
 
+    @SuppressWarnings("EmptyMethod")
     @FXML
     public void initialize() {
 

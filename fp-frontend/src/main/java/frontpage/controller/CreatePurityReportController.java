@@ -3,7 +3,6 @@ package frontpage.controller;
 import frontpage.FXMain;
 import frontpage.bind.errorhandling.BackendRequestException;
 import frontpage.bind.report.PurityReportManager;
-import frontpage.bind.report.SourceReportManager;
 import frontpage.model.report.PurityCondition;
 import frontpage.model.report.PurityReport;
 import frontpage.utils.DialogueUtils;
@@ -27,7 +26,7 @@ import java.util.LinkedList;
 public class CreatePurityReportController implements Updatable {
     private static final String VIEW_URI = "/frontpage/view/CreatePurityReportScreen.fxml";
 
-    private static Logger logger;
+    private static final Logger logger;
     private static Parent root;
     private static CreatePurityReportController purityReportController;
 
@@ -204,6 +203,7 @@ public class CreatePurityReportController implements Updatable {
 
     private static boolean isInt(final String dat) {
         try {
+            //noinspection ResultOfMethodCallIgnored
             Integer.parseInt(dat);
         } catch (Exception e) {
             return false;
@@ -212,6 +212,7 @@ public class CreatePurityReportController implements Updatable {
         return true;
     }
 
+    @SuppressWarnings("SameParameterValue")
     private static boolean bounded(int num, int lo, int hi) {
         return (num >= lo && num <= hi);
     }

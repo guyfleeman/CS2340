@@ -5,6 +5,7 @@ package frontpage.bind.errorhandling;
  * @date 10/5/16
  * <p></p>
  */
+@SuppressWarnings("WeakerAccess")
 public class BackendRequestException extends Exception {
     public BackendRequestException() {
         super();

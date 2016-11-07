@@ -145,6 +145,7 @@ public final class RESTHandler {
                 }
             }
         }
+        //noinspection ConstantConditions
         LOGGER.trace("query built: " + ((DEBUG_REST) ? query : ""));
 
         String urlStr = null;

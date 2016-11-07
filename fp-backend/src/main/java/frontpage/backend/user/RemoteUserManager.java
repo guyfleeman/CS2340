@@ -20,11 +20,13 @@ import java.util.Map;
  * <p>User Authenticator bound to an SQL server. See GlobalProperties
  * for connection information.</p>
  */
+@SuppressWarnings("WeakerAccess")
 public class RemoteUserManager implements UserManager {
     /**
      * class logger
      */
-    private static Logger logger;
+    @SuppressWarnings("FieldCanBeLocal")
+    private static final Logger logger;
 
     static {
         logger = Logger.getLogger(RemoteUserManager.class.getName());
@@ -152,6 +154,7 @@ public class RemoteUserManager implements UserManager {
             throw new InvalidDataException("one or more parameters was null");
         }
 
+        //noinspection ConstantConditions
         if (!(new DefaultPasswordValidator().isValidPassword(pw))) {
             throw new InvalidPasswordExcpetion(
                     "the password failed validation");

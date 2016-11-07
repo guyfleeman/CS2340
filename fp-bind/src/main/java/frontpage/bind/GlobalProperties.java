@@ -12,12 +12,13 @@ public final class GlobalProperties {
     /**
      * internal logger
      */
-    private static Logger logger;
+    @SuppressWarnings("FieldCanBeLocal")
+    private static final Logger logger;
 
     /**
      * global properties
      */
-    private static Properties properties;
+    private static final Properties properties;
 
     static {
         logger = Logger.getLogger(GlobalProperties.class);

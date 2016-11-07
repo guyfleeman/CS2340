@@ -13,7 +13,7 @@ import org.apache.log4j.Logger;
 public class WelcomeScreenController {
     private static final String VIEW_URI = "/frontpage/view/WelcomeScreen.fxml";
 
-    private static Logger logger;
+    private static final Logger logger;
     private static Parent root;
     private static WelcomeScreenController welcomeController;
 
@@ -47,6 +47,7 @@ public class WelcomeScreenController {
 
     }
 
+    @SuppressWarnings("EmptyMethod")
     @FXML
     public void initialize() {
     }

@@ -14,6 +14,7 @@ public interface ProfileManager {
                                    final String tok)
             throws ProfileManagementException;
 
+    @SuppressWarnings({"UnusedReturnValue", "SameReturnValue"})
     boolean setProfile(final String email,
                        final String tok,
                        final Map<String, String> profiles)

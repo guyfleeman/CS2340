@@ -17,8 +17,9 @@ import java.util.Map;
  * @author George Tang
  * @author willstuckey
  */
+@SuppressWarnings("WeakerAccess")
 public class SourceReport {
-    private static Logger logger;
+    private static final Logger logger;
 
     static {
         logger = Logger.getLogger(SourceReport.class);

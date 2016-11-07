@@ -16,7 +16,7 @@ public final class LocalUserManager implements UserManager {
     /**
      * class logger
      */
-    private ArrayList<User> users;
+    private final ArrayList<User> users;
 
     /**
      * local constructor

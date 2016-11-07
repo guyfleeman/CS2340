@@ -7,8 +7,6 @@ import com.lynden.gmapsfx.javascript.object.LatLong;
 import com.lynden.gmapsfx.javascript.object.MapOptions;
 import com.lynden.gmapsfx.javascript.object.MapTypeIdEnum;
 import frontpage.controller.SourceReportMapControllerInterface;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -20,6 +18,7 @@ import javafx.scene.layout.VBox;
  * @date 10/22/16
  * <p></p>
  */
+@SuppressWarnings("WeakerAccess")
 public class SourceReportMap implements MapComponentInitializedListener {
     private static SourceReportMap instance;
 
@@ -33,6 +32,7 @@ public class SourceReportMap implements MapComponentInitializedListener {
 
     private Parent root;
     private GoogleMapView mapView;
+    @SuppressWarnings("FieldCanBeLocal")
     private GoogleMap map;
     private SourceReportMapControllerInterface cb;
 

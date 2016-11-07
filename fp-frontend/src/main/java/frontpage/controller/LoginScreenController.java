@@ -24,7 +24,7 @@ import org.apache.log4j.Logger;
 public class LoginScreenController {
     private static final String VIEW_URI = "/frontpage/view/LoginScreen.fxml";
 
-    private static Logger logger;
+    private static final Logger logger;
     private static Parent root;
     private static LoginScreenController loginController;
 
@@ -61,6 +61,7 @@ public class LoginScreenController {
 
     }
 
+    @SuppressWarnings("EmptyMethod")
     @FXML
     public void initialize() {
 

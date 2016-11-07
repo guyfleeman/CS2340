@@ -6,6 +6,7 @@ import frontpage.bind.errorhandling.InvalidDataException;
  * @author willstuckey
  * <p></p>
  */
+@SuppressWarnings("WeakerAccess")
 public class InvalidPasswordExcpetion extends InvalidDataException {
     /**
      * default constructor
@@ -18,6 +19,7 @@ public class InvalidPasswordExcpetion extends InvalidDataException {
      * invalid password
      * @param message message
      */
+    @SuppressWarnings("SameParameterValue")
     public InvalidPasswordExcpetion(final String message) {
         super(message);
     }

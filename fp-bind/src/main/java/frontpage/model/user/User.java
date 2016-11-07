@@ -9,6 +9,7 @@ import javafx.beans.property.StringProperty;
  * @author georgetang
  * @author willstuckey
  */
+@SuppressWarnings("WeakerAccess")
 public class User {
     protected static ProfileManager pm;
 

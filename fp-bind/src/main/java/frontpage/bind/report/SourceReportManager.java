@@ -23,6 +23,7 @@ public interface SourceReportManager {
      * @param properties report properties to be written
      * @return success
      */
+    @SuppressWarnings("UnusedReturnValue")
     boolean updateSourceReport(final String email,
                                final String tok,
                                final String id,
@@ -41,6 +42,7 @@ public interface SourceReportManager {
      * gets most recent source reports
      * @return array containing one map describing each result
      */
+    @SuppressWarnings("SameParameterValue")
     Map<String, String>[] getSourceReports(final int num)
             throws BackendRequestException;
 
@@ -50,6 +52,7 @@ public interface SourceReportManager {
      * @param searchConstraints constraints for properties
      * @return array containing one map describing each result
      */
+    @SuppressWarnings("RedundantThrows")
     Map<String, String>[] getSourceReports(final Map<String, String> properties,
                                            final Map<String, String> searchConstraints)
             throws BackendRequestException;

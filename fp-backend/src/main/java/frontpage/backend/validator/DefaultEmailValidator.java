@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
  * @author willstuckey
  * <p></p>
  */
+@SuppressWarnings("WeakerAccess")
 public class DefaultEmailValidator implements EmailValidator {
     /**
      * RFC compliant email validation regex

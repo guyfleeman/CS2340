@@ -164,6 +164,7 @@ public class RemotePurityReportManager implements PurityReportManager {
     public void __deletePurityReport_fs_na(final String email,
                                            final String tok,
                                            final String id) {
+        //noinspection EmptyCatchBlock
         try { deletePurityReport(email, tok, id); } catch (Exception e) {}
     }
 }
