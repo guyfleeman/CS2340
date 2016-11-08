@@ -76,7 +76,7 @@ public class PurityGraphController implements Updatable {
 
     @FXML
     public void initialize() {
-
+        lineChart.setAnimated(false);
     }
 
     public boolean update() {
@@ -161,7 +161,6 @@ public class PurityGraphController implements Updatable {
         XYChart.Series<String, Integer> contaminantPPM = new XYChart.Series<>();
         contaminantPPM.setName("Contaminant PPM");
         for (final PurityReport pr : reportsToDisplay) {
-            System.out.println(pr);
             virusPPM.getData().add(
                     new XYChart.Data<>(pr.getNormalizedDatetime(),
                             Integer.parseInt(pr.getVirusPPM())));
