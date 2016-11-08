@@ -23,29 +23,42 @@ import java.util.Vector;
 
 /**
  * @author willstuckey
- * <p></p>
+ * <p>Controller for Source Report View</p>
  */
 @SuppressWarnings("unused")
-public class SourceReportMapController implements SourceReportMapControllerInterface, Updatable {
-    private static final Logger logger;
+public final class SourceReportMapController
+        implements SourceReportMapControllerInterface, Updatable {
+    private static final Logger LOGGER;
     private static Parent root;
     private static SourceReportMapController sourceReportMapController;
 
     static {
-        logger = Logger.getLogger(SourceReportMapController.class.getName());
+        LOGGER = Logger.getLogger(
+                SourceReportMapController.class.getName());
     }
 
+    /**
+     * creates an instance of the controller and its accompanying view
+     */
     public static void create() {
-        logger.trace("creating view");
+        LOGGER.trace("creating view");
         sourceReportMapController = new SourceReportMapController();
         SourceReportMap.create(sourceReportMapController);
         root = SourceReportMap.instance().getRoot();
     }
 
+    /**
+     * gets the root node of the view
+     * @return root node
+     */
     public static Parent getRoot() {
         return root;
     }
 
+    /**
+     * gets the controller
+     * @return controller
+     */
     public static SourceReportMapController getSourceReportMapController() {
         return sourceReportMapController;
     }
@@ -54,17 +67,30 @@ public class SourceReportMapController implements SourceReportMapControllerInter
     private GoogleMapView view;
     private GoogleMap map;
 
+    /**
+     * return button callback
+     */
     public void handleReturnAction() {
         FXMain.setView("main");
     }
 
+    /**
+     * map populate action
+     * @param view map view
+     * @param map map controller
+     */
     @Override
-    public void handleMapInitAction(GoogleMapView view, GoogleMap map) {
+    public void handleMapInitAction(final GoogleMapView view,
+                                    final GoogleMap map) {
         System.out.println("map initialized" + map);
         this.view = view;
         this.map = map;
     }
 
+    /**
+     * update before view switch action
+     * @return success
+     */
     public boolean update() {
         return loadReports();
     }
@@ -87,7 +113,9 @@ public class SourceReportMapController implements SourceReportMapControllerInter
                     try {
                         double lat = Double.parseDouble(coords[0]);
                         double lng = Double.parseDouble(coords[1]);
-                        System.out.println("found valid location: " + lat + "," + lng);
+                        System.out.println("found valid location: "
+                                + lat + ","
+                                + lng);
                         MarkerOptions markerOptions = new MarkerOptions();
                         LatLong loc = new LatLong(lat, lng);
                         markerOptions.position(loc)
@@ -97,10 +125,14 @@ public class SourceReportMapController implements SourceReportMapControllerInter
                         map.addUIEventHandler(marker,
                                 UIEventType.click,
                                 (JSObject obj) -> {
-                                    InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
-                                    infoWindowOptions.content(r.getDescription() );
-                                    InfoWindow window = new InfoWindow(infoWindowOptions);
-                                    window.open(map, marker);});
+                                    InfoWindowOptions infoWindowOptions
+                                            = new InfoWindowOptions();
+                                    infoWindowOptions
+                                            .content(r.getDescription());
+                                    InfoWindow window =
+                                            new InfoWindow(infoWindowOptions);
+                                    window.open(map, marker);
+                                });
                         map.addMarker(marker);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -112,7 +144,8 @@ public class SourceReportMapController implements SourceReportMapControllerInter
             DialogueUtils.showMessage("view report map bre");
             return false;
         } catch (Exception e) {
-            DialogueUtils.showMessage("view report map exception (type: " + e.getClass()
+            DialogueUtils.showMessage("view report map exception (type: "
+                    + e.getClass()
                     + ", message: " + e.getMessage()
                     + ", cause: " + e.getCause());
             return false;
