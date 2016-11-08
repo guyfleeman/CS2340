@@ -36,16 +36,45 @@ import java.util.Map;
  */
 public class FXMain extends Application {
 
+    /**
+     * default resolution width
+     */
     private static final int RES_WIDTH = 640;
-    private static final int RES_HEIGHT = 480;
-    // logger format
-    private static final String LOG_FORMAT = "%d{ISO8601} [%t] %-5p %c %x - %m%n";
-    private static final Map<String, SceneControllerEntry> viewSceneMap = new HashMap<>();
 
+    /**
+     * default resolution height
+     */
+    private static final int RES_HEIGHT = 480;
+
+    /**
+     * logger format
+     */
+    private static final String LOG_FORMAT = "%d{ISO8601} [%t] %-5p %c %x - %m%n";
+
+    /**
+     * map of string keys to views
+     */
+    private static final Map<String, SceneControllerEntry> VIEW_SCENE_MAP = new HashMap<>();
+
+    /**
+     * stage
+     */
     private static Stage stage;
+
+    /**
+     * current backend reference
+     */
     private static Backend backend;
+
+    /**
+     * active user
+     */
     private static User user;
 
+    /**
+     * program entry point
+     * @param args arguments
+     */
     public static void main(final String[] args) {
         ConsoleAppender console = new ConsoleAppender();
         console.setLayout(new PatternLayout(LOG_FORMAT));
@@ -72,14 +101,26 @@ public class FXMain extends Application {
         launch(args);
     }
 
+    /**
+     * gets the current backend reference
+     * @return backend
+     */
     public static Backend getBackend() {
         return backend;
     }
 
+    /**
+     * gets the active user
+     * @return user
+     */
     public static User getUser() {
         return user;
     }
 
+    /**
+     * sets the active user
+     * @param user user
+     */
     public static void setUser(User user) {
         FXMain.user = user;
     }
@@ -97,63 +138,63 @@ public class FXMain extends Application {
         SceneControllerEntry<RegisterScreenController> rse = new SceneControllerEntry<>(
                 new Scene(RegisterScreenController.getRoot(), RES_WIDTH, RES_HEIGHT),
                 RegisterScreenController.getRegisterController());
-        viewSceneMap.put("register", rse);
+        VIEW_SCENE_MAP.put("register", rse);
 
         LoginScreenController.create();
         SceneControllerEntry<LoginScreenController> lse = new SceneControllerEntry<>(
                 new Scene(LoginScreenController.getRoot(), RES_WIDTH, RES_HEIGHT),
                 LoginScreenController.getLoginController());
-        viewSceneMap.put("login", lse);
+        VIEW_SCENE_MAP.put("login", lse);
 
         WelcomeScreenController.create();
         SceneControllerEntry<WelcomeScreenController> wse = new SceneControllerEntry<>(
                 new Scene(WelcomeScreenController.getRoot(), RES_WIDTH, RES_HEIGHT),
                 WelcomeScreenController.getWelcomeController());
-        viewSceneMap.put("welcome", wse);
+        VIEW_SCENE_MAP.put("welcome", wse);
 
         MainScreenController.create();
         SceneControllerEntry<MainScreenController> mse = new SceneControllerEntry<>(
                 new Scene(MainScreenController.getRoot(), RES_WIDTH, RES_HEIGHT),
                 MainScreenController.getMainController());
-        viewSceneMap.put("main", mse);
+        VIEW_SCENE_MAP.put("main", mse);
 
         ProfileScreenController.create();
         SceneControllerEntry<ProfileScreenController> psc = new SceneControllerEntry<>(
                 new Scene(ProfileScreenController.getRoot(), RES_WIDTH, RES_HEIGHT),
                 ProfileScreenController.getRegisterController()
         );
-        viewSceneMap.put("profile", psc);
+        VIEW_SCENE_MAP.put("profile", psc);
 
         ViewSourceReportScreenController.create();
         SceneControllerEntry<ViewSourceReportScreenController> vrsc = new SceneControllerEntry<>(
                 new Scene(ViewSourceReportScreenController.getRoot(), RES_WIDTH, RES_HEIGHT),
                 ViewSourceReportScreenController.getViewReportController());
-        viewSceneMap.put("viewsourcerpts", vrsc);
+        VIEW_SCENE_MAP.put("viewsourcerpts", vrsc);
 
         CreateSourceReportController.create();
         SceneControllerEntry<CreateSourceReportController> csrc = new SceneControllerEntry<>(
                 new Scene(CreateSourceReportController.getRoot(), RES_WIDTH, RES_HEIGHT),
                 CreateSourceReportController.getCreateSourceReportController());
-        viewSceneMap.put("createsourcerpt", csrc);
+        VIEW_SCENE_MAP.put("createsourcerpt", csrc);
 
         ViewPurityReportScreenController.create();
         SceneControllerEntry<ViewPurityReportScreenController> vpsc = new SceneControllerEntry<>(
                 new Scene(ViewPurityReportScreenController.getRoot(), RES_WIDTH, RES_HEIGHT),
                 ViewPurityReportScreenController.getViewReportController());
-        viewSceneMap.put("viewpurityrpts", vpsc);
+        VIEW_SCENE_MAP.put("viewpurityrpts", vpsc);
 
         CreatePurityReportController.create();
         SceneControllerEntry<CreatePurityReportController> cprc = new SceneControllerEntry<>(
                 new Scene(CreatePurityReportController.getRoot(), RES_WIDTH, RES_HEIGHT),
                 CreatePurityReportController.getPurityReportController()
         );
-        viewSceneMap.put("createpurityrpt", cprc);
+        VIEW_SCENE_MAP.put("createpurityrpt", cprc);
 
         SourceReportMapController.create();
         SceneControllerEntry<SourceReportMapController> srpc = new SceneControllerEntry<>(
                 new Scene(SourceReportMapController.getRoot(), RES_WIDTH, RES_HEIGHT),
                 SourceReportMapController.getSourceReportMapController());
-        viewSceneMap.put("map", srpc);
+        VIEW_SCENE_MAP.put("map", srpc);
 
         setView("welcome");
         primaryStage.show();
@@ -166,12 +207,12 @@ public class FXMain extends Application {
             return false;
         }
 
-        Scene s = viewSceneMap.get(view.toLowerCase()).getScene();
+        Scene s = VIEW_SCENE_MAP.get(view.toLowerCase()).getScene();
         if (s == null) {
             return false;
         }
 
-        Object con = viewSceneMap.get(view.toLowerCase()).getController();
+        Object con = VIEW_SCENE_MAP.get(view.toLowerCase()).getController();
         if (con instanceof Updatable) {
              if (!((Updatable) con).update()) {
                  return false;
@@ -182,6 +223,6 @@ public class FXMain extends Application {
     }
 
     public static Object getController(final String view) {
-        return viewSceneMap.get(view.toLowerCase()).getController();
+        return VIEW_SCENE_MAP.get(view.toLowerCase()).getController();
     }
 }
