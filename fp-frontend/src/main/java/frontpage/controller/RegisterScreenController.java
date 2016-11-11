@@ -24,32 +24,50 @@ import java.util.LinkedList;
  * @author willstuckey
  */
 @SuppressWarnings("unused")
-public class RegisterScreenController {
-    private static final String VIEW_URI = "/frontpage/view/RegisterUserScreen.fxml";
+public final class RegisterScreenController {
+    private static final String VIEW_URI =
+            "/frontpage/view/RegisterUserScreen.fxml";
 
-    private static final Logger logger;
+    private static final Logger LOGGER;
     private static Parent root;
     private static RegisterScreenController registerController;
 
     static {
-        logger = Logger.getLogger(RegisterScreenController.class.getName());
+        LOGGER = Logger.getLogger(
+                RegisterScreenController.class.getName());
     }
 
-
+    /**
+     * creates an instance of the controller and corresponding view
+     */
     public static void create() {
         try {
-            logger.debug("loading view: " + VIEW_URI);
-            FXMLLoader loader = new FXMLLoader(FXMain.class.getResource(VIEW_URI));
+            LOGGER.debug("loading view: " + VIEW_URI);
+            FXMLLoader loader = new FXMLLoader(
+                    FXMain.class.getResource(VIEW_URI));
             registerController = new RegisterScreenController();
             loader.setController(registerController);
             root = loader.load();
         } catch (Exception e) {
-            logger.error("failed to load view", e);
+            LOGGER.error("failed to load view", e);
         }
     }
 
-    public static Parent getRoot() { return root; }
-    public static RegisterScreenController getRegisterController() {return registerController; }
+    /**
+     * gets the root node of the bound view
+     * @return root node
+     */
+    public static Parent getRoot() {
+        return root;
+    }
+
+    /**
+     * gets the controller
+     * @return controller
+     */
+    public static RegisterScreenController getRegisterController() {
+        return registerController;
+    }
 
     @FXML private Button registerConfirmBtn;
     @FXML private Button registerCancelBtn;
@@ -59,7 +77,7 @@ public class RegisterScreenController {
     @FXML private PasswordField confirmRegisterPwdField;
     @FXML private ComboBox userTypeBox;
 
-    private RegisterScreenController () {
+    private RegisterScreenController() {
 
     }
 
@@ -70,12 +88,15 @@ public class RegisterScreenController {
     @FXML
     @SuppressWarnings("unchecked")
     public void initialize() {
-        userTypeBox.setItems(FXCollections.observableList(new LinkedList<String>(){{
-            add("USER");
-            add("WORKER");
-            add("MANAGER");
-            add("ADMIN");
-        }}));
+        userTypeBox.setItems(FXCollections.observableList(
+                new LinkedList<String>() {
+            {
+                add("USER");
+                add("WORKER");
+                add("MANAGER");
+                add("ADMIN");
+            }
+        }));
     }
 
     @FXML
@@ -88,9 +109,8 @@ public class RegisterScreenController {
 
     /**
      * handles form validation and processing delegation for create user
-     *
-     * TODO at some point this should be threaded
      */
+    //TODO at some point this should be threaded
     @FXML
     private void handleConfirmAction() {
         String email = registerEmailField.getText();
@@ -127,9 +147,11 @@ public class RegisterScreenController {
                 FXMain.setView("welcome");
                 return;
             } catch (BackendRequestException e) {
-                DialogueUtils.showMessage("Account creation failed (" + e.getClass() + "): " + e.getMessage());
+                DialogueUtils.showMessage("Account creation failed ("
+                        + e.getClass() + "): " + e.getMessage());
             } catch (Throwable e) {
-                DialogueUtils.showMessage("A runtime error has occurred in the handleConfirmAction method");
+                DialogueUtils.showMessage("A runtime error has occurred "
+                        + "in the handleConfirmAction method");
             }
         } else {
             DialogueUtils.showMessage("Passwords do not match.");
