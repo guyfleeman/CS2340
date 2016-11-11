@@ -15,15 +15,17 @@ import org.apache.log4j.Logger;
  * main screen controller
  */
 @SuppressWarnings("unused")
-public class MainScreenController implements  Updatable {
-    private static final String VIEW_URI = "/frontpage/view/MainScreen.fxml";
+public final class MainScreenController implements  Updatable {
+    private static final String VIEW_URI =
+            "/frontpage/view/MainScreen.fxml";
 
-    private static final Logger logger;
+    private static final Logger LOGGER;
     private static Parent root;
     private static MainScreenController mainController;
 
     static {
-        logger = Logger.getLogger(MainScreenController.class.getName());
+        LOGGER = Logger.getLogger(
+                MainScreenController.class.getName());
     }
 
     /**
@@ -31,20 +33,29 @@ public class MainScreenController implements  Updatable {
      */
     public static void create() {
         try {
-            logger.debug("loading view: " + VIEW_URI);
-            FXMLLoader loader = new FXMLLoader(FXMain.class.getResource(VIEW_URI));
+            LOGGER.debug("loading view: " + VIEW_URI);
+            FXMLLoader loader = new FXMLLoader(
+                    FXMain.class.getResource(VIEW_URI));
             mainController = new MainScreenController();
             loader.setController(mainController);
             root = loader.load();
         } catch (Exception e) {
-            logger.error("failed to load view", e);
+            LOGGER.error("failed to load view", e);
         }
     }
 
+    /**
+     * gets the root node of the view
+     * @return root node
+     */
     public static Parent getRoot() {
         return root;
     }
 
+    /**
+     * gets the main controller
+     * @return controller
+     */
     public static MainScreenController getMainController() {
         return mainController;
     }
@@ -66,6 +77,9 @@ public class MainScreenController implements  Updatable {
         userLabel.setText("Logged In As: " + text);
     }
 
+    /**
+     * FXML initialization routine
+     */
     @FXML
     public void initialize() {
         userLabel.setText(null);
@@ -73,6 +87,10 @@ public class MainScreenController implements  Updatable {
         viewPurityReports.setDisable(true);
     }
 
+    /**
+     * change view update call
+     * @return success
+     */
     public boolean update() {
         User u = FXMain.getUser();
         setUserLabel(u.getEmail() + " [" + u.getUserClass() + "]");
@@ -111,14 +129,12 @@ public class MainScreenController implements  Updatable {
         FXMain.setView("map");
     }
 
-
-
     /**
      * handles logout
      */
     @FXML
     private void handleLogoutAction() {
-        logger.trace("Invoke -> LogInBtn::handleLoginAction()");
+        LOGGER.trace("Invoke -> LogInBtn::handleLoginAction()");
         FXMain.setUser(null);
         userLabel.setText(null);
         DialogueUtils.showMessage("You have been logged out.");
