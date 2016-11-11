@@ -37,6 +37,9 @@ import java.util.Map;
  */
 public class FXMain extends Application {
 
+    private static final int MIN_MAJOR_VERSION = 8;
+    private static final int MIN_MINOR_VERSION = 110;
+
     private static final int RES_WIDTH = 640;
     private static final int RES_HEIGHT = 480;
     // logger format
@@ -54,19 +57,33 @@ public class FXMain extends Application {
         console.activateOptions();
         Logger.getRootLogger().addAppender(console);
 
-        if (Arrays.asList(args).contains("--force-local")
-                || !DialogueUtils.askYesNo("Use remote backend?")) {
+        if (Arrays.asList(args).contains("--force-local")) {
             backend = new LocalBackend();
         } else {
             backend = new RemoteBackend();
-//            try {
-//                backend.getUserManager().createUser("guyfleeman", "password".toCharArray(), "guyfleeman@gmail.net", "will", "stuckey");
-//                String res = backend.getUserManager().authenticateUser("guyfleeman@gmail.net", "password");
-//                res = backend.getUserManager().authenticateUser("guyfleeman@gmail.net", res);
-//                backend.getUserManager().authenticateUser("guyfleeman@gmail.net", "password");
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
+            try {
+                final String jreVersion = System.getProperty("java.version");
+                final String major = "" + jreVersion.charAt(2);
+                final String minor = jreVersion.split("_")[1];
+                if ((Integer.parseInt(major) < MIN_MAJOR_VERSION)
+                        || (Integer.parseInt(minor) < MIN_MINOR_VERSION)) {
+                    System.err.println("Detected Java version before LetEncrypt certificate added.");
+                    boolean res = DialogueUtils.askYesNo("Detected java version \"" + jreVersion + "\"\r\n\r\n"
+                            + "This app requires a minimum java version of 1.8.0_110 for SSL certificates to "
+                            + "work.\r\n\r\n"
+                            + "The problem is usually only on windows, not Linux or Mac. Please upgrade your "
+                            + " java version or install the lets encrypt root certificate to your certificate "
+                            + "store.\r\n\r\n"
+                            + "Continue? (should be okay for Mac/Linux)");
+                    if (!res) {
+                        System.exit(0);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                DialogueUtils.showMessage("Unable to detect and identify problems with java version.");
+            }
+
         }
         User.setPm(backend.getProfileManager());
 
