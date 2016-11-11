@@ -25,34 +25,49 @@ import java.util.LinkedList;
  * <p></p>
  */
 @SuppressWarnings("unused")
-public class CreateSourceReportController implements Updatable {
-    private static final String VIEW_URI = "/frontpage/view/CreateSourceReportScreen.fxml";
+public final class CreateSourceReportController implements Updatable {
+    private static final String VIEW_URI =
+            "/frontpage/view/CreateSourceReportScreen.fxml";
 
-    private static final Logger logger;
+    private static final Logger LOGGER;
     private static Parent root;
     private static CreateSourceReportController loginController;
 
     static {
-        logger = Logger.getLogger(CreateSourceReportController.class.getName());
+        LOGGER = Logger.getLogger(
+                CreateSourceReportController.class.getName());
     }
 
+    /**
+     * creates an instance of the controller and its accompanying view
+     */
     public static void create() {
         try {
-            logger.debug("loading view: " + VIEW_URI);
-            FXMLLoader loader = new FXMLLoader(FXMain.class.getResource(VIEW_URI));
+            LOGGER.debug("loading view: " + VIEW_URI);
+            FXMLLoader loader = new FXMLLoader(
+                    FXMain.class.getResource(VIEW_URI));
             loginController = new CreateSourceReportController();
             loader.setController(loginController);
             root = loader.load();
         } catch (Exception e) {
-            logger.error("failed to load view", e);
+            LOGGER.error("failed to load view", e);
         }
     }
 
+    /**
+     * gets the root node of the bound view
+     * @return root node
+     */
     public static Parent getRoot() {
         return root;
     }
 
-    public static CreateSourceReportController getCreateSourceReportController() {
+    /**
+     * gets the controller
+     * @return controller
+     */
+    public static CreateSourceReportController
+    getCreateSourceReportController() {
         return loginController;
     }
 
@@ -66,17 +81,27 @@ public class CreateSourceReportController implements Updatable {
     @FXML private TextField date;
     @FXML private TextArea description;
 
+    /**
+     * FXML initialization routine
+     */
     @FXML
     public void initialize() {
-        type.setItems(FXCollections.observableList(new LinkedList<WaterType>(){{
-            for (WaterType wt : WaterType.values())
-                add(wt);
-        }}));
+        type.setItems(FXCollections.observableList(new LinkedList<WaterType>() {
+            {
+                for (WaterType wt : WaterType.values()) {
+                    add(wt);
+                }
+            }
+        }));
 
-        condition.setItems(FXCollections.observableList(new LinkedList<WaterCondition>(){{
-            for (WaterCondition wc : WaterCondition.values())
-                add(wc);
-        }}));
+        condition.setItems(FXCollections.observableList(
+                new LinkedList<WaterCondition>() {
+            {
+                for (WaterCondition wc : WaterCondition.values()) {
+                    add(wc);
+                }
+            }
+        }));
 
         reportID.setDisable(true);
         submitter.setDisable(true);
@@ -84,14 +109,14 @@ public class CreateSourceReportController implements Updatable {
         condition.setValue(WaterCondition.UNAVAILABLE);
         date.setDisable(true);
 
-        //TODO: find solution for encoding new lines
+        //TODO find solution for encoding new lines
         loc.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode().equals(KeyCode.ENTER)) {
                 event.consume();
             }
         });
 
-        //TODO: find solution for encoding new lines
+        //TODO find solution for encoding new lines
         description.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode().equals(KeyCode.ENTER)) {
                 event.consume();
@@ -99,6 +124,10 @@ public class CreateSourceReportController implements Updatable {
         });
     }
 
+    /**
+     * view change update call
+     * @return success
+     */
     public boolean update() {
         SourceReportManager rm = FXMain.getBackend().getSourceReportManager();
         activeReport = null;
@@ -114,8 +143,9 @@ public class CreateSourceReportController implements Updatable {
             }
             return false;
         } catch (Exception e) {
-            DialogueUtils.showMessage("internal error on update view call for create source report controller" +
-                    " (type: " + e.getClass()
+            DialogueUtils.showMessage("internal error on update view call "
+                    + "for create source report controller"
+                    + " (type: " + e.getClass()
                     + "message: " + e.getMessage() + ")");
             e.printStackTrace();
             if (activeReport != null) {
@@ -146,36 +176,38 @@ public class CreateSourceReportController implements Updatable {
                     + activeReport.getReportTime().getYear());
             description.setText(activeReport.getDescription());
         } catch (Exception e) {
-            DialogueUtils.showMessage(e.getClass() + ", " + e.getMessage() + ", " + e.getCause());
+            DialogueUtils.showMessage(e.getClass() + ", "
+                    + e.getMessage() + ", "
+                    + e.getCause());
             e.printStackTrace();
         }
         return true;
     }
 
     @FXML
-    public void handleCancelAction() {
+    private void handleCancelAction() {
         SourceReportManager rm = FXMain.getBackend().getSourceReportManager();
         try {
             activeReport.deleteFromBackend(rm, FXMain.getUser());
         } catch (Exception e) {
-            logger.info("failed to clean up after cancel action");
+            LOGGER.info("failed to clean up after cancel action");
         }
         FXMain.setView("main");
     }
 
     @FXML
-    public void handleSubmitAction() {
-        String title = this.title.getText();
-        if (valid(title)) {
-            activeReport.setTitle(title);
+    private void handleSubmitAction() {
+        String titleStr = this.title.getText();
+        if (valid(titleStr)) {
+            activeReport.setTitle(titleStr);
         } else {
             DialogueUtils.showMessage("Title must be filled.");
             return;
         }
 
-        String loc = this.loc.getText();
-        if (valid(loc)) {
-            activeReport.setLoc(loc);
+        String locStr = this.loc.getText();
+        if (valid(locStr)) {
+            activeReport.setLoc(locStr);
         } else {
             DialogueUtils.showMessage("Location must be filled.");
         }
@@ -192,8 +224,8 @@ public class CreateSourceReportController implements Updatable {
                     + e.getClass() + ", message: "
                     + e.getMessage() + ")");
         } catch (Exception e) {
-            DialogueUtils.showMessage("internal exception in handleSubmitReport " +
-                    "action handler (problem: "
+            DialogueUtils.showMessage("internal exception in "
+                    + "handleSubmitReport action handler (problem: "
                     + e.getClass() + ", message: "
                     + e.getMessage() + ")");
         }
@@ -201,6 +233,6 @@ public class CreateSourceReportController implements Updatable {
     }
 
     private static boolean valid(final String dat) {
-        return dat != null && dat.length() > 1;
+        return ((dat != null) && (dat.length() > 1));
     }
 }
