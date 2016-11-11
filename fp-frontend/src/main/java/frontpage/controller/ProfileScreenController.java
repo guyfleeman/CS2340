@@ -17,32 +17,50 @@ import org.apache.log4j.Logger;
  * @author willstuckey
  */
 @SuppressWarnings("unused")
-public class ProfileScreenController implements Updatable {
-    private static final String VIEW_URI = "/frontpage/view/ManageProfileScreen.fxml";
+public final class ProfileScreenController implements Updatable {
+    private static final String VIEW_URI =
+            "/frontpage/view/ManageProfileScreen.fxml";
 
-    private static final Logger logger;
+    private static final Logger LOGGER;
     private static Parent root;
     private static ProfileScreenController registerController;
 
     static {
-        logger = Logger.getLogger(ProfileScreenController.class.getName());
+        LOGGER = Logger.getLogger(
+                ProfileScreenController.class.getName());
     }
 
-
+    /**
+     * creates an instance of the controller and its bound view
+     */
     public static void create() {
         try {
-            logger.debug("loading view: " + VIEW_URI);
-            FXMLLoader loader = new FXMLLoader(FXMain.class.getResource(VIEW_URI));
+            LOGGER.debug("loading view: " + VIEW_URI);
+            FXMLLoader loader = new FXMLLoader(
+                    FXMain.class.getResource(VIEW_URI));
             registerController = new ProfileScreenController();
             loader.setController(registerController);
             root = loader.load();
         } catch (Exception e) {
-            logger.error("failed to load view", e);
+            LOGGER.error("failed to load view", e);
         }
     }
 
-    public static Parent getRoot() { return root; }
-    public static ProfileScreenController getRegisterController() {return registerController; }
+    /**
+     * gets the root of the bound view
+     * @return root node
+     */
+    public static Parent getRoot() {
+        return root;
+    }
+
+    /**
+     * gets the controller
+     * @return controller
+     */
+    public static ProfileScreenController getRegisterController() {
+        return registerController;
+    }
 
     @FXML private TextField addressField;
     @FXML private TextField cityField;
@@ -56,6 +74,10 @@ public class ProfileScreenController implements Updatable {
 
     }
 
+    /**
+     * change view update callback
+     * @return success
+     */
     public boolean update() {
         addressField.clear();
         cityField.clear();
@@ -76,6 +98,9 @@ public class ProfileScreenController implements Updatable {
         return true;
     }
 
+    /**
+     * FXML initialization routine
+     */
     @SuppressWarnings("EmptyMethod")
     @FXML
     public void initialize() {
@@ -104,5 +129,4 @@ public class ProfileScreenController implements Updatable {
         DialogueUtils.showMessage("Profile Updated!");
         FXMain.setView("main");
     }
-
 }
