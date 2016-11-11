@@ -54,19 +54,10 @@ public class FXMain extends Application {
         console.activateOptions();
         Logger.getRootLogger().addAppender(console);
 
-        if (Arrays.asList(args).contains("--force-local")
-                || !DialogueUtils.askYesNo("Use remote backend?")) {
+        if (Arrays.asList(args).contains("--force-local")) {
             backend = new LocalBackend();
         } else {
             backend = new RemoteBackend();
-//            try {
-//                backend.getUserManager().createUser("guyfleeman", "password".toCharArray(), "guyfleeman@gmail.net", "will", "stuckey");
-//                String res = backend.getUserManager().authenticateUser("guyfleeman@gmail.net", "password");
-//                res = backend.getUserManager().authenticateUser("guyfleeman@gmail.net", res);
-//                backend.getUserManager().authenticateUser("guyfleeman@gmail.net", "password");
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
         }
         User.setPm(backend.getProfileManager());
 
