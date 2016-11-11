@@ -22,46 +22,62 @@ import org.apache.log4j.Logger;
  * @author willstuckey
  */
 @SuppressWarnings("unused")
-public class LoginScreenController {
-    private static final String VIEW_URI = "/frontpage/view/LoginScreen.fxml";
+public final class LoginScreenController {
+    private static final String VIEW_URI =
+            "/frontpage/view/LoginScreen.fxml";
 
-    private static final Logger logger;
+    private static final Logger LOGGER;
     private static Parent root;
     private static LoginScreenController loginController;
 
     static {
-        logger = Logger.getLogger(LoginScreenController.class.getName());
+        LOGGER = Logger.getLogger(LoginScreenController.class.getName());
     }
 
+    /**
+     * creates an instance of the controller and its bound view
+     */
     public static void create() {
         try {
-            logger.debug("loading view: " + VIEW_URI);
-            FXMLLoader loader = new FXMLLoader(FXMain.class.getResource(VIEW_URI));
+            LOGGER.debug("loading view: " + VIEW_URI);
+            FXMLLoader loader = new FXMLLoader(
+                    FXMain.class.getResource(VIEW_URI));
             loginController = new LoginScreenController();
             loader.setController(loginController);
             root = loader.load();
         } catch (Exception e) {
-            logger.error("failed to load view", e);
+            LOGGER.error("failed to load view", e);
         }
     }
 
+    /**
+     * gets the root node of the bound view
+     * @return root node
+     */
     public static Parent getRoot() {
         return root;
     }
 
+    /**
+     * gets the controller
+     * @return controller
+     */
     public static LoginScreenController getLoginController() {
         return loginController;
     }
 
-    @FXML private Button LogInBtn;
-    @FXML private TextField UNField;
-    @FXML private PasswordField PwdField;
-    @FXML private Button RegisterBtn;
+    @FXML private Button logInBtn;
+    @FXML private TextField unField;
+    @FXML private PasswordField pwdField;
+    @FXML private Button registerBtn;
 
-    private LoginScreenController () {
+    private LoginScreenController() {
 
     }
 
+    /**
+     * FXML initialization routine
+     */
     @SuppressWarnings("EmptyMethod")
     @FXML
     public void initialize() {
@@ -70,29 +86,30 @@ public class LoginScreenController {
 
     @FXML
     private void handleLoginAction() {
-        logger.trace("Invoke -> LogInBtn::handleLoginAction()");
+        LOGGER.trace("Invoke -> LogInBtn::handleLoginAction()");
         UserManager ua = FXMain.getBackend().getUserManager();
         try {
-            String sessionTok = ua.authenticateUser(UNField.getText(),
-                    PwdField.getText());
-            User u = new User(UNField.getText(), sessionTok);
+            String sessionTok = ua.authenticateUser(unField.getText(),
+                    pwdField.getText());
+            User u = new User(unField.getText(), sessionTok);
             String type = ua.getUserType(u.getEmail(), u.getTok());
             u.setUserClass(UserClass.valueOf(type));
             FXMain.setUser(u);
             FXMain.getUser().loadProfile();
-//            ((MainScreenController) FXMain.getController("main"))
-//                    .setUserLabel(FXMain.getUser().getEmail() + "[" + u.getUserClass() + "]");
-            UNField.clear();
-            PwdField.clear();
+            unField.clear();
+            pwdField.clear();
             FXMain.setView("main");
         } catch (AuthenticationException e) {
-            DialogueUtils.showMessage("The provided credentials were invalid: " + e.getMessage());
-            PwdField.clear();
+            DialogueUtils.showMessage("The provided credentials were "
+                    + "invalid: " + e.getMessage());
+            pwdField.clear();
         } catch (BackendRequestException e) {
-            DialogueUtils.showMessage("A error occurred on the backend: " + e.getMessage());
-            PwdField.clear();
+            DialogueUtils.showMessage("A error occurred on the backend: "
+                    + e.getMessage());
+            pwdField.clear();
         } catch (Throwable t) {
-            DialogueUtils.showMessage("A runtime error has occurred in the handleLoginAction() method");
+            DialogueUtils.showMessage("A runtime error has occurred in the "
+                    + "handleLoginAction() method");
             t.printStackTrace();
         }
     }
@@ -104,8 +121,8 @@ public class LoginScreenController {
 
     @FXML
     private void handleRegisterAction() {
-        UNField.clear();
-        PwdField.clear();
+        unField.clear();
+        pwdField.clear();
         FXMain.setView("register");
     }
 }

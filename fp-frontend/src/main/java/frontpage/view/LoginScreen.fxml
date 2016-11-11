@@ -19,11 +19,11 @@
          <children>
             <AnchorPane prefHeight="90.0" prefWidth="600.0">
                <children>
-                  <TextField fx:id="UNField" layoutX="195.0" layoutY="14.0" prefHeight="25.0" prefWidth="304.0" />
+                  <TextField fx:id="unField" layoutX="195.0" layoutY="14.0" prefHeight="25.0" prefWidth="304.0" />
                   <Label layoutX="139.0" layoutY="19.0" prefHeight="16.0" prefWidth="55.0" style="-fx-background-color: inherit;" text="Email:" />
-                  <PasswordField fx:id="PwdField" layoutX="194.0" layoutY="48.0" prefHeight="25.0" prefWidth="305.0" />
+                  <PasswordField fx:id="pwdField" layoutX="194.0" layoutY="48.0" prefHeight="25.0" prefWidth="305.0" />
                   <Label layoutX="114.0" layoutY="53.0" text="Password:" />
-                  <Button fx:id="LogInBtn" defaultButton="true" layoutX="510.0" layoutY="48.0" mnemonicParsing="false" onAction="#handleLoginAction" text="Log In" />
+                  <Button fx:id="logInBtn" defaultButton="true" layoutX="510.0" layoutY="48.0" mnemonicParsing="false" onAction="#handleLoginAction" text="Log In" />
                   <Button layoutX="508.0" layoutY="77.0" mnemonicParsing="false" onAction="#handleCancelAction" text="Cancel" />
                </children>
                <VBox.margin>
@@ -37,7 +37,7 @@
       <AnchorPane prefHeight="38.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <Label layoutX="186.0" layoutY="6.0" text="Register here!" />
-            <Button fx:id="RegisterBtn" layoutX="332.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleRegisterAction" text="Register" />
+            <Button fx:id="registerBtn" layoutX="332.0" layoutY="2.0" mnemonicParsing="false" onAction="#handleRegisterAction" text="Register" />
          </children>
       </AnchorPane>
    </bottom>
