@@ -49,7 +49,8 @@ public class FXMain extends Application {
     /**
      * logger format
      */
-    private static final String LOG_FORMAT = "%d{ISO8601} [%t] %-5p %c %x - %m%n";
+    private static final String LOG_FORMAT =
+            "%d{ISO8601} [%t] %-5p %c %x - %m%n";
 
     /**
      * map of string keys to views
