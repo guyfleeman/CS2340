@@ -2,11 +2,26 @@ package frontpage.model.report;
 
 /**
  * @author willstuckey
- * <p></p>
+ * <p>purity condition</p>
  */
 public enum PurityCondition {
+    /**
+     * safe
+     */
     SAFE,
+
+    /**
+     * treatable
+     */
     TREATABLE,
+
+    /**
+     * unsafe
+     */
     UNSAFE,
+
+    /**
+     * unavailable
+     */
     UNAVAILABLE
 }
