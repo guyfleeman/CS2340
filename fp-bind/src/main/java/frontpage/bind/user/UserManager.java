@@ -1,12 +1,10 @@
 package frontpage.bind.user;
 
-import frontpage.bind.errorhandling.AuthenticationException;
 import frontpage.bind.errorhandling.BackendRequestException;
-import frontpage.bind.errorhandling.InvalidDataException;
 
 /**
  * @author willstuckey
- * <p></p>
+ * <p>User Manager</p>
  */
 public interface UserManager {
     /**
@@ -15,7 +13,7 @@ public interface UserManager {
      * @param tok any token capable of authenticating the email
      * @return if security context is valid, tok for future auth
      *         if security context is invalid, empty string
-     * @throws AuthenticationException if other errors occur while trying
+     * @throws BackendRequestException if other errors occur while trying
      *                                     to authenticate credentials
      */
     String authenticateUser(final String email, final String tok)
@@ -27,8 +25,7 @@ public interface UserManager {
      * @param email email for auth
      * @param tok auth token
      * @return type
-     * @throws AuthenticationException
-     * @throws InvalidDataException
+     * @throws BackendRequestException errors
      */
     String getUserType(final String email, final String tok)
             throws BackendRequestException;
@@ -40,9 +37,15 @@ public interface UserManager {
      * @param email email
      * @param firstname firstname
      * @param lastname lastname
-     * @throws InvalidDataException
+     * @param userClass user class
+     * @throws BackendRequestException errors
      */
-    void createUser(final String un, final String pw, final String email,
-                       final String firstname, final String lastname, final String userClass)
+    @SuppressWarnings("SameParameterValue")
+    void createUser(final String un,
+                    final String pw,
+                    final String email,
+                    final String firstname,
+                    final String lastname,
+                    final String userClass)
             throws BackendRequestException;
 }

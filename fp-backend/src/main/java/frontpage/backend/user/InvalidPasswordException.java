@@ -7,37 +7,37 @@ import frontpage.bind.errorhandling.InvalidDataException;
  * <p></p>
  */
 @SuppressWarnings({"WeakerAccess", "unused"})
-public class InvalidEmailException extends InvalidDataException {
+public class InvalidPasswordException extends InvalidDataException {
     /**
-     * invalid email
+     * default constructor
      */
-    public InvalidEmailException() {
+    public InvalidPasswordException() {
         super();
     }
 
     /**
-     * invalid email
+     * invalid password
      * @param message message
      */
     @SuppressWarnings("SameParameterValue")
-    public InvalidEmailException(final String message) {
+    public InvalidPasswordException(final String message) {
         super(message);
     }
 
     /**
-     * invalid email
+     * invalid password
      * @param t cause
      */
-    public InvalidEmailException(final Throwable t) {
+    public InvalidPasswordException(final Throwable t) {
         super(t);
     }
 
     /**
-     * invalid email
+     * invalid password
      * @param message message
      * @param t cause
      */
-    public InvalidEmailException(final String message, final Throwable t) {
+    public InvalidPasswordException(final String message, final Throwable t) {
         super(message, t);
     }
 }

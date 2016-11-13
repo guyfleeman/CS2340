@@ -2,11 +2,17 @@ package frontpage.backend.validator;
 
 /**
  * @author willstuckey
- * @date 10/1/16
  * <p></p>
  */
-public class DefaultPasswordValidator {
-    public boolean isValidPassword(final String pw) {
+public class DefaultPasswordValidator implements PasswordValidator {
+    /**
+     * checks if a password is valid. This implementation accepts all
+     * passwords.
+     * @param pw password
+     * @return true
+     */
+    @SuppressWarnings({"SameReturnValue", "UnusedParameters"})
+    public final boolean isValidPassword(final String pw) {
         return true;
     }
 }

@@ -1,10 +1,14 @@
+//CHECKSTYLE.OFF: JavadocMethod
 package frontpage.bind.errorhandling;
 
 /**
  * @author willstuckey
- * @date 10/3/16
+ *
+ * @deprecated
+ *
  * <p></p>
  */
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class FailedToCreateUserException extends BackendRequestException {
     public FailedToCreateUserException() {
         super();
@@ -14,7 +18,8 @@ public class FailedToCreateUserException extends BackendRequestException {
         super(message);
     }
 
-    public FailedToCreateUserException(final String message, final Throwable t) {
+    public FailedToCreateUserException(final String message,
+                                       final Throwable t) {
         super(message, t);
     }
 

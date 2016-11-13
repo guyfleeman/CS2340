@@ -3,7 +3,6 @@ package frontpage.controller;
 import frontpage.FXMain;
 import frontpage.bind.errorhandling.BackendRequestException;
 import frontpage.bind.report.PurityReportManager;
-import frontpage.bind.report.SourceReportManager;
 import frontpage.model.report.PurityCondition;
 import frontpage.model.report.PurityReport;
 import frontpage.utils.DialogueUtils;
@@ -24,33 +23,49 @@ import java.util.LinkedList;
  * @author willstuckey
  * <p></p>
  */
-public class CreatePurityReportController implements Updatable {
-    private static final String VIEW_URI = "/frontpage/view/CreatePurityReportScreen.fxml";
+@SuppressWarnings("unused")
+public final class CreatePurityReportController implements Updatable {
+    private static final String VIEW_URI =
+            "/frontpage/view/CreatePurityReportScreen.fxml";
 
-    private static Logger logger;
+    private static final Logger LOGGER;
+    private static final int MAX_PPM = (int) 1e6;
     private static Parent root;
     private static CreatePurityReportController purityReportController;
 
     static {
-        logger = Logger.getLogger(CreatePurityReportController.class.getName());
+        LOGGER = Logger.getLogger(
+                CreatePurityReportController.class.getName());
     }
 
+    /**
+     * creates an instance of the controller and its accompanying view
+     */
     public static void create() {
         try {
-            logger.debug("loading view: " + VIEW_URI);
-            FXMLLoader loader = new FXMLLoader(FXMain.class.getResource(VIEW_URI));
+            LOGGER.debug("loading view: " + VIEW_URI);
+            FXMLLoader loader = new FXMLLoader(
+                    FXMain.class.getResource(VIEW_URI));
             purityReportController = new CreatePurityReportController();
             loader.setController(purityReportController);
             root = loader.load();
         } catch (Exception e) {
-            logger.error("failed to load view: " + e.getCause(), e);
+            LOGGER.error("failed to load view: " + e.getCause(), e);
         }
     }
 
+    /**
+     * gets the root node of the view
+     * @return root node
+     */
     public static Parent getRoot() {
         return root;
     }
 
+    /**
+     * gets the controller
+     * @return controller
+     */
     public static CreatePurityReportController getPurityReportController() {
         return purityReportController;
     }
@@ -64,19 +79,26 @@ public class CreatePurityReportController implements Updatable {
     @FXML private TextField virusPPM;
     @FXML private TextField contaminantPPM;
 
+    /**
+     * FXML initialization routine
+     */
     @FXML
     public void initialize() {
-        purity.setItems(FXCollections.observableList(new LinkedList<PurityCondition>(){{
-            for (PurityCondition pc : PurityCondition.values())
-                add(pc);
-        }}));
+        purity.setItems(FXCollections.observableList(
+                new LinkedList<PurityCondition>() {
+                    {
+                        for (PurityCondition pc : PurityCondition.values()) {
+                            add(pc);
+                        }
+                    }
+                }));
 
         reportID.setDisable(true);
         submitter.setDisable(true);
         date.setDisable(true);
         purity.setValue(PurityCondition.UNAVAILABLE);
 
-        //TODO: find solution for encoding new lines
+        //TODO find solution for encoding new lines
         loc.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode().equals(KeyCode.ENTER)) {
                 event.consume();
@@ -84,6 +106,10 @@ public class CreatePurityReportController implements Updatable {
         });
     }
 
+    /**
+     * view change update callback
+     * @return success
+     */
     public boolean update() {
         PurityReportManager pm = FXMain.getBackend().getPurityReportManager();
         activeReport = null;
@@ -99,8 +125,9 @@ public class CreatePurityReportController implements Updatable {
             }
             return false;
         } catch (Exception e) {
-            DialogueUtils.showMessage("internal error on update view call for create source report controller" +
-                    " (type: " + e.getClass()
+            DialogueUtils.showMessage("internal error on update view "
+                    + "call for create source report controller"
+                    + " (type: " + e.getClass()
                     + "message: " + e.getMessage() + ")");
             e.printStackTrace();
             if (activeReport != null) {
@@ -125,28 +152,30 @@ public class CreatePurityReportController implements Updatable {
             virusPPM.setText(activeReport.getVirusPPM());
             contaminantPPM.setText(activeReport.getContaminantPPM());
         } catch (Exception e) {
-            DialogueUtils.showMessage(e.getClass() + ", " + e.getMessage() + ", " + e.getCause());
+            DialogueUtils.showMessage(e.getClass() + ", "
+                    + e.getMessage() + ", "
+                    + e.getCause());
             e.printStackTrace();
         }
         return true;
     }
 
     @FXML
-    public void handleCancelAction() {
+    private void handleCancelAction() {
         PurityReportManager pm = FXMain.getBackend().getPurityReportManager();
         try {
             activeReport.deleteFromBackend(pm, FXMain.getUser());
         } catch (Exception e) {
-            logger.info("failed to clean up after cancel action");
+            LOGGER.info("failed to clean up after cancel action");
         }
         FXMain.setView("main");
     }
 
     @FXML
-    public void handleSubmitAction() {
-        String loc = this.loc.getText();
-        if (valid(loc)) {
-            activeReport.setLocation(loc);
+    private void handleSubmitAction() {
+        String locStr = this.loc.getText();
+        if (valid(locStr)) {
+            activeReport.setLocation(locStr);
         } else {
             DialogueUtils.showMessage("Location must be filled.");
             return;
@@ -157,10 +186,11 @@ public class CreatePurityReportController implements Updatable {
         String virusPPMStr = virusPPM.getText();
         if (isInt(virusPPMStr)) {
             int num = Integer.parseInt(virusPPMStr);
-            if (bounded(num, 0, (int) 1e6)) {
+            if (bounded(num, 0, MAX_PPM)) {
                 activeReport.setVirusPPM(Integer.toString(num));
             } else {
-                DialogueUtils.showMessage("virus ppm must be between 0 and 1000000");
+                DialogueUtils.showMessage("virus ppm must be "
+                        + "between 0 and 1000000");
                 return;
             }
         } else {
@@ -171,10 +201,11 @@ public class CreatePurityReportController implements Updatable {
         String contaminantPPMStr = contaminantPPM.getText();
         if (isInt(contaminantPPMStr)) {
             int num = Integer.parseInt(contaminantPPMStr);
-            if (bounded(num, 0, (int) 1e6)) {
+            if (bounded(num, 0, MAX_PPM)) {
                 activeReport.setContaminantPPM(Integer.toString(num));
             } else {
-                DialogueUtils.showMessage("contaminant ppm must be between 0 and 1000000");
+                DialogueUtils.showMessage("contaminant ppm must "
+                        + "be between 0 and 1000000");
                 return;
             }
         } else {
@@ -190,8 +221,8 @@ public class CreatePurityReportController implements Updatable {
                     + e.getClass() + ", message: "
                     + e.getMessage() + ")");
         } catch (Exception e) {
-            DialogueUtils.showMessage("internal exception in handleSubmitReport " +
-                    "action handler (problem: "
+            DialogueUtils.showMessage("internal exception in "
+                    + "handleSubmitReport action handler (problem: "
                     + e.getClass() + ", message: "
                     + e.getMessage() + ")");
         }
@@ -199,11 +230,12 @@ public class CreatePurityReportController implements Updatable {
     }
 
     private static boolean valid(final String dat) {
-        return dat != null && dat.length() > 1;
+        return ((dat != null) && (dat.length() > 1));
     }
 
     private static boolean isInt(final String dat) {
         try {
+            //noinspection ResultOfMethodCallIgnored
             Integer.parseInt(dat);
         } catch (Exception e) {
             return false;
@@ -212,7 +244,10 @@ public class CreatePurityReportController implements Updatable {
         return true;
     }
 
-    private static boolean bounded(int num, int lo, int hi) {
-        return (num >= lo && num <= hi);
+    @SuppressWarnings("SameParameterValue")
+    private static boolean bounded(final int num,
+                                   final int lo,
+                                   final int hi) {
+        return ((num >= lo) && (num <= hi));
     }
 }

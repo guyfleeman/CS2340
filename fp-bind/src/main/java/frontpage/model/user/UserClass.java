@@ -2,12 +2,26 @@ package frontpage.model.user;
 
 /**
  * @author willstuckey
- * @date 10/2/16
- * <p></p>
+ * <p>User types</p>
  */
 public enum UserClass {
+    /**
+     * standard user
+     */
     USER,
+
+    /**
+     * worker
+     */
     WORKER,
+
+    /**
+     * manager
+     */
     MANAGER,
+
+    /**
+     * admin
+     */
     ADMIN
 }

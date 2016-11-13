@@ -18,22 +18,22 @@
  */
 package frontpage.utils;
 
-import javax.swing.*;
+
+import javax.swing.JOptionPane;
 
 /**
  * @author guyfleeman (aka willstuckey)
- * @date 6/25/14
  * <p>A small wrapper for generating popups and prompts.</p>
  */
-public class DialogueUtils
-{
+@SuppressWarnings("WeakerAccess")
+public final class DialogueUtils {
     /**
      * creates a yes or no prompt
      * @param message the displayed message/question
      * @return the boolean value of the response
      */
-    public static boolean askYesNo(String message)
-    {
+    @SuppressWarnings("SameParameterValue")
+    public static boolean askYesNo(final String message) {
         return (JOptionPane.showConfirmDialog(
                 null,
                 message,
@@ -47,8 +47,7 @@ public class DialogueUtils
      * shows a message prompt
      * @param message the message
      */
-    public static void showMessage(String message)
-    {
+    public static void showMessage(final String message) {
         showMessage(message, "FrontPage Popup");
     }
 
@@ -57,8 +56,14 @@ public class DialogueUtils
      * @param message the message
      * @param title the title of the prompt
      */
-    public static void showMessage(String message, String title)
-    {
-        JOptionPane.showMessageDialog(null, message, title, JOptionPane.WARNING_MESSAGE);
+    @SuppressWarnings("SameParameterValue")
+    public static void showMessage(final String message,
+                                   final String title) {
+        JOptionPane.showMessageDialog(null,
+                message,
+                title,
+                JOptionPane.WARNING_MESSAGE);
     }
+
+    private DialogueUtils() { }
 }

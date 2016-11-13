@@ -7,7 +7,6 @@ import java.util.Map;
 
 /**
  * @author willstuckey
- * @date 10/14/16
  * <p></p>
  */
 public class LocalSourceReportManager implements SourceReportManager {
@@ -42,20 +41,26 @@ public class LocalSourceReportManager implements SourceReportManager {
 
     @Override
     @SuppressWarnings("unchecked")
-    public Map<String, String>[] getSourceReports(final Map<String, String> properties,
-                                                  final Map<String, String> searchConstraints)
+    public Map<String, String>[] getSourceReports(
+            final Map<String, String> properties,
+            final Map<String, String> searchConstraints)
             throws BackendRequestException {
         return (Map<String, String>[]) new Map[0];
     }
 
     @Override
-    public void deleteSourceReport(String email, String tok, String id)
+    public void deleteSourceReport(final String email,
+                                   final String tok,
+                                   final String id)
             throws BackendRequestException {
 
     }
 
+    @SuppressWarnings({"UnnecessaryReturnStatement", "EmptyMethod"})
     @Override
-    public void __deleteSourceReport_fs_na(String email, String tok, String id) {
+    public void __deleteSourceReport_fs_na(final String email,
+                                           final String tok,
+                                           final String id) {
         return;
     }
 }

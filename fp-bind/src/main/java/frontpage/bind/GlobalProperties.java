@@ -12,19 +12,20 @@ public final class GlobalProperties {
     /**
      * internal logger
      */
-    private static Logger logger;
+    @SuppressWarnings("FieldCanBeLocal")
+    private static final Logger LOGGER;
 
     /**
      * global properties
      */
-    private static Properties properties;
+    private static final Properties PROPERTIES;
 
     static {
-        logger = Logger.getLogger(GlobalProperties.class);
-        properties = new Properties();
-        logger.warn("TODO: load properties from file");
-        properties.setProperty("remote-server", "https://willstuckey.com");
-        properties.setProperty("remote-port", "443");
+        LOGGER = Logger.getLogger(GlobalProperties.class);
+        PROPERTIES = new Properties();
+        LOGGER.warn("TODO: load properties from file");
+        PROPERTIES.setProperty("remote-server", "https://willstuckey.com");
+        PROPERTIES.setProperty("remote-port", "443");
     }
 
     /**
@@ -32,7 +33,7 @@ public final class GlobalProperties {
      * @return properties
      */
     public static Properties getProperties() {
-        return properties;
+        return PROPERTIES;
     }
 
     /**

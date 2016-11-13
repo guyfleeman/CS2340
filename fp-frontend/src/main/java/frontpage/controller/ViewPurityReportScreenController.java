@@ -18,37 +18,57 @@ import java.util.Map;
 
 
 /**
- * Created by Devan on 10/16/2016.
+ * @author Devan
+ * <p></p>
  */
-public class ViewPurityReportScreenController implements Updatable {
-    private static final String VIEW_URI = "/frontpage/view/ViewWaterPurityReports.fxml";
+@SuppressWarnings("unused")
+public final class ViewPurityReportScreenController implements Updatable {
+    private static final String VIEW_URI =
+            "/frontpage/view/ViewWaterPurityReports.fxml";
 
-    private static Logger logger;
+    private static final Logger LOGGER;
     private static Parent root;
     private static ViewPurityReportScreenController viewReportsController;
 
     static {
-        logger = Logger.getLogger(ViewPurityReportScreenController.class.getName());
+        LOGGER = Logger.getLogger(
+                ViewPurityReportScreenController.class.getName());
     }
 
-
+    /**
+     * creates an instance of the controller and accompanying view
+     */
     public static void create() {
         try {
-            logger.debug("loading view: " + VIEW_URI);
-            FXMLLoader loader = new FXMLLoader(FXMain.class.getResource(VIEW_URI));
+            LOGGER.debug("loading view: " + VIEW_URI);
+            FXMLLoader loader = new FXMLLoader(
+                    FXMain.class.getResource(VIEW_URI));
             viewReportsController = new ViewPurityReportScreenController();
             loader.setController(viewReportsController);
             root = loader.load();
         } catch (Exception e) {
-            logger.error("failed to load view", e);
+            LOGGER.error("failed to load view", e);
         }
     }
 
-    public static Parent getRoot() { return root; }
-    public static ViewPurityReportScreenController getViewReportController() {return viewReportsController; }
+    /**
+     * gets the root node of the view
+     * @return root node
+     */
+    public static Parent getRoot() {
+        return root;
+    }
 
+    /**
+     * gets controller
+     * @return controller
+     */
+    public static ViewPurityReportScreenController getViewReportController() {
+        return viewReportsController;
+    }
 
-    private final ObservableList<PurityReport> reports = FXCollections.observableArrayList();
+    private final ObservableList<PurityReport> reports =
+            FXCollections.observableArrayList();
     @FXML private TableView<PurityReport> viewReportsTable;
     @FXML private TableColumn<PurityReport, String> dateTimeCol;
     @FXML private TableColumn<PurityReport, String> reportNumCol;
@@ -57,23 +77,37 @@ public class ViewPurityReportScreenController implements Updatable {
     @FXML private TableColumn<PurityReport, String> conditionCol;
     @FXML private TableColumn<PurityReport, String> virusPPMCol;
     @FXML private TableColumn<PurityReport, String> contaminantPPMCol;
-    @FXML private Button ViewReportsReturnBtn;
+    @FXML private Button viewReportsReturnBtn;
 
     private ViewPurityReportScreenController() {
 
     }
 
+    /**
+     * FXML initialization routine
+     */
     @FXML
     private void initialize() {
-        dateTimeCol.setCellValueFactory(cellData -> cellData.getValue().getDate_t());
-        reportNumCol.setCellValueFactory(cellData -> cellData.getValue().getRptId_t());
-        reporterCol.setCellValueFactory(cellData -> cellData.getValue().getReporter_t());
-        locationCol.setCellValueFactory(cellData -> cellData.getValue().getLocation_t());
-        conditionCol.setCellValueFactory(cellData -> cellData.getValue().getCondition_t());
-        virusPPMCol.setCellValueFactory(cellData -> cellData.getValue().getVirusPPM_t());
-        contaminantPPMCol.setCellValueFactory(cellData -> cellData.getValue().getContaminantPPM_t());
+        dateTimeCol.setCellValueFactory(cellData
+                -> cellData.getValue().getDateT());
+        reportNumCol.setCellValueFactory(cellData
+                -> cellData.getValue().getRptIdT());
+        reporterCol.setCellValueFactory(cellData
+                -> cellData.getValue().getReporterT());
+        locationCol.setCellValueFactory(cellData
+                -> cellData.getValue().getLocationT());
+        conditionCol.setCellValueFactory(cellData
+                -> cellData.getValue().getConditionT());
+        virusPPMCol.setCellValueFactory(cellData
+                -> cellData.getValue().getVirusPPMT());
+        contaminantPPMCol.setCellValueFactory(cellData
+                -> cellData.getValue().getContaminantPPMT());
     }
 
+    /**
+     * update call after view switch
+     * @return success
+     */
     @Override
     public boolean update() {
         PurityReportManager rm = FXMain.getBackend().getPurityReportManager();
@@ -90,7 +124,8 @@ public class ViewPurityReportScreenController implements Updatable {
         } catch (BackendRequestException e) {
             DialogueUtils.showMessage("view report bre");
         } catch (Exception e) {
-            DialogueUtils.showMessage("view report exception (type: " + e.getClass()
+            DialogueUtils.showMessage("view report exception (type: "
+                    + e.getClass()
                     + ", message: " + e.getMessage()
                     + ", cause: " + e.getCause());
         }

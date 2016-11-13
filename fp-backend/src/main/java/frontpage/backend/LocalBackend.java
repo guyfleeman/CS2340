@@ -14,49 +14,71 @@ import org.apache.log4j.Logger;
 
 /**
  * @author willstuckey
- * @date 9/27/16
- * <p>This class represents the api provided for a local backend.</p>
+ * <p>
+ * This class represents the api provided for a local backend.
+ *
+ * This class under partial implementation.
+ * </p>
  */
 public class LocalBackend implements Backend {
-    private static Logger logger;
+    /**
+     * class logger
+     */
+    private static final Logger LOGGER;
 
     static {
-        logger = Logger.getLogger(LocalBackend.class);
+        LOGGER = Logger.getLogger(LocalBackend.class);
     }
 
     /**
      * backend provided user authenticator
      */
-    protected UserManager userManager;
+    private UserManager userManager;
 
     /**
      * initializes the local backend
      */
     public LocalBackend() {
         try {
-            logger.info("initializing local user authenticator");
+            LOGGER.info("initializing local user authenticator");
             UserManagerFactory.createInstance("local");
             ProfileManagerFactory.createInstance("local");
         } catch (UserManagerFactory.NoSuchUserAuthenticatorException
                 | ProfileManagementException e) {
-            logger.fatal("could not provide backend", e);
+            LOGGER.fatal("could not provide backend", e);
         }
     }
 
+    /**
+     * gets local user manager
+     * @return manager
+     */
     public UserManager getUserManager() {
         return UserManagerFactory.getInstance();
     }
 
+    /**
+     * get local profile manager
+     * @return manager
+     */
     public ProfileManager getProfileManager() {
         LocalProfileManager.setLum(
                 (LocalUserManager) UserManagerFactory.getInstance());
         return ProfileManagerFactory.getInstance();
     }
 
+    /**
+     * get source report manager
+     * @return manager
+     */
     public SourceReportManager getSourceReportManager() {
         return null;
     }
 
+    /**
+     * get purity report manager
+     * @return manager
+     */
     public PurityReportManager getPurityReportManager() {
         return null;
     }

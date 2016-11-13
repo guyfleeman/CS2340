@@ -13,7 +13,10 @@ import java.util.ArrayList;
  * <p></p>
  */
 public final class LocalUserManager implements UserManager {
-    private ArrayList<User> users;
+    /**
+     * class logger
+     */
+    private final ArrayList<User> users;
 
     /**
      * local constructor
@@ -38,7 +41,8 @@ public final class LocalUserManager implements UserManager {
             }
         }
 
-        throw new AuthenticationException("the username and password didn't match any users");
+        throw new AuthenticationException(
+                "the username and password didn't match any users");
     }
 
     /**
@@ -46,8 +50,8 @@ public final class LocalUserManager implements UserManager {
      * @param email email
      * @param tok auth token
      * @return type
-     * @throws AuthenticationException
-     * @throws InvalidDataException
+     * @throws AuthenticationException failure to authenticate
+     * @throws InvalidDataException null params
      */
     public String getUserType(final String email,
                               final String tok)
@@ -74,7 +78,7 @@ public final class LocalUserManager implements UserManager {
      * @param firstname firstname
      * @param lastname lastname
      * @param type type
-     * @throws InvalidDataException
+     * @throws InvalidDataException user already registered
      */
     public void createUser(final String un,
                               final String pw,
@@ -83,7 +87,7 @@ public final class LocalUserManager implements UserManager {
                               final String lastname,
                               final String type)
             throws InvalidDataException {
-        for (User u : users ) {
+        for (User u : users) {
             if (u.getEmail().equalsIgnoreCase(email)) {
                 throw new InvalidDataException("user already taken");
             }
@@ -92,6 +96,10 @@ public final class LocalUserManager implements UserManager {
         users.add(new User(email, pw, un, UserClass.valueOf(type)));
     }
 
+    /**
+     * gets list of users
+     * @return users
+     */
     public ArrayList<User> getUsers() {
         return users;
     }

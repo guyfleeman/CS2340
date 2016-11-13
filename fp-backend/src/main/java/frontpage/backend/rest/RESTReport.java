@@ -5,30 +5,87 @@ import java.util.Map;
 
 /**
  * @author willstuckey
- * @date 10/2/16
  * <p></p>
  */
+@SuppressWarnings("WeakerAccess")
 public class RESTReport {
-
+    /**
+     * if the REST request generated an internal error before
+     * being sent to the server
+     */
     private final boolean internalError;
+
+    /**
+     * if the response payload contains variable length data
+     */
     private final boolean dynamicData;
+
+    /**
+     * internal error message, contents undefined if
+     * internalError is false
+     */
     private final String internalErrorMessage;
+
+    /**
+     * the server response code
+     * @see frontpage.backend.rest.HTTPCodes
+     */
     private final int httpResponseCode;
+
+    /**
+     * http header message of the response
+     */
     private final String httpResponseMessage;
+
+    /**
+     * the raw contents of of the response body
+     */
     private final String httpResponseBody;
+
+    /**
+     * map of response KV pairs
+     */
     private final Map<String, String>[] responseValues;
 
+    /**
+     * creates a rest report from the response of a request
+     * @see frontpage.backend.rest.HTTPCodes
+     *
+     * @param httpResponseCode response code of request
+     * @param httpResponseMessage header message
+     * @param httpResponseBody raw response
+     */
     protected RESTReport(final int httpResponseCode,
                          final String httpResponseMessage,
                          final String httpResponseBody) {
-        this(false, null, httpResponseCode, httpResponseMessage, httpResponseBody);
+        this(false,
+                null,
+                httpResponseCode,
+                httpResponseMessage,
+                httpResponseBody);
     }
 
+    /**
+     * creates a rest report who's request could not be formed
+     * @param internalError status of internal error
+     * @param internalErrorMessage internal error message
+     */
+    @SuppressWarnings("SameParameterValue")
     protected RESTReport(final boolean internalError,
                          final String internalErrorMessage) {
         this(internalError, internalErrorMessage, -1, null, null);
     }
 
+    /**
+     * creates a rest report
+     * @see frontpage.backend.rest.HTTPCodes
+     *
+     * @param internalError internal error status
+     * @param internalErrorMessage internal error message
+     * @param httpResponseCode response code
+     * @param httpResponseMessage http response header message
+     * @param httpResponseBody raw payload
+     */
     @SuppressWarnings("unchecked")
     private RESTReport(final boolean internalError,
                        final String internalErrorMessage,
@@ -52,9 +109,16 @@ public class RESTReport {
         }
         dynamicData = count > 0;
         responseValues = (Map<String, String>[]) new HashMap[count + 1];
-        RESTReport.addKVPairsToMaps(responseValues, this.httpResponseBody, dynamicData);
+        RESTReport.addKVPairsToMaps(responseValues,
+                this.httpResponseBody,
+                dynamicData);
     }
 
+    /**
+     * gets a response value from POST key or return key
+     * @param key key
+     * @return value
+     */
     public String getResponseValue(final String key) {
         for (Map<String, String> map : responseValues) {
             if (map != null) {
@@ -68,6 +132,11 @@ public class RESTReport {
         return null;
     }
 
+    /**
+     * returns if the request was completely successful
+     * @return success
+     */
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean success() {
         return !wasInternalError()
                 && !rejected()
@@ -75,39 +144,79 @@ public class RESTReport {
                 && responseValues[0].get("status").contains("success");
     }
 
+    /**
+     * returns if the request was successfully made
+     * @return request made
+     */
     public boolean rejected() {
         return !wasInternalError()
-        && httpResponseCode >= 300;
+        && HTTPCodes.isError(httpResponseCode);
     }
 
+    /**
+     * returns if an internal error caused the request to be rejected
+     * @return internal error caused rejection
+     */
     public boolean wasInternalError() {
         return internalError;
     }
 
+    /**
+     * returns internal error message. If no internal error occurred
+     * return value is undefined
+     * @return internal error message
+     */
     public String getInternalErrorMessage() {
         return internalErrorMessage;
     }
 
+    /**
+     * returns the http response code
+     * @see frontpage.backend.rest.HTTPCodes
+     *
+     * @return response code
+     */
     public int getHttpResponseCode() {
         return httpResponseCode;
     }
 
+    /**
+     * gets the http response message from the response header
+     * @return response message
+     */
     public String getHttpResponseMessage() {
         return httpResponseMessage;
     }
 
+    /**
+     * gets the raw response payload/body
+     * @return body
+     */
     public String getHttpResponseBody() {
         return httpResponseBody;
     }
 
+    /**
+     * gets an array of maps, where the first map is response metadata
+     * and all other maps are variable payload entries
+     * @return parsed response
+     */
     public Map<String, String>[] getResponseValues() {
         return responseValues;
     }
 
+    /**
+     * gets a map of non dynamic length responses
+     * @return parsed response
+     */
     public Map<String, String> getSingleResponseMap() {
         return responseValues[0];
     }
 
+    /**
+     * toString
+     * @return string
+     */
     public String toString() {
         String ret = "";
         ret += "\r\nRESTReport:\r\n";
@@ -133,6 +242,12 @@ public class RESTReport {
         return ret;
     }
 
+    /**
+     * parses response data and loads KVs into an array of maps
+     * @param maps array of maps to load
+     * @param raw raw data
+     * @param dyn if the data has dynamic length
+     */
     private static void addKVPairsToMaps(final Map<String, String>[] maps,
                                          final String raw,
                                          final boolean dyn) {
@@ -167,6 +282,12 @@ public class RESTReport {
         }
     }
 
+    /**
+     * loads raw data into a map
+     * @param map map
+     * @param raw raw data
+     * @param dyn if the data is part of a dynamic entry
+     */
     private static void addKVPairsToMap(final Map<String, String> map,
                                         final String raw,
                                         final boolean dyn) {
@@ -194,6 +315,10 @@ public class RESTReport {
         }
     }
 
+    /**
+     * returns if the response had dynamic length data
+     * @return if the response had dynamic length data
+     */
     public boolean isDynamicData() {
         return dynamicData;
     }

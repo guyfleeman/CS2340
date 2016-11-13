@@ -9,7 +9,6 @@ import java.util.HashMap;
 
 /**
  * @author willstuckey
- * @date 10/2/16
  * <p>User Profile data class</p>
  */
 public class UserProfile {
@@ -41,7 +40,7 @@ public class UserProfile {
     /**
      * creates a blank profile
      */
-    public UserProfile() {}
+    public UserProfile() { }
 
     /**
      * creates user profile
@@ -63,43 +62,83 @@ public class UserProfile {
         this.zip = zip;
     }
 
+    /**
+     * gets title
+     * @return title
+     */
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    /**
+     * sets title
+     * @param title title
+     */
+    public void setTitle(final String title) {
         this.title = title;
     }
 
+    /**
+     * gets address
+     * @return address
+     */
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    /**
+     * sets address
+     * @param address address
+     */
+    public void setAddress(final String address) {
         this.address = address;
     }
 
+    /**
+     * gets city
+     * @return city
+     */
     public String getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    /**
+     * sets city
+     * @param city city
+     */
+    public void setCity(final String city) {
         this.city = city;
     }
 
+    /**
+     * gets state
+     * @return state
+     */
     public String getState() {
         return state;
     }
 
-    public void setState(String state) {
+    /**
+     * sets state
+     * @param state state
+     */
+    public void setState(final String state) {
         this.state = state;
     }
 
+    /**
+     * gets zip code
+     * @return zip code
+     */
     public String getZip() {
         return zip;
     }
 
-    public void setZip(String zip) {
+    /**
+     * sets zip code
+     * @param zip zip code
+     */
+    public void setZip(final String zip) {
         this.zip = zip;
     }
 
@@ -120,7 +159,8 @@ public class UserProfile {
             setZip(props.get("zip"));
             setTitle(props.get("title"));
         } catch (ProfileManagementException e) {
-            DialogueUtils.showMessage("Error populating from database: " + e.getMessage() + "\r\n" + e.getCause());
+            DialogueUtils.showMessage("Error populating from database: "
+                    + e.getMessage() + "\r\n" + e.getCause());
         }
     }
 
@@ -132,7 +172,7 @@ public class UserProfile {
     public void writeToDatabase(final ProfileManager pm,
                                 final User user) {
         try {
-            Map<String, String> props = new HashMap<String, String>(5);
+            Map<String, String> props = new HashMap<>();
             props.put("address", address);
             props.put("city", city);
             props.put("state", state);

@@ -29,7 +29,7 @@ You can build a native deployment package for your platform (bundled with the te
 `$ gradle checkstyleMain`
 
 ## CircleCI
-We are using CircleCI for coninuous integration. CircleCI will validate
+We are using CircleCI for continuous integration. CircleCI will validate
 checkstyle, unit test, and jfxJar builds for all non-deployment scenarios.
 For deployment scenarios, the standard checks are run and the bundling of
 a native package is also confirmed.

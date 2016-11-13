@@ -13,7 +13,7 @@ dependencies {
     compile project(':fp-backend')
 }
 
-// test.dependsOn checkstyleMain
+test.dependsOn checkstyleMain
 
 sourceSets {
     main {

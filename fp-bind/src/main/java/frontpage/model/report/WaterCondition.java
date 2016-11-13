@@ -1,13 +1,32 @@
 package frontpage.model.report;
 
 /**
- * Created by George on 10/15/2016.
+ * @author George
+ * <p>water condition</p>
  */
 public enum WaterCondition {
+    /**
+     * waste
+     */
     WASTE,
-    TREATABLECLEAR,
-    TREATABLEMUDDY,
-    POTABLE,
-    UNAVAILABLE
 
+    /**
+     * treatable, clear
+     */
+    TREATABLECLEAR,
+
+    /**
+     * treatable, muddy
+     */
+    TREATABLEMUDDY,
+
+    /**
+     * potable
+     */
+    POTABLE,
+
+    /**
+     * unavailable
+     */
+    UNAVAILABLE
 }

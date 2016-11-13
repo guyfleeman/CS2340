@@ -2,9 +2,14 @@ package frontpage.backend.validator;
 
 /**
  * @author willstuckey
- * @date 10/1/16
  * <p></p>
  */
+@SuppressWarnings("WeakerAccess")
 public interface PasswordValidator {
+    /**
+     * validates a password
+     * @param pw password
+     * @return validity of password
+     */
     boolean isValidPassword(final String pw);
 }

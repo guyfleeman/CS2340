@@ -1,14 +1,42 @@
 package frontpage.model.report;
 
 /**
- * Created by George on 10/15/2016.
+ * @author George
+ * <p>Water type</p>
  */
 public enum WaterType {
+    /**
+     * bottled
+     */
     BOTTLED,
+
+    /**
+     * well
+     */
     WELL,
+
+    /**
+     * stream
+     */
     STREAM,
+
+    /**
+     * lake
+     */
     LAKE,
+
+    /**
+     * spring
+     */
     SPRING,
+
+    /**
+     * other
+     */
     OTHER,
+
+    /**
+     * unavailable
+     */
     UNAVAILABLE
 }

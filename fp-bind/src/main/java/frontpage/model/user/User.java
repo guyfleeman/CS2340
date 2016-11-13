@@ -9,75 +9,149 @@ import javafx.beans.property.StringProperty;
  * @author georgetang
  * @author willstuckey
  */
+@SuppressWarnings("WeakerAccess")
 public class User {
-    protected static ProfileManager pm;
+    private static ProfileManager pm;
 
-    private final StringProperty _username = new SimpleStringProperty();
-    private final StringProperty _email = new SimpleStringProperty();
-    private final StringProperty _tok = new SimpleStringProperty();
-    private UserClass _class;
+    private final StringProperty username = new SimpleStringProperty();
+    private final StringProperty email = new SimpleStringProperty();
+    private final StringProperty tok = new SimpleStringProperty();
+    private UserClass userClass;
     private UserProfile userProfile = new UserProfile();
 
+    /**
+     * creates a user
+     * @param email email
+     * @param tok auth token
+     */
     public User(final String email,
                 final String tok) {
         this(email, tok, null, null);
     }
 
+    /**
+     * creates a user
+     * @param email email
+     * @param tok auth token
+     * @param username username
+     * @param userClass class
+     */
     public User(final String email,
                 final String tok,
                 final String username,
                 final UserClass userClass) {
-        _username.set(username);
-        _email.set(email);
-        _tok.set(tok);
-        _class = userClass;
+        this.username.set(username);
+        this.email.set(email);
+        this.tok.set(tok);
+        this.userClass = userClass;
     }
 
+    /**
+     * gets profile manager
+     * @return profile manager
+     */
     public static ProfileManager getPm() {
         return pm;
     }
 
-    public static void setPm(ProfileManager pm) {
+    /**
+     * sets profile manager
+     * @param pm profile manager
+     */
+    public static void setPm(final ProfileManager pm) {
         User.pm = pm;
     }
 
+    /**
+     * gets username
+     * @return username
+     */
     public String getUsername() {
-        return _username.getValue();
-    }
-    public void setUsername(final String username) {
-        _username.setValue(username);
-    }
-    public String getEmail() {
-        return _email.get();
-    }
-    public void setEmail(final String name) {
-        _email.set(name);
-    }
-    public String getTok() {
-        return _tok.get();
-    }
-    public void setTok(final String tok) {
-        _tok.set(tok);
-    }
-    public UserClass getUserClass() {
-        return _class;
-    }
-    public void setUserClass(final UserClass userClass) {
-        _class = userClass;
+        return username.getValue();
     }
 
+    /**
+     * sets username
+     * @param username username
+     */
+    public void setUsername(final String username) {
+        this.username.setValue(username);
+    }
+
+    /**
+     * gets users email
+     * @return email
+     */
+    public String getEmail() {
+        return email.get();
+    }
+
+    /**
+     * sets the users email
+     * @param email email
+     */
+    public void setEmail(final String email) {
+        this.email.set(email);
+    }
+
+    /**
+     * gets the current auth token
+     * @return auth token
+     */
+    public String getTok() {
+        return tok.get();
+    }
+
+    /**
+     * sets the current auth token
+     * @param tok token
+     */
+    public void setTok(final String tok) {
+        this.tok.set(tok);
+    }
+
+    /**
+     * gets the user class
+     * @return user class
+     */
+    public UserClass getUserClass() {
+        return userClass;
+    }
+
+    /**
+     * sets the user class
+     * @param userClass user class
+     */
+    public void setUserClass(final UserClass userClass) {
+        this.userClass = userClass;
+    }
+
+    /**
+     * gets user profile
+     * @return user profile
+     */
     public UserProfile getUserProfile() {
         return userProfile;
     }
 
-    public void setUserProfile(UserProfile userProfile) {
+    /**
+     * sets the profile from an object
+     * @param userProfile profile
+     */
+    public void setUserProfile(final UserProfile userProfile) {
         this.userProfile = userProfile;
     }
 
+    /**
+     * loads the profile from the backend
+     */
     public void loadProfile() {
         userProfile.populateFromDatabase(pm, this);
     }
 
+    /**
+     * stores the current profile in the backend
+     */
     public void storeProfile() {
         userProfile.writeToDatabase(pm, this);
     }

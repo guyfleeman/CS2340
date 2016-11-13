@@ -19,37 +19,58 @@ import java.util.Map;
 
 
 /**
- * Created by Devan on 10/16/2016.
+ * @author Devan
+ * <p>Controller for View Source Report View</p>
  */
-public class ViewSourceReportScreenController implements Updatable {
-    private static final String VIEW_URI = "/frontpage/view/ViewWaterSourceReports.fxml";
+@SuppressWarnings("unused")
+public final class ViewSourceReportScreenController implements Updatable {
+    private static final String VIEW_URI =
+            "/frontpage/view/ViewWaterSourceReports.fxml";
 
-    private static Logger logger;
+    private static final Logger LOGGER;
     private static Parent root;
     private static ViewSourceReportScreenController viewReportsController;
 
     static {
-        logger = Logger.getLogger(ViewSourceReportScreenController.class.getName());
+        LOGGER = Logger.getLogger(
+                ViewSourceReportScreenController.class.getName());
     }
 
-
+    /**
+     * creates an instance of the controller and accompanying view
+     */
     public static void create() {
         try {
-            logger.debug("loading view: " + VIEW_URI);
-            FXMLLoader loader = new FXMLLoader(FXMain.class.getResource(VIEW_URI));
+            LOGGER.debug("loading view: " + VIEW_URI);
+            FXMLLoader loader = new FXMLLoader(
+                    FXMain.class.getResource(VIEW_URI));
             viewReportsController = new ViewSourceReportScreenController();
             loader.setController(viewReportsController);
             root = loader.load();
         } catch (Exception e) {
-            logger.error("failed to load view", e);
+            LOGGER.error("failed to load view", e);
         }
     }
 
-    public static Parent getRoot() { return root; }
-    public static ViewSourceReportScreenController getViewReportController() {return viewReportsController; }
+    /**
+     * gets the root node
+     * @return root node
+     */
+    public static Parent getRoot() {
+        return root;
+    }
+
+    /**
+     * gets the controller
+     * @return controller
+     */
+    public static ViewSourceReportScreenController getViewReportController() {
+        return viewReportsController;
+    }
 
 
-    private final ObservableList<SourceReport> reports = FXCollections.observableArrayList();
+    private final ObservableList<SourceReport> reports =
+            FXCollections.observableArrayList();
     @FXML private TableView<SourceReport> viewReportsTable;
     @FXML private TableColumn<SourceReport, String> dateTimeCol;
     @FXML private TableColumn<SourceReport, String> reportNumCol;
@@ -57,22 +78,35 @@ public class ViewSourceReportScreenController implements Updatable {
     @FXML private TableColumn<SourceReport, String> locationCol;
     @FXML private TableColumn<SourceReport, String> waterSourceTypeCol;
     @FXML private TableColumn<SourceReport, String> waterConditionCol;
-    @FXML private Button ViewReportsReturnBtn;
+    @FXML private Button viewReportsReturnBtn;
 
     private ViewSourceReportScreenController() {
 
     }
 
+    /**
+     * FXML initialization routine
+     */
     @FXML
     private void initialize() {
-        dateTimeCol.setCellValueFactory(cellData -> cellData.getValue().getReportTime_t());
-        reportNumCol.setCellValueFactory(cellData -> cellData.getValue().getReportID_t());
-        reporterCol.setCellValueFactory(cellData -> cellData.getValue().getUsername_t());
-        locationCol.setCellValueFactory(cellData -> cellData.getValue().getLocation_t());
-        waterSourceTypeCol.setCellValueFactory(cellData -> cellData.getValue().getType_t());
-        waterConditionCol.setCellValueFactory(cellData -> cellData.getValue().getCondition_t());
+        dateTimeCol.setCellValueFactory(cellData
+                -> cellData.getValue().getReportTimeT());
+        reportNumCol.setCellValueFactory(cellData
+                -> cellData.getValue().getReportIDT());
+        reporterCol.setCellValueFactory(cellData
+                -> cellData.getValue().getUsernameT());
+        locationCol.setCellValueFactory(cellData
+                -> cellData.getValue().getLocationT());
+        waterSourceTypeCol.setCellValueFactory(cellData
+                -> cellData.getValue().getTypeT());
+        waterConditionCol.setCellValueFactory(cellData
+                -> cellData.getValue().getConditionT());
     }
 
+    /**
+     * update call from view switch
+     * @return success
+     */
     @Override
     public boolean update() {
         SourceReportManager rm = FXMain.getBackend().getSourceReportManager();
@@ -89,7 +123,8 @@ public class ViewSourceReportScreenController implements Updatable {
         } catch (BackendRequestException e) {
             DialogueUtils.showMessage("view report bre");
         } catch (Exception e) {
-            DialogueUtils.showMessage("view report exception (type: " + e.getClass()
+            DialogueUtils.showMessage("view report exception (type: "
+                    + e.getClass()
                     + ", message: " + e.getMessage()
                     + ", cause: " + e.getCause());
         }

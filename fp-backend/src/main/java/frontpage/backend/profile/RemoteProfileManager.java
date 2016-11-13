@@ -10,10 +10,16 @@ import java.util.Map;
 
 /**
  * @author willstuckey
- * @date 10/3/16
- * <p></p>
+ * <p>Profile Manager for remote servers.</p>
  */
 public class RemoteProfileManager implements ProfileManager {
+    /**
+     * gets a profile
+     * @param email email for auth
+     * @param tok token for auth
+     * @return profile data
+     * @throws ProfileManagementException error
+     */
     public Map<String, String> getProfile(final String email,
                                           final String tok)
             throws ProfileManagementException {
@@ -22,7 +28,7 @@ public class RemoteProfileManager implements ProfileManager {
                     new NullPointerException());
         }
 
-        Map<String, String> attribs = new HashMap<>(3);
+        Map<String, String> attribs = new HashMap<>();
         attribs.put("action", "GET");
         attribs.put("email", email);
         attribs.put("tok", tok);
@@ -35,10 +41,12 @@ public class RemoteProfileManager implements ProfileManager {
         }
 
         if (!rr.success()) {
-            throw new ProfileManagementException(rr.getResponseValue("message"));
+            throw new ProfileManagementException(
+                    rr.getResponseValue("message"));
         }
 
         Map<String, String> ret = new HashMap<>(rr.getSingleResponseMap());
+        //noinspection Convert2streamapi
         for (String s : ret.keySet()) {
             if (ret.get(s) == null
                     || ret.get(s).length() == 0
@@ -50,6 +58,14 @@ public class RemoteProfileManager implements ProfileManager {
         return ret;
     }
 
+    /**
+     * sets profile data
+     * @param email email for auth
+     * @param tok token for auth
+     * @param profiles profile data
+     * @return success
+     * @throws ProfileManagementException errors
+     */
     public boolean setProfile(final String email,
                               final String tok,
                               final Map<String, String> profiles)
@@ -59,6 +75,7 @@ public class RemoteProfileManager implements ProfileManager {
                     new NullPointerException());
         }
 
+        //noinspection Convert2streamapi
         for (String s : profiles.keySet()) {
             if (profiles.get(s) == null
                     || profiles.get(s).length() == 0) {
@@ -79,7 +96,8 @@ public class RemoteProfileManager implements ProfileManager {
         }
 
         if (!rr.success()) {
-            throw new ProfileManagementException(rr.getResponseValue("message"));
+            throw new ProfileManagementException(
+                    rr.getResponseValue("message"));
         }
 
         return true;

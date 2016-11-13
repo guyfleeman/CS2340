@@ -10,10 +10,16 @@ import java.util.Map;
 
 /**
  * @author willstuckey
- * @date 10/14/16
- * <p></p>
+ * <p>Implementation of backend Source Report Manager for remote servers.</p>
  */
 public class RemoteSourceReportManager implements SourceReportManager {
+    /**
+     * adds a source report to the backend
+     * @param email email for auth
+     * @param tok token for auth
+     * @return id of blank report
+     * @throws BackendRequestException if anything goes wrong
+     */
     public String addSourceReport(final String email,
                                   final String tok)
             throws BackendRequestException {
@@ -41,6 +47,15 @@ public class RemoteSourceReportManager implements SourceReportManager {
         return id;
     }
 
+    /**
+     * updates a source report
+     * @param email email for auth
+     * @param tok token for auth
+     * @param id UUID of source report
+     * @param properties report properties to be written
+     * @return success
+     * @throws BackendRequestException if something goes wrong
+     */
     public boolean updateSourceReport(final String email,
                                       final String tok,
                                       final String id,
@@ -67,12 +82,19 @@ public class RemoteSourceReportManager implements SourceReportManager {
         }
 
         Map<String, String> ret = rr.getSingleResponseMap();
-        return (ret.get("status") != null && ret.get("status").equals("success"));
+        return (ret.get("status") != null
+                && ret.get("status").equals("success"));
     }
 
+    /**
+     * gets a source report
+     * @param id UUID of source report
+     * @return report data
+     * @throws BackendRequestException for errors
+     */
     public Map<String, String> getSourceReport(final String id)
             throws BackendRequestException {
-        Map<String, String> attribs = new HashMap<>(3);
+        Map<String, String> attribs = new HashMap<>();
         attribs.put("reporttype", "source");
         attribs.put("action", "GET");
         attribs.put("reportid", id);
@@ -96,9 +118,15 @@ public class RemoteSourceReportManager implements SourceReportManager {
         return rr.getResponseValues()[1];
     }
 
+    /**
+     * gets a number of source reports from history
+     * @param num number of reports
+     * @return report data
+     * @throws BackendRequestException if something goes wrong
+     */
     public Map<String, String>[] getSourceReports(final int num)
             throws BackendRequestException {
-        Map<String, String> attribs = new HashMap<>(3);
+        Map<String, String> attribs = new HashMap<>();
         attribs.put("reporttype", "source");
         attribs.put("action", "GET");
         attribs.put("reportid", "ALL");
@@ -128,20 +156,28 @@ public class RemoteSourceReportManager implements SourceReportManager {
      * CURRENTLY UNDER MINIMAL IMPLEMENTATION (returns null)
      * @param properties properties to search for
      * @param searchConstraints constraints for properties
-     * @return
-     * @throws BackendRequestException
+     * @return values
+     * @throws BackendRequestException errors
      */
-    public Map<String, String>[] getSourceReports(final Map<String, String> properties,
-                                                  final Map<String, String> searchConstraints)
+    public Map<String, String>[] getSourceReports(
+            final Map<String, String> properties,
+            final Map<String, String> searchConstraints)
             throws BackendRequestException {
         return null;
     }
 
+    /**
+     * deletes a source report
+     * @param email email for auth
+     * @param tok token for auth
+     * @param id report id
+     * @throws BackendRequestException if something goes wrong
+     */
     public void deleteSourceReport(final String email,
                                    final String tok,
                                    final String id)
             throws BackendRequestException {
-        final Map<String, String> attribs = new HashMap<>(5);
+        final Map<String, String> attribs = new HashMap<>();
         attribs.put("email", email);
         attribs.put("tok", tok);
         attribs.put("reportid", id);
@@ -160,10 +196,21 @@ public class RemoteSourceReportManager implements SourceReportManager {
         }
     }
 
+    /**
+     * deletes a source report.
+     * Stops on failure rather than propagating it on. Use under error
+     * recovery routines.
+     * @param email email for auth
+     * @param tok token for auth
+     * @param id report id to delete
+     */
     @Override
     public void __deleteSourceReport_fs_na(final String email,
                                            final String tok,
                                            final String id) {
-        try { deleteSourceReport(email, tok, id); } catch (Exception e) {}
+        //noinspection EmptyCatchBlock
+        try {
+            deleteSourceReport(email, tok, id);
+        } catch (Exception e) { }
     }
 }
