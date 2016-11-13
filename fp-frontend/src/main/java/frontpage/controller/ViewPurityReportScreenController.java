@@ -89,19 +89,19 @@ public final class ViewPurityReportScreenController implements Updatable {
     @FXML
     private void initialize() {
         dateTimeCol.setCellValueFactory(cellData
-                -> cellData.getValue().getDate_t());
+                -> cellData.getValue().getDateT());
         reportNumCol.setCellValueFactory(cellData
-                -> cellData.getValue().getRptId_t());
+                -> cellData.getValue().getRptIdT());
         reporterCol.setCellValueFactory(cellData
-                -> cellData.getValue().getReporter_t());
+                -> cellData.getValue().getReporterT());
         locationCol.setCellValueFactory(cellData
-                -> cellData.getValue().getLocation_t());
+                -> cellData.getValue().getLocationT());
         conditionCol.setCellValueFactory(cellData
-                -> cellData.getValue().getCondition_t());
+                -> cellData.getValue().getConditionT());
         virusPPMCol.setCellValueFactory(cellData
-                -> cellData.getValue().getVirusPPM_t());
+                -> cellData.getValue().getVirusPPMT());
         contaminantPPMCol.setCellValueFactory(cellData
-                -> cellData.getValue().getContaminantPPM_t());
+                -> cellData.getValue().getContaminantPPMT());
     }
 
     /**
