@@ -90,17 +90,17 @@ public final class ViewSourceReportScreenController implements Updatable {
     @FXML
     private void initialize() {
         dateTimeCol.setCellValueFactory(cellData
-                -> cellData.getValue().getReportTime_t());
+                -> cellData.getValue().getReportTimeT());
         reportNumCol.setCellValueFactory(cellData
-                -> cellData.getValue().getReportID_t());
+                -> cellData.getValue().getReportIDT());
         reporterCol.setCellValueFactory(cellData
-                -> cellData.getValue().getUsername_t());
+                -> cellData.getValue().getUsernameT());
         locationCol.setCellValueFactory(cellData
-                -> cellData.getValue().getLocation_t());
+                -> cellData.getValue().getLocationT());
         waterSourceTypeCol.setCellValueFactory(cellData
-                -> cellData.getValue().getType_t());
+                -> cellData.getValue().getTypeT());
         waterConditionCol.setCellValueFactory(cellData
-                -> cellData.getValue().getCondition_t());
+                -> cellData.getValue().getConditionT());
     }
 
     /**
