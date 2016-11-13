@@ -1,3 +1,4 @@
+//CHECKSTYLE.OFF: JavadocMethod
 package frontpage.bind.errorhandling;
 
 /**
@@ -17,7 +18,8 @@ public class FailedToCreateUserException extends BackendRequestException {
         super(message);
     }
 
-    public FailedToCreateUserException(final String message, final Throwable t) {
+    public FailedToCreateUserException(final String message,
+                                       final Throwable t) {
         super(message, t);
     }
 
