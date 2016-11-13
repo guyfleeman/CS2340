@@ -22,6 +22,8 @@ import java.util.Map;
  * This class also contains definitions for known API entry points
  * in the form of hosted php scripts.
  */
+@SuppressWarnings({"FeatureEnvy", "UtilityClass", "ChainedMethodCall",
+        "OverlyComplexMethod", "OverlyLongMethod"})
 public final class RESTHandler {
     /**
      * URL of the page that handles account creation requests

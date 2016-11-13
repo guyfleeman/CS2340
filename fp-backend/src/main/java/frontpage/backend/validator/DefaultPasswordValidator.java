@@ -11,6 +11,7 @@ public class DefaultPasswordValidator implements PasswordValidator {
      * @param pw password
      * @return true
      */
+    @Override
     @SuppressWarnings({"SameReturnValue", "UnusedParameters"})
     public final boolean isValidPassword(final String pw) {
         return true;

@@ -25,7 +25,8 @@ import javax.swing.JOptionPane;
  * @author guyfleeman (aka willstuckey)
  * <p>A small wrapper for generating popups and prompts.</p>
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "UtilityClass",
+        "ClassWithTooManyDependents"})
 public final class DialogueUtils {
     /**
      * creates a yes or no prompt

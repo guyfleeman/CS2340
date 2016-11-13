@@ -24,7 +24,9 @@ import java.util.LinkedList;
  * @author willstuckey
  * <p></p>
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "FeatureEnvy", "TypeMayBeWeakened",
+        "UseOfSystemOutOrSystemErr", "ChainedMethodCall", "LawOfDemeter",
+        "AssignmentToNull", "CyclicClassDependency", "OverlyLongMethod"})
 public final class CreateSourceReportController implements Updatable {
     private static final String VIEW_URI =
             "/frontpage/view/CreateSourceReportScreen.fxml";
@@ -128,6 +130,7 @@ public final class CreateSourceReportController implements Updatable {
      * view change update call
      * @return success
      */
+    @Override
     public boolean update() {
         SourceReportManager rm = FXMain.getBackend().getSourceReportManager();
         activeReport = null;

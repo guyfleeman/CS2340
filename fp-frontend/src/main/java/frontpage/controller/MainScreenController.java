@@ -14,7 +14,8 @@ import org.apache.log4j.Logger;
 /**
  * main screen controller
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "FeatureEnvy", "LawOfDemeter",
+        "CyclicClassDependency"})
 public final class MainScreenController implements  Updatable {
     private static final String VIEW_URI =
             "/frontpage/view/MainScreen.fxml";
@@ -92,16 +93,17 @@ public final class MainScreenController implements  Updatable {
      * change view update call
      * @return success
      */
+    @Override
     public boolean update() {
         User u = FXMain.getUser();
         setUserLabel(u.getEmail() + " [" + u.getUserClass() + "]");
-        createPurityReport.setDisable(!(u.getUserClass() == UserClass.WORKER
-                || u.getUserClass() == UserClass.MANAGER
-                || u.getUserClass() == UserClass.ADMIN));
-        viewPurityReports.setDisable(!(u.getUserClass() == UserClass.MANAGER
-                || u.getUserClass() == UserClass.ADMIN));
-        purityGraphBtn.setDisable(!(u.getUserClass() == UserClass.MANAGER
-                || u.getUserClass() == UserClass.ADMIN));
+        createPurityReport.setDisable(!((u.getUserClass() == UserClass.WORKER)
+                || (u.getUserClass() == UserClass.MANAGER)
+                || (u.getUserClass() == UserClass.ADMIN)));
+        viewPurityReports.setDisable(!((u.getUserClass() == UserClass.MANAGER)
+                || (u.getUserClass() == UserClass.ADMIN)));
+        purityGraphBtn.setDisable(!((u.getUserClass() == UserClass.MANAGER)
+                || (u.getUserClass() == UserClass.ADMIN)));
         return true;
     }
 

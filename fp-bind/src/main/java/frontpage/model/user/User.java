@@ -9,7 +9,8 @@ import javafx.beans.property.StringProperty;
  * @author georgetang
  * @author willstuckey
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "unused",
+        "ClassWithTooManyDependents", "CyclicClassDependency"})
 public class User {
     private static ProfileManager pm;
 

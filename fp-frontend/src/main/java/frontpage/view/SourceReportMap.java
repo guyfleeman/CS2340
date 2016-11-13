@@ -17,7 +17,7 @@ import javafx.scene.layout.VBox;
  * @author willstuckey
  * <p></p>
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "ChainedMethodCall", "unused"})
 public class SourceReportMap implements MapComponentInitializedListener {
     private static final double LATITUDE = 33.7795209;
     private static final double LONGITUDE = -84.4020793;

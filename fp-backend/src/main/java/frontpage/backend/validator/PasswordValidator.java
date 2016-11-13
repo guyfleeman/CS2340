@@ -4,7 +4,7 @@ package frontpage.backend.validator;
  * @author willstuckey
  * <p></p>
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "SameReturnValue", "unused"})
 public interface PasswordValidator {
     /**
      * validates a password

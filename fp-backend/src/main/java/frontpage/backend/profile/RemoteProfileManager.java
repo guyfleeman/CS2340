@@ -12,6 +12,8 @@ import java.util.Map;
  * @author willstuckey
  * <p>Profile Manager for remote servers.</p>
  */
+@SuppressWarnings({"FeatureEnvy", "ChainedMethodCall",
+        "LiteralAsArgToStringEquals", "LawOfDemeter"})
 public class RemoteProfileManager implements ProfileManager {
     /**
      * gets a profile
@@ -20,10 +22,11 @@ public class RemoteProfileManager implements ProfileManager {
      * @return profile data
      * @throws ProfileManagementException error
      */
+    @Override
     public Map<String, String> getProfile(final String email,
                                           final String tok)
             throws ProfileManagementException {
-        if (email == null || tok == null) {
+        if ((email == null) || (tok == null)) {
             throw new ProfileManagementException("invalid credentials",
                     new NullPointerException());
         }
@@ -48,8 +51,8 @@ public class RemoteProfileManager implements ProfileManager {
         Map<String, String> ret = new HashMap<>(rr.getSingleResponseMap());
         //noinspection Convert2streamapi
         for (String s : ret.keySet()) {
-            if (ret.get(s) == null
-                    || ret.get(s).length() == 0
+            if ((ret.get(s) == null)
+                    || ret.get(s).isEmpty()
                     || ret.get(s).equalsIgnoreCase("null")) {
                 ret.put(s, "");
             }
@@ -66,19 +69,20 @@ public class RemoteProfileManager implements ProfileManager {
      * @return success
      * @throws ProfileManagementException errors
      */
+    @Override
     public boolean setProfile(final String email,
                               final String tok,
                               final Map<String, String> profiles)
             throws ProfileManagementException {
-        if (email == null || tok == null || profiles == null) {
+        if ((email == null) || (tok == null) || (profiles == null)) {
             throw new ProfileManagementException("invalid credentials",
                     new NullPointerException());
         }
 
         //noinspection Convert2streamapi
         for (String s : profiles.keySet()) {
-            if (profiles.get(s) == null
-                    || profiles.get(s).length() == 0) {
+            if ((profiles.get(s) == null)
+                    || profiles.get(s).isEmpty()) {
                 profiles.put(s, "NULL");
             }
         }

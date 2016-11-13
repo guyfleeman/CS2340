@@ -9,6 +9,7 @@ import frontpage.bind.profile.ProfileManager;
  * @author willstuckey
  * <p>Backend</p>
  */
+@SuppressWarnings("ClassWithTooManyDependents")
 public interface Backend {
     /**
      * gets the user manager

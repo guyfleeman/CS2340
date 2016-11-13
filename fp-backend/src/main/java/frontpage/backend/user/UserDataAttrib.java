@@ -4,6 +4,7 @@ package frontpage.backend.user;
  * @author willstuckey
  * <p></p>
  */
+@SuppressWarnings("unused")
 public enum UserDataAttrib {
     /**
      * account's classification

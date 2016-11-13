@@ -16,7 +16,7 @@ import java.util.Map;
  * @author willstuckey
  * <p></p>
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "FeatureEnvy", "unused"})
 public class PurityReport {
     private static final Logger LOGGER;
 
@@ -81,14 +81,14 @@ public class PurityReport {
         id = map.get("reportid");
         sourceRptId = map.get("sourcerptid");
         String dt = map.get("reportdt");
-        if ((dt != null) && (dt.length() > 0)) {
+        if ((dt != null) && (!dt.isEmpty())) {
             datetime = LocalDateTime.parse(dt.replace(' ', 'T'));
         }
         location = map.get("location");
         submitter = map.get("username");
 
         String type = map.get("cond");
-        if ((type != null) && (type.length() > 0)) {
+        if ((type != null) && (!type.isEmpty())) {
             try {
                 this.condition = PurityCondition.valueOf(type);
             } catch (Exception e) {

@@ -20,6 +20,7 @@ import org.apache.log4j.Logger;
  * This class under partial implementation.
  * </p>
  */
+@SuppressWarnings("unused")
 public class LocalBackend implements Backend {
     /**
      * class logger
@@ -53,6 +54,7 @@ public class LocalBackend implements Backend {
      * gets local user manager
      * @return manager
      */
+    @Override
     public UserManager getUserManager() {
         return UserManagerFactory.getInstance();
     }
@@ -61,6 +63,7 @@ public class LocalBackend implements Backend {
      * get local profile manager
      * @return manager
      */
+    @Override
     public ProfileManager getProfileManager() {
         LocalProfileManager.setLum(
                 (LocalUserManager) UserManagerFactory.getInstance());
@@ -71,6 +74,7 @@ public class LocalBackend implements Backend {
      * get source report manager
      * @return manager
      */
+    @Override
     public SourceReportManager getSourceReportManager() {
         return null;
     }
@@ -79,6 +83,7 @@ public class LocalBackend implements Backend {
      * get purity report manager
      * @return manager
      */
+    @Override
     public PurityReportManager getPurityReportManager() {
         return null;
     }

@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
  *
  * <p>Controller for the Welcome Screen View</p>
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "CyclicClassDependency"})
 public final class WelcomeScreenController {
     private static final String VIEW_URI = "/frontpage/view/WelcomeScreen.fxml";
 

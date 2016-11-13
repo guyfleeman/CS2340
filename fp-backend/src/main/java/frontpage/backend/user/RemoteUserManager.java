@@ -20,7 +20,7 @@ import java.util.Map;
  * <p>User Authenticator bound to an SQL server. See GlobalProperties
  * for connection information.</p>
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"ALL", "ClassWithTooManyDependencies"})
 public class RemoteUserManager implements UserManager {
     /**
      * class logger
@@ -47,7 +47,7 @@ public class RemoteUserManager implements UserManager {
      */
     public final String authenticateUser(final String email, final String tok)
             throws BackendRequestException {
-        if (email == null || tok == null) {
+        if ((email == null) || (tok == null)) {
             throw new InvalidDataException(
                     "one or more parameters was null or empty");
         }
@@ -114,7 +114,7 @@ public class RemoteUserManager implements UserManager {
     public final String getUserType(final String email,
                               final String tok)
                     throws BackendRequestException {
-        if (email == null || tok == null) {
+        if ((email == null) || (tok == null)) {
             throw new InvalidDataException(
                     "one or more parameters was null or empty");
         }
@@ -149,8 +149,9 @@ public class RemoteUserManager implements UserManager {
                                     final String lastname,
                                     final String userClass)
         throws BackendRequestException {
-        if (un == null || pw == null || email == null
-                || firstname == null || lastname == null || userClass == null) {
+        if ((un == null) || (pw == null) || (email == null)
+                || (firstname == null) || (lastname == null)
+                || (userClass == null)) {
             throw new InvalidDataException("one or more parameters was null");
         }
 

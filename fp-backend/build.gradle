@@ -11,4 +11,5 @@ dependencies {
     compile project(':fp-bind')
 }
 
+//noinspection GroovyAssignabilityCheck
 test.dependsOn checkstyleMain

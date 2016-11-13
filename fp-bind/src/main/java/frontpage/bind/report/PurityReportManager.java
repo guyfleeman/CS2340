@@ -8,6 +8,7 @@ import java.util.Map;
  * @author willstuckey
  * <p></p>
  */
+@SuppressWarnings("unused")
 public interface PurityReportManager {
     /**
      * adds a blank purity report

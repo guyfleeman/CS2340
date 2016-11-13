@@ -8,7 +8,7 @@ import javafx.scene.Scene;
  *
  * @param <C> controller class
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class SceneControllerEntry<C> {
     private Scene scene;
     private C controller;

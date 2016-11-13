@@ -12,6 +12,7 @@ import java.util.Map;
  * @author willstuckey
  * <p></p>
  */
+@SuppressWarnings("UtilityClass")
 public final class ProfileManagerFactory {
     /**
      * class logger
@@ -49,7 +50,7 @@ public final class ProfileManagerFactory {
      */
     public static void createInstance(final String type)
             throws ProfileManagementException {
-        if (type == null
+        if ((type == null)
                 || !USER_AUTHENTICATOR_MAP.containsKey(type.toLowerCase())) {
             throw new ProfileManagementException(
                     "Cannot create user authenticator for type " + type + ".");

@@ -11,6 +11,7 @@ import java.util.HashMap;
  * @author willstuckey
  * <p>User Profile data class</p>
  */
+@SuppressWarnings({"unused", "CyclicClassDependency"})
 public class UserProfile {
     /**
      * users title (e.g. Ms.)
