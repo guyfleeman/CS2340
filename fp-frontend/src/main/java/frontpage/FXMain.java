@@ -8,6 +8,7 @@ import frontpage.controller.CreateSourceReportController;
 import frontpage.controller.LoginScreenController;
 import frontpage.controller.MainScreenController;
 import frontpage.controller.ProfileScreenController;
+import frontpage.controller.PurityGraphController;
 import frontpage.controller.RegisterScreenController;
 import frontpage.controller.SourceReportMapController;
 import frontpage.controller.Updatable;
@@ -35,6 +36,8 @@ import java.util.Map;
  * @author willstuckey
  */
 public class FXMain extends Application {
+    private static final int MIN_MAJOR_VERSION = 8;
+    private static final int MIN_MINOR_VERSION = 110;
 
     /**
      * default resolution width
@@ -84,11 +87,33 @@ public class FXMain extends Application {
         console.activateOptions();
         Logger.getRootLogger().addAppender(console);
 
-        if (Arrays.asList(args).contains("--force-local")
-                || !DialogueUtils.askYesNo("Use remote backend?")) {
+        if (Arrays.asList(args).contains("--force-local")) {
             backend = new LocalBackend();
         } else {
             backend = new RemoteBackend();
+
+            try {
+                final String jreVersion = System.getProperty("java.version");
+                final String major = "" + jreVersion.charAt(2);
+                final String minor = jreVersion.split("_")[1];
+                if ((Integer.parseInt(major) < MIN_MAJOR_VERSION)
+                        || (Integer.parseInt(minor) < MIN_MINOR_VERSION)) {
+                    System.err.println("Detected Java version before LetEncrypt certificate added.");
+                    boolean res = DialogueUtils.askYesNo("Detected java version \"" + jreVersion + "\"\r\n\r\n"
+                            + "This app requires a minimum java version of 1.8.0_110 for SSL certificates to "
+                            + "work.\r\n\r\n"
+                            + "The problem is usually only on windows, not Linux or Mac. Please upgrade your "
+                            + " java version or install the lets encrypt root certificate to your certificate "
+                            + "store.\r\n\r\n"
+                            + "Continue? (should be okay for Mac/Linux)");
+                    if (!res) {
+                        System.exit(0);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                DialogueUtils.showMessage("Unable to detect and identify problems with java version.");
+            }
         }
         User.setPm(backend.getProfileManager());
 
@@ -219,6 +244,12 @@ public class FXMain extends Application {
                         RES_HEIGHT),
                 SourceReportMapController.getSourceReportMapController());
         VIEW_SCENE_MAP.put("map", srpc);
+
+        PurityGraphController.create();
+        SceneControllerEntry<PurityGraphController> pgc = new SceneControllerEntry<>(
+                new Scene(PurityGraphController.getRoot(), RES_WIDTH, RES_HEIGHT),
+                PurityGraphController.getPurityGraphController());
+        VIEW_SCENE_MAP.put("puritygraph", pgc);
 
         setView("welcome");
         primaryStage.show();

@@ -67,6 +67,7 @@ public final class MainScreenController implements  Updatable {
     @FXML private Button viewSourceReports;
     @FXML private Button createPurityReport;
     @FXML private Button viewPurityReports;
+    @FXML private Button purityGraphBtn;
     @FXML private Button mapBtn;
 
     private MainScreenController() {
@@ -94,8 +95,12 @@ public final class MainScreenController implements  Updatable {
     public boolean update() {
         User u = FXMain.getUser();
         setUserLabel(u.getEmail() + " [" + u.getUserClass() + "]");
-        createPurityReport.setDisable(!(u.getUserClass() == UserClass.WORKER));
+        createPurityReport.setDisable(!(u.getUserClass() == UserClass.WORKER
+                || u.getUserClass() == UserClass.MANAGER
+                || u.getUserClass() == UserClass.ADMIN));
         viewPurityReports.setDisable(!(u.getUserClass() == UserClass.MANAGER
+                || u.getUserClass() == UserClass.ADMIN));
+        purityGraphBtn.setDisable(!(u.getUserClass() == UserClass.MANAGER
                 || u.getUserClass() == UserClass.ADMIN));
         return true;
     }
@@ -127,6 +132,11 @@ public final class MainScreenController implements  Updatable {
     @FXML
     private void handleMapAction() {
         FXMain.setView("map");
+    }
+
+    @FXML
+    private void handleShowPurityGraphAction() {
+        FXMain.setView("puritygraph");
     }
 
     /**
