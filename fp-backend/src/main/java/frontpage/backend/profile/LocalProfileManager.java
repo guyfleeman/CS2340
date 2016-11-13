@@ -29,7 +29,7 @@ public class LocalProfileManager implements ProfileManager {
      * sets user manager instance
      * @param lum user manager
      */
-    public static void setLum(LocalUserManager lum) {
+    public static void setLum(final LocalUserManager lum) {
         LocalProfileManager.lum = lum;
     }
 
