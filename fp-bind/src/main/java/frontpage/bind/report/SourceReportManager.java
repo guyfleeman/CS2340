@@ -5,12 +5,15 @@ import java.util.Map;
 
 /**
  * @author willstuckey
- * <p></p>
+ * <p>Source Report Manager</p>
  */
 public interface SourceReportManager {
     /**
      * adds a blank source report
+     * @param email email for auth
+     * @param tok token for auth
      * @return report UUID
+     * @throws BackendRequestException if anything goes wrong
      */
     String addSourceReport(final String email,
                            final String tok)
@@ -18,9 +21,12 @@ public interface SourceReportManager {
 
     /**
      * updates a source report
-     * @param id UUID of source report
-     * @param properties report properties to be written
+     * @param email email for auth
+     * @param tok token for auth
+     * @param id report if
+     * @param properties properties map
      * @return success
+     * @throws BackendRequestException if anything goes wrong
      */
     @SuppressWarnings("UnusedReturnValue")
     boolean updateSourceReport(final String email,
@@ -33,27 +39,33 @@ public interface SourceReportManager {
      * gets source report from UUID
      * @param id UUID of source report
      * @return report properties
+     * @throws BackendRequestException if anything goes wrong
      */
     Map<String, String> getSourceReport(final String id)
             throws BackendRequestException;
 
     /**
      * gets most recent source reports
+     * @param num number of reports
      * @return array containing one map describing each result
+     * @throws BackendRequestException if anything goes wrong
      */
     @SuppressWarnings({"SameParameterValue", "UnusedParameters"})
     Map<String, String>[] getSourceReports(final int num)
             throws BackendRequestException;
 
     /**
-     * gets source reports based on a set of search constraints applied to properties
+     * gets source reports based on a set of search constraints
+     * applied to properties
      * @param properties properties to search for
      * @param searchConstraints constraints for properties
      * @return array containing one map describing each result
+     * @throws BackendRequestException if anything goes wrong
      */
     @SuppressWarnings({"RedundantThrows", "UnusedParameters"})
-    Map<String, String>[] getSourceReports(final Map<String, String> properties,
-                                           final Map<String, String> searchConstraints)
+    Map<String, String>[] getSourceReports(
+            final Map<String, String> properties,
+            final Map<String, String> searchConstraints)
             throws BackendRequestException;
 
     /**
@@ -79,7 +91,9 @@ public interface SourceReportManager {
      * @param tok token for auth
      * @param id report id
      */
+    //CHECKSTYLE.OFF: MethodName
     void __deleteSourceReport_fs_na(final String email,
                                     final String tok,
                                     final String id);
+    //CHECKSTYLE.ON: MethodName
 }
