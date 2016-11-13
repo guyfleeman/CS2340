@@ -28,7 +28,7 @@ public class RemoteProfileManager implements ProfileManager {
                     new NullPointerException());
         }
 
-        Map<String, String> attribs = new HashMap<>(3);
+        Map<String, String> attribs = new HashMap<>();
         attribs.put("action", "GET");
         attribs.put("email", email);
         attribs.put("tok", tok);

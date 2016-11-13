@@ -47,7 +47,7 @@ public class LocalProfileManager implements ProfileManager {
             if (u.getEmail().equalsIgnoreCase(email)
                     && u.getTok().equals(tok)) {
                 UserProfile up = u.getUserProfile();
-                Map<String, String> ret = new HashMap<>(5);
+                Map<String, String> ret = new HashMap<>();
                 ret.put("address", up.getAddress());
                 ret.put("city", up.getCity());
                 ret.put("state", up.getState());

@@ -94,7 +94,7 @@ public class RemoteSourceReportManager implements SourceReportManager {
      */
     public Map<String, String> getSourceReport(final String id)
             throws BackendRequestException {
-        Map<String, String> attribs = new HashMap<>(3);
+        Map<String, String> attribs = new HashMap<>();
         attribs.put("reporttype", "source");
         attribs.put("action", "GET");
         attribs.put("reportid", id);
@@ -126,7 +126,7 @@ public class RemoteSourceReportManager implements SourceReportManager {
      */
     public Map<String, String>[] getSourceReports(final int num)
             throws BackendRequestException {
-        Map<String, String> attribs = new HashMap<>(3);
+        Map<String, String> attribs = new HashMap<>();
         attribs.put("reporttype", "source");
         attribs.put("action", "GET");
         attribs.put("reportid", "ALL");
@@ -177,7 +177,7 @@ public class RemoteSourceReportManager implements SourceReportManager {
                                    final String tok,
                                    final String id)
             throws BackendRequestException {
-        final Map<String, String> attribs = new HashMap<>(5);
+        final Map<String, String> attribs = new HashMap<>();
         attribs.put("email", email);
         attribs.put("tok", tok);
         attribs.put("reportid", id);

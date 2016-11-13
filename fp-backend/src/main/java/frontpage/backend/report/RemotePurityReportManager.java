@@ -94,7 +94,7 @@ public class RemotePurityReportManager implements PurityReportManager {
      */
     public Map<String, String> getPurityReport(final String id)
             throws BackendRequestException {
-        Map<String, String> attribs = new HashMap<>(3);
+        Map<String, String> attribs = new HashMap<>();
         attribs.put("reporttype", "purity");
         attribs.put("action", "GET");
         attribs.put("reportid", id);
@@ -126,7 +126,7 @@ public class RemotePurityReportManager implements PurityReportManager {
      */
     public Map<String, String>[] getPurityReports(final int num)
             throws BackendRequestException {
-        Map<String, String> attribs = new HashMap<>(3);
+        Map<String, String> attribs = new HashMap<>();
         attribs.put("reporttype", "purity");
         attribs.put("action", "GET");
         attribs.put("reportid", "ALL");
