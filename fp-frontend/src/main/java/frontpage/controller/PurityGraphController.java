@@ -1,13 +1,9 @@
 package frontpage.controller;
 
 import frontpage.FXMain;
-import frontpage.bind.errorhandling.AuthenticationException;
 import frontpage.bind.errorhandling.BackendRequestException;
 import frontpage.bind.report.PurityReportManager;
-import frontpage.bind.user.UserManager;
 import frontpage.model.report.PurityReport;
-import frontpage.model.user.User;
-import frontpage.model.user.UserClass;
 import frontpage.utils.DialogueUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,11 +13,9 @@ import javafx.scene.Parent;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.apache.log4j.Logger;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -31,33 +25,49 @@ import java.util.Map;
  * @author George
  * @author willstuckey
  */
-public class PurityGraphController implements Updatable {
-    private static final String VIEW_URI = "/frontpage/view/PurityGraph.fxml";
+public final class PurityGraphController implements Updatable {
+    private static final String VIEW_URI =
+            "/frontpage/view/PurityGraph.fxml";
 
-    private static Logger logger;
+    private static final Logger LOGGER;
+    private static final int YEAR_LOWER_BOUND = 1900;
+    private static final int YEAR_UPPER_BOUND = 2016;
     private static Parent root;
     private static PurityGraphController purityGraphController;
 
     static {
-        logger = Logger.getLogger(PurityGraphController.class.getName());
+        LOGGER = Logger.getLogger(
+                PurityGraphController.class.getName());
     }
 
+    /**
+     * creates an instance of the controller and accompanying view
+     */
     public static void create() {
         try {
-            logger.debug("loading view: " + VIEW_URI);
-            FXMLLoader loader = new FXMLLoader(FXMain.class.getResource(VIEW_URI));
+            LOGGER.debug("loading view: " + VIEW_URI);
+            FXMLLoader loader = new FXMLLoader(
+                    FXMain.class.getResource(VIEW_URI));
             purityGraphController = new PurityGraphController();
             loader.setController(purityGraphController);
             root = loader.load();
         } catch (Exception e) {
-            logger.error("failed to load view", e);
+            LOGGER.error("failed to load view", e);
         }
     }
 
+    /**
+     * gets root node of the view
+     * @return root node
+     */
     public static Parent getRoot() {
         return root;
     }
 
+    /**
+     * gets controller
+     * @return controller
+     */
     public static PurityGraphController getPurityGraphController() {
         return purityGraphController;
     }
@@ -74,11 +84,18 @@ public class PurityGraphController implements Updatable {
 
     }
 
+    /**
+     * FXML initialization routine
+     */
     @FXML
     public void initialize() {
         lineChart.setAnimated(false);
     }
 
+    /**
+     * scene change update callback
+     * @return success
+     */
     public boolean update() {
         lineChart.getData().clear();
         reports.clear();
@@ -96,7 +113,8 @@ public class PurityGraphController implements Updatable {
         } catch (BackendRequestException e) {
             DialogueUtils.showMessage("purity graph bre");
         } catch (Exception e) {
-            DialogueUtils.showMessage("purity graph exception (type: " + e.getClass()
+            DialogueUtils.showMessage("purity graph exception (type: "
+                    + e.getClass()
                     + ", message: " + e.getMessage()
                     + ", cause: " + e.getCause());
         }
@@ -128,8 +146,9 @@ public class PurityGraphController implements Updatable {
         final int year;
         try {
             year = Integer.parseInt(searchYear);
-            if (year < 1900 || year > 2016) {
-                throw new IllegalArgumentException("invalid year, not in range");
+            if (year < YEAR_LOWER_BOUND || year > YEAR_UPPER_BOUND) {
+                throw new IllegalArgumentException(
+                        "invalid year, not in range");
             }
         } catch (Exception e) {
             DialogueUtils.showMessage("Invalid Year (use 1900-2016)");
@@ -158,7 +177,8 @@ public class PurityGraphController implements Updatable {
 
         XYChart.Series<String, Integer> virusPPM = new XYChart.Series<>();
         virusPPM.setName("Virus PPM");
-        XYChart.Series<String, Integer> contaminantPPM = new XYChart.Series<>();
+        XYChart.Series<String, Integer> contaminantPPM =
+                new XYChart.Series<>();
         contaminantPPM.setName("Contaminant PPM");
         for (final PurityReport pr : reportsToDisplay) {
             virusPPM.getData().add(
@@ -169,8 +189,12 @@ public class PurityGraphController implements Updatable {
                             Integer.parseInt(pr.getContaminantPPM())));
         }
 
-        virusPPM.setData((ObservableList<XYChart.Data<String,Integer>>) avgListByKey(virusPPM.getData()));
-        contaminantPPM.setData((ObservableList<XYChart.Data<String,Integer>>) avgListByKey(contaminantPPM.getData()));
+        virusPPM.setData(
+                (ObservableList<XYChart.Data<String, Integer>>)
+                        avgListByKey(virusPPM.getData()));
+        contaminantPPM.setData(
+                (ObservableList<XYChart.Data<String, Integer>>)
+                        avgListByKey(contaminantPPM.getData()));
 
         lineChart.getData().addAll(virusPPM, contaminantPPM);
     }
@@ -185,10 +209,10 @@ public class PurityGraphController implements Updatable {
 
     /**
      * im just so sorry... forgive me
-     * @param orig
-     * @param <K>
-     * @param <V>
-     * @return
+     * @param orig original list
+     * @param <K> key type
+     * @param <V> value type
+     * @return compounded list
      */
     @SuppressWarnings("unchecked")
     private static

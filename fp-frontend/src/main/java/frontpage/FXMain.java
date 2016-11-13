@@ -98,12 +98,17 @@ public class FXMain extends Application {
                 final String minor = jreVersion.split("_")[1];
                 if ((Integer.parseInt(major) < MIN_MAJOR_VERSION)
                         || (Integer.parseInt(minor) < MIN_MINOR_VERSION)) {
-                    System.err.println("Detected Java version before LetEncrypt certificate added.");
-                    boolean res = DialogueUtils.askYesNo("Detected java version \"" + jreVersion + "\"\r\n\r\n"
-                            + "This app requires a minimum java version of 1.8.0_110 for SSL certificates to "
+                    System.err.println("Detected Java version before "
+                            + "LetEncrypt certificate added.");
+                    boolean res = DialogueUtils.askYesNo("Detected java "
+                            + "version \"" + jreVersion + "\"\r\n\r\n"
+                            + "This app requires a minimum java version "
+                            + "of 1.8.0_110 for SSL certificates to "
                             + "work.\r\n\r\n"
-                            + "The problem is usually only on windows, not Linux or Mac. Please upgrade your "
-                            + " java version or install the lets encrypt root certificate to your certificate "
+                            + "The problem is usually only on windows, "
+                            + "not Linux or Mac. Please upgrade your "
+                            + " java version or install the lets encrypt "
+                            + "root certificate to your certificate "
                             + "store.\r\n\r\n"
                             + "Continue? (should be okay for Mac/Linux)");
                     if (!res) {
@@ -112,7 +117,8 @@ public class FXMain extends Application {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                DialogueUtils.showMessage("Unable to detect and identify problems with java version.");
+                DialogueUtils.showMessage("Unable to detect and identify "
+                        + "problems with java version.");
             }
         }
         User.setPm(backend.getProfileManager());
@@ -246,8 +252,11 @@ public class FXMain extends Application {
         VIEW_SCENE_MAP.put("map", srpc);
 
         PurityGraphController.create();
-        SceneControllerEntry<PurityGraphController> pgc = new SceneControllerEntry<>(
-                new Scene(PurityGraphController.getRoot(), RES_WIDTH, RES_HEIGHT),
+        SceneControllerEntry<PurityGraphController> pgc =
+                new SceneControllerEntry<>(
+                new Scene(PurityGraphController.getRoot(),
+                        RES_WIDTH,
+                        RES_HEIGHT),
                 PurityGraphController.getPurityGraphController());
         VIEW_SCENE_MAP.put("puritygraph", pgc);
 
