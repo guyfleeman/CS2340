@@ -23,7 +23,9 @@ import java.util.LinkedList;
  * @author willstuckey
  * <p></p>
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "FeatureEnvy", "TypeMayBeWeakened",
+        "UseOfSystemOutOrSystemErr", "ChainedMethodCall", "LawOfDemeter",
+        "AssignmentToNull", "CyclicClassDependency"})
 public final class CreatePurityReportController implements Updatable {
     private static final String VIEW_URI =
             "/frontpage/view/CreatePurityReportScreen.fxml";
@@ -110,6 +112,7 @@ public final class CreatePurityReportController implements Updatable {
      * view change update callback
      * @return success
      */
+    @Override
     public boolean update() {
         PurityReportManager pm = FXMain.getBackend().getPurityReportManager();
         activeReport = null;

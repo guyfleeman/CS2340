@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
  * @author willstuckey
  * <p></p>
  */
+@SuppressWarnings("UtilityClass")
 public final class UserManagerFactory {
     /**
      * class logger
@@ -49,7 +50,7 @@ public final class UserManagerFactory {
      */
     public static void createInstance(final String type)
             throws NoSuchUserAuthenticatorException {
-        if (type == null
+        if ((type == null)
                 || !USER_AUTHENTICATOR_MAP.containsKey(type.toLowerCase())) {
             throw new NoSuchUserAuthenticatorException(
                     "Cannot create user authenticator for type " + type + ".");
@@ -81,7 +82,7 @@ public final class UserManagerFactory {
     /**
      * NoSuchUserAuthenticatorException
      */
-    @SuppressWarnings("UnusedParameters")
+    @SuppressWarnings({"UnusedParameters", "unused"})
     public static final class NoSuchUserAuthenticatorException
             extends Exception {
         /**

@@ -13,6 +13,7 @@ import java.util.Map;
  * @author willstuckey
  * <p>Fallback profile manager</p>
  */
+@SuppressWarnings({"FeatureEnvy", "ChainedMethodCall", "LawOfDemeter"})
 public class LocalProfileManager implements ProfileManager {
     /**
      * user manager instance
@@ -40,6 +41,7 @@ public class LocalProfileManager implements ProfileManager {
      * @return data
      * @throws ProfileManagementException errors
      */
+    @Override
     public Map<String, String> getProfile(final String email,
                                           final String tok)
         throws ProfileManagementException {
@@ -68,6 +70,7 @@ public class LocalProfileManager implements ProfileManager {
      * @return success
      * @throws ProfileManagementException errors
      */
+    @Override
     public boolean setProfile(final String email,
                               final String tok,
                               final Map<String, String> profiles)

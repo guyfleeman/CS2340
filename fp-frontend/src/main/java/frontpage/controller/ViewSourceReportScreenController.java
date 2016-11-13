@@ -22,7 +22,8 @@ import java.util.Map;
  * @author Devan
  * <p>Controller for View Source Report View</p>
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "FeatureEnvy", "ChainedMethodCall",
+        "LawOfDemeter", "CyclicClassDependency"})
 public final class ViewSourceReportScreenController implements Updatable {
     private static final String VIEW_URI =
             "/frontpage/view/ViewWaterSourceReports.fxml";

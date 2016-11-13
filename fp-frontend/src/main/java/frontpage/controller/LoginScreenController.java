@@ -21,7 +21,8 @@ import org.apache.log4j.Logger;
  * @author George
  * @author willstuckey
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "FeatureEnvy", "ChainedMethodCall",
+        "LawOfDemeter", "CyclicClassDependency"})
 public final class LoginScreenController {
     private static final String VIEW_URI =
             "/frontpage/view/LoginScreen.fxml";

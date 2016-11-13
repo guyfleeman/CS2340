@@ -17,7 +17,7 @@ import java.util.Map;
  * @author George Tang
  * @author willstuckey
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "FeatureEnvy"})
 public class SourceReport {
     private static final Logger LOGGER;
 
@@ -83,7 +83,7 @@ public class SourceReport {
         reportid = map.get("reportid");
         title = map.get("name");
         String dt = map.get("reportdt");
-        if ((dt != null) && (dt.length() > 0)) {
+        if ((dt != null) && (!dt.isEmpty())) {
             reportTime = LocalDateTime.parse(dt.replace(' ', 'T'));
         }
         loc.setValue(map.get("location"));
@@ -91,7 +91,7 @@ public class SourceReport {
         description = map.get("description");
 
         String newType = map.get("type");
-        if ((newType != null) && (newType.length() > 0)) {
+        if ((newType != null) && (!newType.isEmpty())) {
             try {
                 this.type = WaterType.valueOf(newType);
             } catch (Exception e) {
@@ -101,7 +101,7 @@ public class SourceReport {
         }
 
         String cond = map.get("cond");
-        if (cond != null && cond.length() > 0) {
+        if ((cond != null) && !cond.isEmpty()) {
             try {
                 this.condition = WaterCondition.valueOf(cond);
             } catch (Exception e) {

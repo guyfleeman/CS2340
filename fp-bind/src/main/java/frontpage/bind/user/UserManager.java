@@ -6,6 +6,7 @@ import frontpage.bind.errorhandling.BackendRequestException;
  * @author willstuckey
  * <p>User Manager</p>
  */
+@SuppressWarnings("MethodWithTooManyParameters")
 public interface UserManager {
     /**
      * attempts to authenticate user

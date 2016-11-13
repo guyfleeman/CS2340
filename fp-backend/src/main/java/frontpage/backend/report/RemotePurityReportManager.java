@@ -12,6 +12,8 @@ import java.util.Map;
  * @author willstuckey
  * <p>Purity Report Manager for remote server</p>
  */
+@SuppressWarnings({"FeatureEnvy", "ChainedMethodCall",
+        "LiteralAsArgToStringEquals", "LawOfDemeter"})
 public class RemotePurityReportManager implements PurityReportManager {
     /**
      * adds a purity report
@@ -20,6 +22,7 @@ public class RemotePurityReportManager implements PurityReportManager {
      * @return report id
      * @throws BackendRequestException errors
      */
+    @Override
     public String addPurityReport(final String email,
                                   final String tok)
             throws BackendRequestException {
@@ -41,7 +44,7 @@ public class RemotePurityReportManager implements PurityReportManager {
 
         Map<String, String> ret = new HashMap<>(rr.getSingleResponseMap());
         String id = ret.get("reportid");
-        if (id == null || id.length() == 0) {
+        if ((id == null) || id.isEmpty()) {
             throw new BackendRequestException("invalid report id");
         }
         return id;
@@ -56,6 +59,7 @@ public class RemotePurityReportManager implements PurityReportManager {
      * @return success
      * @throws BackendRequestException errors
      */
+    @Override
     public boolean updatePurityReport(final String email,
                                       final String tok,
                                       final String id,
@@ -67,8 +71,8 @@ public class RemotePurityReportManager implements PurityReportManager {
         attribs.put("reportid", id);
         attribs.put("reporttype", "purity");
         attribs.put("action", "UPDATE");
-        attribs.keySet().stream().filter(k -> attribs.get(k) == null
-                || attribs.get(k).length() == 0)
+        attribs.keySet().stream().filter(k -> (attribs.get(k) == null)
+                || attribs.get(k).isEmpty())
                 .forEach(k -> attribs.put(k, "NULL"));
         RESTReport rr = RESTHandler.apiRequest(RESTHandler.RestAction.POST,
                 RESTHandler.REPORT_ENTRY_POINT,
@@ -82,7 +86,7 @@ public class RemotePurityReportManager implements PurityReportManager {
         }
 
         Map<String, String> ret = rr.getSingleResponseMap();
-        return (ret.get("status") != null
+        return ((ret.get("status") != null)
                 && ret.get("status").equals("success"));
     }
 
@@ -92,6 +96,7 @@ public class RemotePurityReportManager implements PurityReportManager {
      * @return report data
      * @throws BackendRequestException errors
      */
+    @Override
     public Map<String, String> getPurityReport(final String id)
             throws BackendRequestException {
         Map<String, String> attribs = new HashMap<>();
@@ -111,8 +116,8 @@ public class RemotePurityReportManager implements PurityReportManager {
         }
 
         Map<String, String> ret = rr.getResponseValues()[1];
-        ret.keySet().stream().filter(k -> ret.get(k) == null
-                || ret.get(k).length() == 0
+        ret.keySet().stream().filter(k -> (ret.get(k) == null)
+                || ret.get(k).isEmpty()
                 || ret.get(k).equalsIgnoreCase("null"))
                 .forEach(k -> ret.put(k, ""));
         return rr.getResponseValues()[1];
@@ -124,6 +129,7 @@ public class RemotePurityReportManager implements PurityReportManager {
      * @return report data
      * @throws BackendRequestException error
      */
+    @Override
     public Map<String, String>[] getPurityReports(final int num)
             throws BackendRequestException {
         Map<String, String> attribs = new HashMap<>();
@@ -144,8 +150,8 @@ public class RemotePurityReportManager implements PurityReportManager {
 
         Map<String, String>[] ret = rr.getResponseValues();
         for (Map<String, String> m : ret) {
-            m.keySet().stream().filter(k -> m.get(k) == null
-                    || m.get(k).length() == 0
+            m.keySet().stream().filter(k -> (m.get(k) == null)
+                    || m.get(k).isEmpty()
                     || m.get(k).equalsIgnoreCase("null"))
                     .forEach(k -> m.put(k, ""));
         }
@@ -159,6 +165,7 @@ public class RemotePurityReportManager implements PurityReportManager {
      * @return null
      * @throws BackendRequestException errors
      */
+    @Override
     public Map<String, String>[] getPurityReports(
             final Map<String, String> properties,
             final Map<String, String> searchConstraints)
@@ -173,6 +180,7 @@ public class RemotePurityReportManager implements PurityReportManager {
      * @param id report id
      * @throws BackendRequestException errors
      */
+    @Override
     public void deletePurityReport(final String email,
                                    final String tok,
                                    final String id)

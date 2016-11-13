@@ -16,7 +16,8 @@ import org.apache.log4j.Logger;
  * @author Devan
  * @author willstuckey
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "FeatureEnvy", "ChainedMethodCall",
+        "LawOfDemeter", "CyclicClassDependency"})
 public final class ProfileScreenController implements Updatable {
     private static final String VIEW_URI =
             "/frontpage/view/ManageProfileScreen.fxml";
@@ -78,6 +79,7 @@ public final class ProfileScreenController implements Updatable {
      * change view update callback
      * @return success
      */
+    @Override
     public boolean update() {
         addressField.clear();
         cityField.clear();

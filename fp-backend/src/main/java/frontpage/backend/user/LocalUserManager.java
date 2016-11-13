@@ -12,6 +12,8 @@ import java.util.ArrayList;
  * @author willstuckey
  * <p></p>
  */
+@SuppressWarnings({"FeatureEnvy", "TypeMayBeWeakened",
+        "ChainedMethodCall", "MethodWithTooManyParameters"})
 public final class LocalUserManager implements UserManager {
     /**
      * class logger
@@ -32,6 +34,7 @@ public final class LocalUserManager implements UserManager {
      * @return success
      * @throws AuthenticationException if failure
      */
+    @Override
     public String authenticateUser(final String un, final String pw)
             throws AuthenticationException {
         for (User u : users) {
@@ -53,10 +56,11 @@ public final class LocalUserManager implements UserManager {
      * @throws AuthenticationException failure to authenticate
      * @throws InvalidDataException null params
      */
+    @Override
     public String getUserType(final String email,
                               final String tok)
         throws AuthenticationException, InvalidDataException {
-        if (email == null || tok == null) {
+        if ((email == null) || (tok == null)) {
             throw new InvalidDataException("auth not provided");
         }
 
@@ -80,12 +84,13 @@ public final class LocalUserManager implements UserManager {
      * @param type type
      * @throws InvalidDataException user already registered
      */
+    @Override
     public void createUser(final String un,
-                              final String pw,
-                              final String email,
-                              final String firstname,
-                              final String lastname,
-                              final String type)
+                           final String pw,
+                           final String email,
+                           final String firstname,
+                           final String lastname,
+                           final String type)
             throws InvalidDataException {
         for (User u : users) {
             if (u.getEmail().equalsIgnoreCase(email)) {
@@ -100,6 +105,7 @@ public final class LocalUserManager implements UserManager {
      * gets list of users
      * @return users
      */
+    @SuppressWarnings("CollectionDeclaredAsConcreteClass")
     public ArrayList<User> getUsers() {
         return users;
     }

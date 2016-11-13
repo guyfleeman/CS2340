@@ -7,7 +7,8 @@ import java.util.Map;
  * @author willstuckey
  * <p></p>
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "ValueOfIncrementOrDecrementUsed",
+        "ChainedMethodCall", "LiteralAsArgToStringEquals", "unused"})
 public class RESTReport {
     /**
      * if the REST request generated an internal error before
@@ -140,7 +141,7 @@ public class RESTReport {
     public boolean success() {
         return !wasInternalError()
                 && !rejected()
-                && responseValues[0].get("status") != null
+                && (responseValues[0].get("status") != null)
                 && responseValues[0].get("status").contains("success");
     }
 
@@ -291,7 +292,7 @@ public class RESTReport {
     private static void addKVPairsToMap(final Map<String, String> map,
                                         final String raw,
                                         final boolean dyn) {
-        if (map == null || raw == null) {
+        if ((map == null) || (raw == null)) {
             return;
         }
 

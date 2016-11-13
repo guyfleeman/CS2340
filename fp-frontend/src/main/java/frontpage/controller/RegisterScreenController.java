@@ -23,7 +23,8 @@ import java.util.LinkedList;
  * @author Devan
  * @author willstuckey
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "FeatureEnvy", "ChainedMethodCall",
+        "LawOfDemeter", "CyclicClassDependency", "OverlyLongMethod"})
 public final class RegisterScreenController {
     private static final String VIEW_URI =
             "/frontpage/view/RegisterUserScreen.fxml";
@@ -118,19 +119,19 @@ public final class RegisterScreenController {
         String password = registerPwdField.getText();
         String confirmPassword = confirmRegisterPwdField.getText();
         String type = (String) userTypeBox.getValue();
-        if (email == null || email.length() == 0) {
+        if ((email == null) || email.isEmpty()) {
             DialogueUtils.showMessage("Email field must be filled.");
             clearPasswordFields();
             return;
         }
 
-        if (username == null || username.length() == 0) {
+        if ((username == null) || username.isEmpty()) {
             DialogueUtils.showMessage("Username field must be filled.");
             clearPasswordFields();
             return;
         }
 
-        if (type == null || type.length() == 0) {
+        if ((type == null) || type.isEmpty()) {
             DialogueUtils.showMessage("Type must be selected.");
             clearPasswordFields();
             return;

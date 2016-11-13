@@ -13,6 +13,7 @@ dependencies {
     compile project(':fp-backend')
 }
 
+//noinspection GroovyAssignabilityCheck
 test.dependsOn checkstyleMain
 
 sourceSets {

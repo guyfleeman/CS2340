@@ -8,6 +8,8 @@ import java.util.Properties;
  * @author willstuckey
  * <p>This class contains the global properties for the application.</p>
  */
+@SuppressWarnings({"CollectionDeclaredAsConcreteClass",
+        "TypeMayBeWeakened", "UtilityClass"})
 public final class GlobalProperties {
     /**
      * internal logger

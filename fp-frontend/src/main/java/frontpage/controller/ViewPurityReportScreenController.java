@@ -21,7 +21,8 @@ import java.util.Map;
  * @author Devan
  * <p></p>
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "FeatureEnvy", "ChainedMethodCall",
+        "LawOfDemeter", "CyclicClassDependency"})
 public final class ViewPurityReportScreenController implements Updatable {
     private static final String VIEW_URI =
             "/frontpage/view/ViewWaterPurityReports.fxml";

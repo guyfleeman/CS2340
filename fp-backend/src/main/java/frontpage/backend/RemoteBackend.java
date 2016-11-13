@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
  * @author willstuckey
  * <p>Organization implemention for remote backend providers.</p>
  */
+@SuppressWarnings("FieldMayBeFinal")
 public class RemoteBackend implements Backend {
     /**
      * logger
@@ -49,6 +50,7 @@ public class RemoteBackend implements Backend {
      * gets remote user manager
      * @return manager
      */
+    @Override
     public UserManager getUserManager() {
         return inst;
     }
@@ -57,6 +59,7 @@ public class RemoteBackend implements Backend {
      * gets remote profile manager
      * @return manager
      */
+    @Override
     public ProfileManager getProfileManager() {
         return ProfileManagerFactory.getInstance();
     }
@@ -65,6 +68,7 @@ public class RemoteBackend implements Backend {
      * gets remote source report manager
      * @return manager
      */
+    @Override
     public SourceReportManager getSourceReportManager() {
         return ReportManagerFactory.getSourceInstance();
     }
@@ -73,6 +77,7 @@ public class RemoteBackend implements Backend {
      * gets remote purity report manager
      * @return manager
      */
+    @Override
     public PurityReportManager getPurityReportManager() {
         return ReportManagerFactory.getPurityInstance();
     }

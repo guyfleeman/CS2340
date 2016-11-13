@@ -7,6 +7,7 @@ import java.util.Map;
  * @author willstuckey
  * <p>Source Report Manager</p>
  */
+@SuppressWarnings("unused")
 public interface SourceReportManager {
     /**
      * adds a blank source report

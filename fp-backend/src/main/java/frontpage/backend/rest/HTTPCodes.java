@@ -4,7 +4,7 @@ package frontpage.backend.rest;
  * @author willstuckey
  * <p>Please see external resources for what return code actually mean</p>
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "UtilityClass"})
 public final class HTTPCodes {
 
     /**

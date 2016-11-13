@@ -11,4 +11,5 @@ dependencies {
 
 }
 
+//noinspection GroovyAssignabilityCheck
 test.dependsOn checkstyleMain

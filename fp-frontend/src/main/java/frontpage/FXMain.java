@@ -35,6 +35,8 @@ import java.util.Map;
  *
  * @author willstuckey
  */
+@SuppressWarnings({"ALL", "ClassWithTooManyDependents",
+        "CyclicClassDependency", "ClassWithTooManyDependencies"})
 public class FXMain extends Application {
     private static final int MIN_MAJOR_VERSION = 8;
     private static final int MIN_MINOR_VERSION = 110;

@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
  * @author willstuckey
  * <p></p>
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "ChainedMethodCall"})
 public class DefaultEmailValidator implements EmailValidator {
     /**
      * RFC compliant email validation regex
@@ -25,6 +25,7 @@ public class DefaultEmailValidator implements EmailValidator {
      * @param email email
      * @return validity of email.
      */
+    @Override
     public final boolean isValidEmail(final String email) {
         return Pattern.compile(EMAIL_PATTERN,
                 Pattern.CASE_INSENSITIVE).matcher(email).find();

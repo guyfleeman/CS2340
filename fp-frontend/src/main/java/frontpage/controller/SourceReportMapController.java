@@ -25,7 +25,10 @@ import java.util.Vector;
  * @author willstuckey
  * <p>Controller for Source Report View</p>
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "FeatureEnvy", "TypeMayBeWeakened",
+        "UseOfObsoleteCollectionType", "UseOfSystemOutOrSystemErr",
+        "ChainedMethodCall", "LawOfDemeter", "CyclicClassDependency",
+        "OverlyLongMethod"})
 public final class SourceReportMapController
         implements SourceReportMapControllerInterface, Updatable {
     private static final Logger LOGGER;
@@ -70,6 +73,7 @@ public final class SourceReportMapController
     /**
      * return button callback
      */
+    @Override
     public void handleReturnAction() {
         FXMain.setView("main");
     }
@@ -91,10 +95,12 @@ public final class SourceReportMapController
      * update before view switch action
      * @return success
      */
+    @Override
     public boolean update() {
         return loadReports();
     }
 
+    @SuppressWarnings("CollectionDeclaredAsConcreteClass")
     private boolean loadReports() {
         Vector<SourceReport> reports = new Vector<>();
         SourceReportManager rm = FXMain.getBackend().getSourceReportManager();

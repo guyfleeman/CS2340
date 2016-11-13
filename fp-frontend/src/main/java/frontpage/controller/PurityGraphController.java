@@ -25,6 +25,9 @@ import java.util.Map;
  * @author George
  * @author willstuckey
  */
+@SuppressWarnings({"FeatureEnvy", "TypeMayBeWeakened", "ChainedMethodCall",
+        "LawOfDemeter", "unused", "CyclicClassDependency",
+        "OverlyComplexMethod", "OverlyLongMethod"})
 public final class PurityGraphController implements Updatable {
     private static final String VIEW_URI =
             "/frontpage/view/PurityGraph.fxml";
@@ -96,6 +99,7 @@ public final class PurityGraphController implements Updatable {
      * scene change update callback
      * @return success
      */
+    @Override
     public boolean update() {
         lineChart.getData().clear();
         reports.clear();
@@ -123,7 +127,7 @@ public final class PurityGraphController implements Updatable {
     }
 
     @FXML
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "CollectionDeclaredAsConcreteClass"})
     private void handleDisplayAction() {
         // update()
 
@@ -146,7 +150,7 @@ public final class PurityGraphController implements Updatable {
         final int year;
         try {
             year = Integer.parseInt(searchYear);
-            if (year < YEAR_LOWER_BOUND || year > YEAR_UPPER_BOUND) {
+            if ((year < YEAR_LOWER_BOUND) || (year > YEAR_UPPER_BOUND)) {
                 throw new IllegalArgumentException(
                         "invalid year, not in range");
             }
@@ -162,7 +166,7 @@ public final class PurityGraphController implements Updatable {
             boolean containsAll = true;
             for (final String sp : searchParams) {
                 if (!(pr.getLocation().toLowerCase().contains(sp)
-                        && pr.getDatetime().getYear() == year)) {
+                        && (pr.getDatetime().getYear() == year))) {
                     containsAll = false;
                     break;
                 }

@@ -12,6 +12,7 @@ import java.util.Map;
  * @author willstuckey
  * <p>Creates report managers on the backend.</p>
  */
+@SuppressWarnings("UtilityClass")
 public final class ReportManagerFactory {
     /**
      * class logger
@@ -36,7 +37,7 @@ public final class ReportManagerFactory {
     private static SourceReportManager sourceInstance;
 
     /**
-     * instnace of backend for purity management
+     * instance of backend for purity management
      */
     private static PurityReportManager purityInstance;
 
@@ -90,7 +91,7 @@ public final class ReportManagerFactory {
 
     /**
      * gets the backend instance for purity report management
-     * @return instnace
+     * @return instance
      */
     public static PurityReportManager getPurityInstance() {
         return purityInstance;
