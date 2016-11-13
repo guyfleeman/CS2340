@@ -11,4 +11,4 @@ dependencies {
     compile project(':fp-bind')
 }
 
-// test.dependsOn checkstyleMain
+test.dependsOn checkstyleMain
