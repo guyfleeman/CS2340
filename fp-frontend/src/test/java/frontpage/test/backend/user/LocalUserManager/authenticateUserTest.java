@@ -58,6 +58,17 @@ public class authenticateUserTest  {
         ua.authenticateUser("devan.williams@gmail.com", "snick");
 
     }
+    /**
+     * Tests two different emails
+     * Test finds bug in code
+     *
+     */
+    @Test (expected = AuthenticationException.class)
+    public void testNoUserInManager() throws AuthenticationException {
+        LocalUserManager ua = new LocalUserManager();
+        ua.authenticateUser("devan.williams@gmail.com", "snick");
+
+    }
 
 
 }
