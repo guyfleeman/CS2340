@@ -59,8 +59,7 @@ public class authenticateUserTest  {
 
     }
     /**
-     * Tests two different emails
-     * Test finds bug in code
+     * Tests to find no User in LocalUserManager
      *
      */
     @Test (expected = AuthenticationException.class)
