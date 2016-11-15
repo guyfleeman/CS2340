@@ -23,7 +23,7 @@ public final class LocalUserManager implements UserManager {
     /**
      * local constructor
      */
-    LocalUserManager() {
+    public LocalUserManager() {
         users = new ArrayList<>();
     }
 
