@@ -25,7 +25,8 @@ public class authenticateUserTest  {
     @Test
     public void testFindCorrectUser() throws InvalidDataException {
         LocalUserManager ua = new LocalUserManager();
-        ua.createUser("dww2250", "snick", "devan.williams@gmail.com", "Devan", "Williams", "USER");
+        ua.createUser("dww2250", "snick", "devan.williams@gmail.com",
+                "Devan", "Williams", "USER");
         try {
             ua.authenticateUser("devan.williams@gmail.com", "snick");
         } catch (Exception e) {
@@ -42,9 +43,11 @@ public class authenticateUserTest  {
      */
 
     @Test (expected = AuthenticationException.class)
-    public void testDifferentPwd() throws AuthenticationException, InvalidDataException {
+    public void testDifferentPwd() throws AuthenticationException,
+            InvalidDataException {
         LocalUserManager ua = new LocalUserManager();
-        ua.createUser("dww2250", "snick", "DEVAN.WILLIAMS@GMAIL.COM", "Devan", "Williams", "USER");
+        ua.createUser("dww2250", "snick",
+                "DEVAN.WILLIAMS@GMAIL.COM", "Devan", "Williams", "USER");
         ua.authenticateUser("DEVAN.WILLIAMS@GMAIL.COM", "snickers");
 
         }
@@ -57,9 +60,11 @@ public class authenticateUserTest  {
      * @throws InvalidDataException user already registered
      */
     @Test (expected = AuthenticationException.class)
-    public void testDifferentEmail() throws AuthenticationException, InvalidDataException {
+    public void testDifferentEmail() throws AuthenticationException,
+            InvalidDataException {
         LocalUserManager ua = new LocalUserManager();
-        ua.createUser("dww2250", "snick", "DEVAN.WILLIAMS@GMAIL.COM", "Devan", "Williams", "USER");
+        ua.createUser("dww2250", "snick",
+                "DEVAN.WILLIAMS@GMAIL.COM", "Devan", "Williams", "USER");
         ua.authenticateUser("devan.williams@gmail.com", "snick");
 
     }
