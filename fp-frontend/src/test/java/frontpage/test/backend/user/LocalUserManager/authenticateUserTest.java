@@ -19,7 +19,7 @@ public class authenticateUserTest  {
     /**
      * Tests to find Valid User
      *
-     * throws InvalidDataException
+     * @throws InvalidDataException user already registered
      */
 
     @Test
@@ -37,8 +37,8 @@ public class authenticateUserTest  {
     /**
      * Tests to find user with correct email and different passwords.
      *
-     * throws AuthenticationException
-     * throws InvalidDataException
+     * @throws AuthenticationException user does not exist
+     * @throws InvalidDataException user already registered
      */
 
     @Test (expected = AuthenticationException.class)
@@ -53,8 +53,8 @@ public class authenticateUserTest  {
      * Tests two different emails
      * Test finds bug in code
      *
-     * throws AuthenticationException
-     * throws InvalidDataException
+     * @throws AuthenticationException user does not exist
+     * @throws InvalidDataException user already registered
      */
     @Test (expected = AuthenticationException.class)
     public void testDifferentEmail() throws AuthenticationException, InvalidDataException {
@@ -66,7 +66,7 @@ public class authenticateUserTest  {
     /**
      * Tests to find no User in LocalUserManager
      *
-     *throws AuthenticationException
+     * @throws AuthenticationException user does not exist
      */
     @Test (expected = AuthenticationException.class)
     public void testNoUserInManager() throws AuthenticationException {
