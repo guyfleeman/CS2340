@@ -53,8 +53,11 @@ public class authenticateUserTest  {
         }
 
     /**
-     * Tests two different emails
-     * Test finds bug in code
+     * Tests two different emails.
+     * Test finds bug in code.
+     * Test actually fails because a AuthenticationException
+     * is expected, but doesn't occur.
+     *
      *
      * @throws AuthenticationException user does not exist
      * @throws InvalidDataException user already registered
