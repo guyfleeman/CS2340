@@ -59,13 +59,16 @@ public class authenticateUserTest  {
      * @throws AuthenticationException user does not exist
      * @throws InvalidDataException user already registered
      */
-    @Test (expected = AuthenticationException.class)
+    @Test
     public void testDifferentEmail() throws AuthenticationException,
             InvalidDataException {
         LocalUserManager ua = new LocalUserManager();
         ua.createUser("dww2250", "snick",
                 "DEVAN.WILLIAMS@GMAIL.COM", "Devan", "Williams", "USER");
+
         ua.authenticateUser("devan.williams@gmail.com", "snick");
+
+
 
     }
     /**
