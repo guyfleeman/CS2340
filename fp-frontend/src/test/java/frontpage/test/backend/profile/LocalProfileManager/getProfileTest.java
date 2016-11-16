@@ -27,9 +27,10 @@ public class getProfileTest {
             throws InvalidDataException, AuthenticationException {
         LocalProfileManager pm = new LocalProfileManager();
         LocalUserManager ua = new LocalUserManager();
+        pm.setLum(ua);
         ua.createUser("abayon3", "pass", "abayon3@gmail.com",
                 "Austin", "Bayon", "USER");
-        String tok =  ua.authenticateUser("abayon3", "pass");
+        String tok =  "pass";
         Map<String, String> profiles = new HashMap<String, String>();
         profiles.put("address", "1 Cherry Street");
         profiles.put("city", "Atlanta");
