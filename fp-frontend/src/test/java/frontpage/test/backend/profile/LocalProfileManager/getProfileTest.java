@@ -37,11 +37,13 @@ public class getProfileTest {
         profiles.put("state", "Georgia");
         profiles.put("zip", "30313");
         profiles.put("title", "test title");
+        boolean passed = false;
         try {
-            pm.setProfile("abayon3@gmail.com", tok, profiles);
+            passed = pm.setProfile("abayon3@gmail.com", tok, profiles);
         } catch (Exception e) {
             Assert.fail("Failed while setting profile.");
         }
+        Assert.assertTrue(passed);
         Map<String, String> actualProfile = new HashMap<String, String>();
         try {
             actualProfile = pm.getProfile("abayon3@gmail.com", tok);
