@@ -1,8 +1,6 @@
 package frontpage.test.backend.user.LocalUserManager;
 
 import frontpage.backend.user.LocalUserManager;
-import frontpage.bind.errorhandling.AuthenticationException;
-import frontpage.bind.errorhandling.InvalidDataException;
 import frontpage.model.user.UserClass;
 import org.junit.Assert;
 import org.junit.Test;
