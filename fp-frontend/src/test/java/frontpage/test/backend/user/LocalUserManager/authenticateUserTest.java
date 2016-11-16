@@ -87,6 +87,34 @@ public class authenticateUserTest  {
     }
 
 
+    /**
+     * Tests to see if it can handle null as a email
+     *
+     *
+     * @throws AuthenticationException user does not exist
+     */
+     @Test (expected = AuthenticationException.class)
+    public void testEmailNull() throws AuthenticationException {
+        LocalUserManager ua = new LocalUserManager();
+        ua.authenticateUser(null, "snick");
+
+    }
+    /**
+     *
+     * Tests to see if it can null as a password
+     *
+     * @throws AuthenticationException user does not exist
+
+     */
+    @Test (expected = AuthenticationException.class)
+    public void testPwdNull() throws AuthenticationException {
+        LocalUserManager ua = new LocalUserManager();
+        ua.authenticateUser("Devan.williams12@comcast.net", null);
+
+    }
+
+
+
 }
 
 
