@@ -42,7 +42,7 @@ function viewSource_init() {
             }
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
-            alert("XHR Status: " + XMLHttpRequest.status + "\ntext: " + textStatus + "\nerror: " + errorThrown);
+            showError("XHR Status: " + XMLHttpRequest.status + "\ntext: " + textStatus + "\nerror: " + errorThrown);
         }
     });
 

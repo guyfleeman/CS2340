@@ -46,7 +46,7 @@
 
 
                 <li>
-                    <a href="#">Map</a>
+                    <a href="index.php">Map</a>
                 </li>
             </ul>
 
