@@ -24,7 +24,7 @@
                     </a>
 
                     <ul class="dropdown-menu">
-                        <li><a href="#">Create</a></li>
+                        <li><a href="create_source.php">Create</a></li>
                         <li><a href="view_source.php">View</a></li>
                     </ul>
                 </li>
@@ -39,8 +39,8 @@
                     </a>
 
                     <ul class="dropdown-menu">
-                        <li><a href="#">Create</a></li>
-                        <li><a href="#">View</a></li>
+                        <li><a href="create_purity.php">Create</a></li>
+                        <li><a href="view_purity.php">View</a></li>
                     </ul>
                 </li>
 

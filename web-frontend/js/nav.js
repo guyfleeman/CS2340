@@ -13,6 +13,6 @@ function nav_setMenuOptions() {
 
         $( '#user_dropdown' ).append( '<li><a href="#">Profile</a></li>' );
         $( '#user_dropdown' ).append( '<li role="separator" class="divider"></li>' );
-        $( '#user_dropdown' ).append( '<li><a href="#">Logout</a></li>' );
+        $( '#user_dropdown' ).append( '<li><a href="logout.php">Logout</a></li>' );
     }
 }

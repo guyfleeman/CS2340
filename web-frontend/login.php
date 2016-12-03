@@ -60,7 +60,7 @@
 
                         <div class="form-group">
                             <button type="button" class="btn btn-primary" id="login_button">Login</button>
-                            <span id="input_feedback" class="help-block"></span>
+                            <span id="input_feedback" class="help-block has-success"></span>
                         </div>
                     </form>
                 </div>

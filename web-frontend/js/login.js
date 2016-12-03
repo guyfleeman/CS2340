@@ -16,6 +16,14 @@ function login_clearNotifications() {
 
 function login_init() {
     login_clearNotifications();
+
+    if (!(getCookie('email') == null
+        || getCookie('sessionid') == null
+        || getCookie('type') == null
+        || getCookie('username') == null)) {
+        window.location.href = "view_source.php";
+    }
+
     $('#login_button').click(function () {
         login_clearNotifications();
 
@@ -62,6 +70,10 @@ function login_init() {
                     } else {
                         setCookie('sessionid', response['sessionid']);
                         setCookie('email', email);
+                        setCookie('type', response['type']);
+                        setCookie('username', response['username']);
+
+                        $('#input_feedback').text('Successfully logged in.')
                     }
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
