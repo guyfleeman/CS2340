@@ -2,6 +2,9 @@
  * Created by willstuckey on 12/3/16.
  */
 
+/**
+ *
+ */
 function createSource_clearNotifications() {
     $('#title_input_feedback').text('');
     if ($('#title_div').hasClass('has-warning')) {
@@ -25,15 +28,10 @@ function createSource_clearNotifications() {
     $('#input_feedback').text('');
 }
 
+/**
+ *
+ */
 function createSource_init() {
-    if (getCookie('sessionid') == null
-        || getCookie('email') == null
-        || getCookie('type') == null
-        || getCookie('username') == null) {
-        window.location.href = 'login.php';
-        return;
-    }
-
     createSource_clearNotifications();
 
     $('#create_button').click(function() {
@@ -102,25 +100,30 @@ function createSource_init() {
                             success: function(msg) {
                                 var response = parseResponse(msg);
                                 if (response['status'] == 'success') {
-                                    $('#input_feedback').text('Successfully created report (id: ' + reportid + ')');
+                                    showSuccess('report created (id: ' + reportid + ')');
                                 } else {
-                                    alert('internal error - update report');
+                                    showError('there was an internal error with data sent to the server');
                                 }
                             },
                             error: function(XMLHttpRequest, textStatus, errorThrown) {
-                                alert("XHR Status: " + XMLHttpRequest.status + "\ntext: " + textStatus + "\nerror: " + errorThrown);
+                                showError('There was an error communcating with the server.'
+                                    + "\n\nXHR Status: " + XMLHttpRequest.status
+                                    + "\ntext: " + textStatus
+                                    + "\nerror: " + errorThrown);
                             }
                         });
                     } else {
-                        alert('internal error - create report');
+                        showError('there was an internal error with data sent to the server');
                     }
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
-                    alert("XHR Status: " + XMLHttpRequest.status + "\ntext: " + textStatus + "\nerror: " + errorThrown);
-                }
+                    showError('There was an error communcating with the server.'
+                        + "\n\nXHR Status: " + XMLHttpRequest.status
+                        + "\ntext: " + textStatus
+                        + "\nerror: " + errorThrown);                }
             });
         } else {
-            $('#input_feedback').text('Report not submitted.');
+            showInfo('report not submitted');
         }
     });
 }

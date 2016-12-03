@@ -46,3 +46,40 @@ function getCookie(name) {
 
     return null;
 }
+
+var cookie_redirect_message = '';
+var cookie_redirect_page = '';
+
+/**
+ *
+ */
+function conditionalRedirect() {
+    if (getCookie('sessionid') == null
+        || getCookie('email') == null
+        || getCookie('type') == null
+        || getCookie('username') == null) {
+        cookie_redirect_message = 'You must be logged in to view this page.';
+        cookie_redirect_page = window.location.href;
+        window.location.href = 'login.php';
+        return true;
+    }
+}
+
+function requireWorker() {
+    if (getCookie('type') == 'USER') {
+        showError('You do not have permission to view this page.');
+        return false;
+    }
+
+    return true;
+}
+
+function requireManager() {
+    if (getCookie('type') == 'USER' || getCookie('type') == 'WORKER') {
+        showError('You do not have permission to view this page.');
+        return false;
+    }
+
+    return true;
+}
+

@@ -21,6 +21,7 @@
                 integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
                 crossorigin="anonymous"></script>
 
+        <script src="js/util/message.js"></script>
         <script src="js/util/cookie.js"></script>
         <script src="js/util/remotes.js"></script>
         <script src="js/util/response.js"></script>
@@ -45,6 +46,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+                    <div id="message_banner">
+
+                    </div>
+
                     <form>
                         <div class="form-group" id="email_div">
                             <label for="email_input">Email</label>

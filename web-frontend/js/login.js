@@ -66,14 +66,16 @@ function login_init() {
                     if (response['status'] != 'success') {
                         $('#email_div').addClass('has-warning');
                         $('#passwd_div').addClass('has-warning');
-                        $('#passwd_input_feedback').text("Invalid login credentials.");
+                        showWarning("invalid login credentials")
                     } else {
                         setCookie('sessionid', response['sessionid']);
                         setCookie('email', email);
                         setCookie('type', response['type']);
                         setCookie('username', response['username']);
 
-                        $('#input_feedback').text('Successfully logged in.')
+                        nav_setMenuOptions();
+
+                        showSuccess('logged in as ' + response['username']);
                     }
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {

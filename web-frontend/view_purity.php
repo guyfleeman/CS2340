@@ -21,6 +21,7 @@
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
 
+    <script src="js/util/message.js"></script>
     <script src="js/util/remotes.js"></script>
     <script src="js/util/cookie.js"></script>
     <script src="js/util/response.js"></script>
@@ -28,7 +29,13 @@
     <script src="js/view_purity.js"></script>
 
     <script type="text/javascript">
+        conditionalRedirect();
+
         function pageInit() {
+            if (!requireManager()) {
+                return;
+            }
+
             nav_setMenuOptions();
             viewPurity_init();
         }
@@ -45,6 +52,10 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10">
+            <div id="message_banner">
+
+            </div>
+
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>

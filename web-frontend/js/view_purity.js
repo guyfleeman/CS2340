@@ -20,16 +20,16 @@ function viewPurity_init() {
         dataType: "text",
         data: data,
         success: function(msg) {
-            var response = parseResponse(msg);;
+            var response = parseResponse(msg);
             for (var key in response) {
                 if (key.indexOf('vp') != (-1)) {
                     var reportMap = response[key];
                     var tableEntry = '';
                     if (parseInt(reportMap['virusppm']) > 10000
                         || parseInt(reportMap['contaminantppm']) > 10000) {
-                        tableEntry += '<tr class="error">';
-                    } else if (parseInt(reportMap['virusppm']) < 500
-                        && parseInt(reportMap['contaminantppm']) < 500) {
+                        tableEntry += '<tr class="danger">';
+                    } else if (parseInt(reportMap['virusppm']) < 100
+                        && parseInt(reportMap['contaminantppm']) < 100) {
                         tableEntry += '<tr class="success">';
                     } else {
                         tableEntry += '<tr>';
