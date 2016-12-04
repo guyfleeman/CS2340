@@ -85,7 +85,7 @@ try {
 	} else {
 		$exists = true;
 		echo "status=failed\r\n";
-		echo "message=existing user found\r\n";
+		echo "message=email already registered\r\n";
 		exit;
 	}
 } catch (PDOException $e) {

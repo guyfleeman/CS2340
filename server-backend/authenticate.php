@@ -42,6 +42,8 @@ try {
 		exit;
 	}
 
+	$username = $row["username"];
+	$type = $row["type"];
 	$dbsalt = $row["salt"];
 	$dbpwhash = $row["pwhash"];
 	$dbpwattempts = $row["pwattempts"];
@@ -74,6 +76,8 @@ try {
 		echo "status=success\r\n";
 		echo "message=authentication successful\r\n";
 		echo "sessionid=" . bin2hex($sessionid) . "\r\n";
+		echo "username=" . $username . "\r\n";
+		echo "type=" . $type . "\r\n";
 		http_response_code(200);
 		$dbcon = null;
 		exit;
