@@ -1,3 +1,6 @@
+/**
+ *
+ */
 function nav_setMenuOptions() {
     $( '#user_dropdown' ).empty();
 
@@ -9,15 +12,15 @@ function nav_setMenuOptions() {
 
         $( '#account_header' ).html('Account <span class="caret"></span>');
 
-        $( '#user_dropdown' ).append( '<li><a href="https://www.willstuckey.com/staging/water/login.php">Login</a></li>' );
-        $( '#user_dropdown' ).append( '<li><a href="#">Create Account</a></li>' );
+        $( '#user_dropdown' ).append( '<li><a href="login.php">Login</a></li>' );
+        $( '#user_dropdown' ).append( '<li><a href="create_account.php">Create Account</a></li>' );
     } else {
 
         // cookies present, logged in
 
         $( '#account_header' ).html('Account (' + getCookie('username') + ') <span class="caret"></span>');
 
-        $( '#user_dropdown' ).append( '<li><a href="#">Profile</a></li>' );
+        $( '#user_dropdown' ).append( '<li><a href="profile.php">Profile</a></li>' );
         $( '#user_dropdown' ).append( '<li role="separator" class="divider"></li>' );
         $( '#user_dropdown' ).append( '<li><a href="logout.php">Logout</a></li>' );
     }

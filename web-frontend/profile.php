@@ -26,12 +26,14 @@
     <script src="js/util/remotes.js"></script>
     <script src="js/util/response.js"></script>
     <script src="js/nav.js"></script>
-    <script src="js/create_account.js"></script>
+    <script src="js/profile.js"></script>
 
     <script type="text/javascript">
+        conditionalRedirect();
+
         function pageInit() {
             nav_setMenuOptions();
-            createAccount_init();
+            profile_init();
         }
 
         $(document).ready(function () {
@@ -51,42 +53,39 @@
             </div>
 
             <form>
-                <div class="form-group" id="email_div">
-                    <label for="email_input">Email</label>
-                    <input type="email" class="form-control" id="email_input" placeholder="email">
-                    <span id="email_input_feedback" class="help-block"></span>
+                <div class="form-group" id="address_div">
+                    <label for="address_input">Address</label>
+                    <input type="text" class="form-control" id="address_input">
+                    <span id="address_input_feedback" class="help-block"></span>
                 </div>
 
-                <div class="form-group" id="username_div">
-                    <label for="username_input">Username</label>
-                    <input type="text" class="form-control" id="username_input" placeholder="email">
-                    <span id="username_input_feedback" class="help-block"></span>
+                <div class="form-group" id="city_div">
+                    <label for="city_input">City</label>
+                    <input type="text" class="form-control" id="city_input">
+                    <span id="city_input_feedback" class="help-block"></span>
                 </div>
 
-                <div class="form-group" id="passwd_div">
-                    <label for="passwd_input">Password</label>
-                    <input type="password" class="form-control" id="passwd_input" placeholder="password">
-                    <span id="passwd_input_feedback" class="help-block"></span>
+                <div class="form-group" id="state_div">
+                    <label for="state_input">State</label>
+                    <input type="text" class="form-control" id="state_input">
+                    <span id="state_input_feedback" class="help-block"></span>
                 </div>
 
-                <div class="form-group" id="cnf_passwd_div">
-                    <label for="cnf_passwd_input">Confirm Password</label>
-                    <input type="password" class="form-control" id="cnf_passwd_input" placeholder="password">
-                    <span id="cnf_passwd_input_feedback" class="help-block"></span>
+                <div class="form-group" id="zip_div">
+                    <label for="zip_input">Zip</label>
+                    <input type="text" class="form-control" id="zip_input">
+                    <span id="zip_input" class="help-block"></span>
                 </div>
 
-                <div class="form-group">
-                    <label for="type_input">Type</label>
-                    <select class="form-control" id="type_input">
-                        <option>USER</option>
-                        <option>WORKER</option>
-                        <option>MANAGER</option>
-                        <option>ADMIN</option>
-                    </select>
+                <div class="form-group" id="title_div">
+                    <label for="title_input">Title</label>
+                    <input type="text" class="form-control" id="title_input">
+                    <span id="title_input_feedback" class="help-block"></span>
                 </div>
 
                 <div class="form-group">
-                    <button type="button" class="btn btn-primary" id="create_button">Create Account</button>
+                    <button type="button" class="btn btn-primary" id="update_button">Update Profile</button>
+                    <button type="button" class="btn btn-primary" id="refresh_button">Refresh Profile</button>
                     <span id="input_feedback" class="help-block"></span>
                 </div>
             </form>

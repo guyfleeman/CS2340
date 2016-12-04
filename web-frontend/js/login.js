@@ -75,11 +75,15 @@ function login_init() {
 
                         nav_setMenuOptions();
 
-                        showSuccess('logged in as ' + response['username']);
+                        showSuccess('logged in as ' + response['username']
+                            + '<br>taking you to the home page...');
+                        setTimeout(function() {
+                            window.location.href = "index.php";
+                        }, 1500);
                     }
                 },
                 error: function(XMLHttpRequest, textStatus, errorThrown) {
-                    alert("XHR Status: " + XMLHttpRequest.status + "\ntext: " + textStatus + "\nerror: " + errorThrown);
+                    showError("XHR Status: " + XMLHttpRequest.status + "\ntext: " + textStatus + "\nerror: " + errorThrown);
                 }
             });
         }

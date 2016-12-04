@@ -31,7 +31,7 @@
         function pageInit() {
             setTimeout(function() {
                 window.location.href = "login.php";
-            }, 2000);
+            }, 1500);
 
             deleteCookie("email");
             deleteCookie("sessionid");
@@ -55,6 +55,7 @@
         <div class="col-xs-12 col-sm-12 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
             <h1>Logout</h1>
             <p>You have been logged out.</p>
+            <p>Returning to the login screen...</p>
         </div>
     </div>
 </div>
