@@ -41,6 +41,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="create_purity.php">Create</a></li>
                         <li><a href="view_purity.php">View</a></li>
+                        <li><a href="graph_purity.php">Historical Analysis</a></li>
                     </ul>
                 </li>
 

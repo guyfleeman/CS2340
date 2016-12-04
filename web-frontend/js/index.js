@@ -115,8 +115,6 @@ function initMap() {
         markerDescription += '<div id="siteNotice"></div>';
         markerDescription += '<div id="bodyContent">';
         markerDescription += '<h2>' + rpt['title'] + '</h2>';
-        // markerDescription += '<p>Type: ' + rpt['type'] + '</p>';
-        // markerDescription += '<p>Condition: ' + rpt['condition'] + '</p>';
         markerDescription += '<p>';
         markerDescription += 'Type: ' + rpt['type'];
         markerDescription += '<br>';

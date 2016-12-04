@@ -21,12 +21,15 @@
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
 
+    <!-- google charts -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
     <script src="js/util/message.js"></script>
-    <script src="js/util/remotes.js"></script>
     <script src="js/util/cookie.js"></script>
+    <script src="js/util/remotes.js"></script>
     <script src="js/util/response.js"></script>
     <script src="js/nav.js"></script>
-    <script src="js/view_purity.js"></script>
+    <script src="js/graph_purity.js"></script>
 
     <script type="text/javascript">
         conditionalRedirect();
@@ -37,13 +40,20 @@
             }
 
             nav_setMenuOptions();
-            viewPurity_init();
+            graphPurity_init();
         }
 
         $(document).ready(function () {
             pageInit();
         });
     </script>
+
+    <style>
+        #chart {
+            height: 720px;
+            width: 100%;
+        }
+    </style>
 </head>
 
 <body>
@@ -52,29 +62,30 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10">
-            <h1>Purity Reports</h1>
+            <h1>Historical Purity Data</h1>
 
-            <div id="message_banner">
+            <div class="well">
+                <div id="message_banner">
 
-            </div>
+                </div>
 
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>Datetime</th>
-                        <th>Report Number</th>
-                        <th>Reporter</th>
-                        <th>Location</th>
-                        <th>Condition</th>
-                        <th>Virus PPM</th>
-                        <th>Contaminant PPM</th>
-                    </tr>
-                    </thead>
-                    <tbody id="report_table">
+                <form class="form-inline text-center">
+                    <div class="form-group" id="keywords_div">
+                        <label for="keywords_input">Keywords</label>
+                        <input type="text" class="form-control" id="keywords_input" placeholder="keywords">
+                        <span id="keywords_input_feedback" class="help-block"></span>
+                    </div>
 
-                    </tbody>
-                </table>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary" id="display_button">Display</button>
+                        <button type="button" class="btn btn-primary" id="refresh_button">Refresh Data</button>
+                        <span id="display_feedback" class="help-block"></span>
+                    </div>
+                </form>
+
+                <div id="chart">
+
+                </div>
             </div>
         </div>
     </div>

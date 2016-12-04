@@ -53,12 +53,16 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10">
-            <div id="message_banner">
+            <h1>Source Map</h1>
 
-            </div>
+            <div class="well">
+                <div id="message_banner">
 
-            <div id="map">
+                </div>
 
+                <div id="map">
+
+                </div>
             </div>
             <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_y9sB2VEi5nUnGN2ECV1QaWtRn8pwkPA&callback=initMap"></script>
         </div>
