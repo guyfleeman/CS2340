@@ -61,7 +61,7 @@
 
                 <div class="form-group" id="username_div">
                     <label for="username_input">Username</label>
-                    <input type="text" class="form-control" id="username_input" placeholder="email">
+                    <input type="text" class="form-control" id="username_input" placeholder="username">
                     <span id="username_input_feedback" class="help-block"></span>
                 </div>
 

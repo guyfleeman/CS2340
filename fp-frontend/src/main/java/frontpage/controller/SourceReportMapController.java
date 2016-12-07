@@ -134,7 +134,10 @@ public final class SourceReportMapController
                                     InfoWindowOptions infoWindowOptions
                                             = new InfoWindowOptions();
                                     infoWindowOptions
-                                            .content(r.getDescription());
+                                            .content("<h1>" + r.getTitle() + "</h1>" +
+                                                    "Type: " + r.getType() + "\r\n<br>" +
+                                                    "Condition: " + r.getCondition() + "\r\n<br>" +
+                                                            r.getDescription());
                                     InfoWindow window =
                                             new InfoWindow(infoWindowOptions);
                                     window.open(map, marker);
